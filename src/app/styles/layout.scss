@@ -1,0 +1,53 @@
+.content{
+	position: relative;
+	margin-top: 2rem;
+	overflow: overlay;
+	margin-bottom: 2rem;
+	@media #{$small-screen}{
+		margin-top: 0;
+	}
+}
+.page{
+	@include container;
+	@include span(8 of 12);
+	@include push(2);
+	padding-top: 4rem;
+	padding-bottom: 4rem;
+	@media #{$small-screen}{
+		@include span(10 of 12);
+		@include push(1);
+		padding-top: 1rem;
+	}
+}
+.page-header--icon-wrapper{
+	@include container;
+	@include span(1 of 12 first);
+}
+.page-header--details-wrapper{
+	@include container;
+	@include span(11 of 12 last);
+	.page-header--details{
+		float: right;
+	}
+}
+.event-map-directions{
+	.event-direction-wrapper{
+		@include container;
+		@include span(3 of 12);
+		&:first-of-type{
+			@include span(3 of 12 first);
+		}
+		&:last-of-type{
+			@include span(3 of 12 last);
+		}
+	}
+}
+.attendees-preview{
+	.event-attendee{
+		@include container;
+		@include span(4 of 12);
+		@media #{$small-screen}{
+			@include span(12 of 12);
+		}
+	}	
+}

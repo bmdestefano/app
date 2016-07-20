@@ -51,6 +51,10 @@ const config = {
         'style', // backup loader when not disting .css file
         'css!sass' // loaders to preprocess CSS
         )
+      },
+      {
+        test: /\.svg$/, 
+        loader: 'babel?presets[]=es2015,presets[]=react!svg-react'
       }
     ],
   },

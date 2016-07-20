@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import Event from './components/pages/Event';
 require('./styles/import.scss');
 
 const muiTheme = getMuiTheme({
@@ -18,9 +19,7 @@ class Main extends Component {
 	render() {
 		return (
 			<MuiThemeProvider muiTheme={muiTheme}>
-				<div>
-					
-				</div>
+				<Event />
 			</MuiThemeProvider>
 		);
 	}

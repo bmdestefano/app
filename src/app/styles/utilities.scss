@@ -19,3 +19,9 @@
 .width-inherit{
 	width: inherit !important;
 }
+.keep-center{
+	max-width: 62rem;
+	margin-left: auto;
+	margin-right: auto;
+	position: relative;
+}

@@ -1,0 +1,48 @@
+.event-price{
+	display: inline-block;
+	margin: 1.5rem .5rem 1.3rem 1rem;
+    font-size: 1.5rem;
+    line-height: 1.2rem;
+	@media #{$small-screen}{
+		margin: 1.5rem 1rem;
+	}
+}
+.page{
+	color: $text-light-grey;
+}
+.page-content{
+	p{
+		font-size: 1rem;
+		line-height: 1.25rem;
+		margin-bottom: 1rem;
+	}
+	a{
+		color: $brand-color;
+	}
+}
+.page-label{
+	font-weight: 600;
+	text-transform: uppercase;
+	font-size: 1rem;
+	line-height: 1.25rem;
+	color: $text-dark-grey;
+	margin-top: 1rem;
+}
+.event-venue{
+	margin-top: -0.1875rem;
+	padding-top: 1rem;
+    padding-bottom: 0.5rem;
+    text-align: center;
+    font-size: 1.5rem;
+	font-weight: 500;
+	color: $text-dark-grey;
+	border-right: 1px solid $border-grey;
+	border-left: 1px solid $border-grey;
+}
+.event-address{
+	text-align: center;
+	font-size: 1rem;
+	color: $text-light-grey;
+	border-right: 1px solid $border-grey;
+	border-left: 1px solid $border-grey;
+}
