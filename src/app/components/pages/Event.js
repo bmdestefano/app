@@ -199,7 +199,7 @@ class Main extends Component {
 										open={this.state.registerDialogOpen}
 										actions={
 											<div style={{overflow: "overlay"}}>
-												<button onClick={this.handleDialogClose.bind(this)} className="btn-rounded-secondary" disabled={this.isCheckoutDisabled()}>
+												<button onClick={this.handleDialogClose.bind(this)} className="btn-rounded-secondary" style={{float: "right"}} disabled={this.isCheckoutDisabled()}>
 													Checkout
 												</button>
 											</div>
