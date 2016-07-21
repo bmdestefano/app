@@ -51,3 +51,11 @@
 		}
 	}	
 }
+.request-account{
+	@include container;
+	@include span(6 of 12 no-gutters);
+}
+.forgot-password{
+	@include container;
+	@include span(6 of 12 last);
+}

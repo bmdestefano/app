@@ -25,3 +25,19 @@
 		margin-left: 1rem;
 	}
 }
+.authenticate-icon{
+	width: 2rem;
+	height: 2rem;
+	fill: $text-dark-grey;
+	margin: 0 0.5rem;
+	g[id^="Layer"]{
+		fill: $text-dark-grey !important;
+	}
+}
+.avatar-override{
+	border: 1px solid #CCC !important;
+	background: transparent !important;
+}
+.authenticate-add-another-school{
+	fill: $text-dark-grey !important;
+}
