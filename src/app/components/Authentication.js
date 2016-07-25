@@ -10,6 +10,10 @@ import Login from './Login';
 import Register from './Register';
 import PersonalInfo from './PersonalInfo';
 import EducationInfo from './EducationInfo';
+import CareerInfo from './CareerInfo';
+import IndustriesInfo from './IndustriesInfo';
+import RoleInfo from './RoleInfo';
+import GivingBack from './GivingBack';
 import AuthenticateLargeHeader from './AuthenticateLargeHeader';
 
 require('../styles/import.scss');
@@ -30,7 +34,7 @@ class Authentication extends Component{
 		super(props, context);
 
 		this.state = {
-			currentView: 'education',
+			currentView: 'register',
 			hasError: false,
 			errorText: {createPassword: '', confirmPassword: '', firstName: '', lastName: ''},
 			createPassword:'',
@@ -115,7 +119,41 @@ class Authentication extends Component{
 
 	renderEducationScreen(){
 		return(
-			<EducationInfo />
+			<EducationInfo 
+				changeView={this.updateState.bind(this)} 
+			/>
+		);
+	}
+
+	renderCareerScreen(){
+		return(
+			<CareerInfo 
+				changeView={this.updateState.bind(this)} 
+			/>
+		);
+	}
+
+	renderIndustriesScreen(){
+		return(
+			<IndustriesInfo
+				changeView={this.updateState.bind(this)} 
+			/>
+		);
+	}
+
+	renderRoleScreen(){
+		return(
+			<RoleInfo
+				changeView={this.updateState.bind(this)} 
+			/>
+		);
+	}
+
+	renderGivingBackScreen(){
+		return(
+			<GivingBack
+				changeView={this.updateState.bind(this)}
+			/>	
 		);
 	}
 
@@ -139,13 +177,16 @@ class Authentication extends Component{
 	}
 
 	render(){
-		return(<MuiThemeProvider muiTheme={muiTheme}>
-			<div style={{height: "100vh", background: "url('https://s3.amazonaws.com/campustapstaging/FrxPdjEiTE22uFBTYC3h_6406608eb1c847c08ec8b3e81915dc3a.png') no-repeat center/cover"}}>
-			<Link to="event" style={{position: "fixed", right: "0"}}>Event</Link>
-			<Dialog className="authenticate-wrapper" open={true} contentStyle={{maxWidth: "25rem", marginBottom: "4rem"}}>
-				{this.renderView()}
-			</Dialog>
-		</div></MuiThemeProvider>);
+		return(
+			<MuiThemeProvider muiTheme={muiTheme}>
+				<div style={{height: "100vh", background: "url('https://s3.amazonaws.com/campustapstaging/FrxPdjEiTE22uFBTYC3h_6406608eb1c847c08ec8b3e81915dc3a.png') no-repeat center/cover"}}>
+				<Link to="event" style={{position: "fixed", right: "0"}}>Event</Link>
+				<Dialog className="authenticate-wrapper" open={true} contentClassName="js-authenticate-wrapper" contentStyle={{maxWidth: "25rem", marginBottom: "4rem"}}>
+					{this.renderView()}
+				</Dialog>
+				</div>
+			</MuiThemeProvider>
+		);
 	}
 }
 

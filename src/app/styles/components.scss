@@ -111,3 +111,14 @@
 	background: transparent;
 	color: transparent;
 }
+.role-selected,
+.selected{
+	background: #DDD !important;
+}
+.authenticate-school-not-found{
+	div{
+		background-color: $brand-secondary-color !important;
+		height: 3rem !important;
+		line-height: 1.35rem !important;
+	}
+}

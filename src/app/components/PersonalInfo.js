@@ -22,22 +22,24 @@ const options = {
 class PersonalInfo extends Component{
 	render(){
 		return(
-			<div style={{position: "relative"}}>
+			<div>
 				<AuthenticateLargeHeader 
 					logoUrl="https://upload.wikimedia.org/wikipedia/en/thumb/4/4c/University_of_Kansas_Jayhawk_logo.svg/1156px-University_of_Kansas_Jayhawk_logo.svg.png"
 					schoolName="University of Kansas"
 				/>
-				<ReactFilepicker apikey={"A4dOeHXUnQHS0qVUJYRRez"} options={options} onSuccess={this.props.onAvatarUploadSuccess} />
-				<Avatar 
-					size={96} 
-					style={(this.props.userAvatarSrc == '') 
-						? {margin: "1rem auto", display: "block", border: "1px solid #555"} 
-						: {margin: "1rem auto", display: "block", border: "1px solid #555", background: "transparent"}} 
-					src={this.props.userAvatarSrc} 
-					icon={(this.props.userAvatarSrc != '') 
-						? null 
-						: <AddImageIcon />} />
-				{(this.props.userAvatarSrc == '') && <p style={{textAlign: "center"}}>Add Image To Profile</p>}
+				<div style={{position: "relative"}}>
+					<ReactFilepicker apikey={"A4dOeHXUnQHS0qVUJYRRez"} options={options} onSuccess={this.props.onAvatarUploadSuccess} />
+					<Avatar 
+						size={96} 
+						style={(this.props.userAvatarSrc == '') 
+							? {margin: "1rem auto", display: "block", border: "1px solid #555"} 
+							: {margin: "1rem auto", display: "block", border: "1px solid #555", background: "transparent"}} 
+						src={this.props.userAvatarSrc} 
+						icon={(this.props.userAvatarSrc != '') 
+							? null 
+							: <AddImageIcon />} />
+					{(this.props.userAvatarSrc == '') && <p style={{textAlign: "center"}}>Add Image To Profile</p>}
+				</div>
 				<TextField
 					floatingLabelText="First Name"
 					className="input-group-textfield"
