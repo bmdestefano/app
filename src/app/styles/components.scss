@@ -65,3 +65,71 @@
 		}
 	}
 }
+.profile-img,
+.profile-user-details{
+	max-height: 15.13rem;
+}
+.profile-user-details{
+	color: #FFF;
+	padding: 2rem 1rem 0;
+}
+.profile-action-btn-wrapper{
+	position: absolute;
+	top: 0;
+	right: 0;
+	button{
+		float: left;
+	}
+}
+.profile-tab-content-wrapper{
+	padding: 1rem;
+	border-top: 1px solid $border-grey;
+	color: $text-dark-grey;
+	p{
+		font-size: 1rem;
+		line-height: 1.25rem;
+		span{
+			font-weight: 600;
+		}
+	}
+}
+.profile-detail-wrapper{
+	margin-bottom: 3rem;
+	overflow: overlay;
+	hr{
+		width: 50%;
+		border-color: $brand-secondary-color;
+		border-style: solid;
+		margin: 4rem auto;
+	}
+}
+.profile-timeline-content-wrapper{
+	margin-left: 4rem;
+	margin-right: 1rem;
+}
+.profile-comment,
+.add-comment{
+	color: $text-dark-grey !important;
+	&:hover{
+		background-color: #EEE !important;
+	}
+}
+.profile-portfolio-wrapper{
+	.portfolio-item{
+		color: $text-dark-grey !important;
+		button{
+			display: none !important;
+		}
+	}
+	.portfolio-item,
+	.portfolio-sub-item{
+		&:hover{
+			background-color: #FFF !important;
+		}
+	}
+	.portfolio-sub-item{
+		a{
+			color: $brand-color !important;
+		}
+	}
+}

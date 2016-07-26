@@ -25,3 +25,25 @@
 		margin-left: 1rem;
 	}
 }
+.profile-img{
+	max-width: 15.13rem;
+	img{
+		@include border-radius(50%);
+		border: 1px solid #CCC;
+	}
+}
+.profile-social-wrapper{
+	svg{
+		width: 1.25rem;
+		height: 1.25rem;
+		margin-right: .5rem;
+		margin-top: .5rem;
+	}
+}
+.profile-comment{
+	img{
+		width: 2rem;
+		@include border-radius(50%);
+		float: left;
+	}
+}
