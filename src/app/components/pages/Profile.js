@@ -23,6 +23,7 @@ import CommentIcon from 'material-ui/svg-icons/communication/comment';
 import DownloadIcon from 'material-ui/svg-icons/file/file-download';
 import ExpertiseIcon from 'material-ui/svg-icons/maps/my-location';
 import OpenIcon from 'material-ui/svg-icons/action/open-in-new';
+import ConnectionIcon from 'material-ui/svg-icons/action/timeline';
 let FacebookIcon = require('babel!svg-react!../../img/facebook-icon.svg?name=FacebookIcon');
 let TwitterIcon = require('babel!svg-react!../../img/twitter-icon.svg?name=TwitterIcon');
 let LinkedinIcon = require('babel!svg-react!../../img/linkedin-icon.svg?name=LinkedinIcon');
@@ -313,6 +314,10 @@ class Profile extends Component{
 										<h2 className="profile-details-header"><TagsIcon style={{fill:"#CCC", verticalAlign: "bottom", marginRight: "0.5rem"}}/>Tags</h2>
 										{this.renderTags()}
 									</div>
+									<div className="profile-detail-wrapper">
+										<h2 className="profile-details-header"><ConnectionIcon style={{fill:"#CCC", verticalAlign: "bottom", marginRight: "0.5rem"}}/>Connections</h2>
+										{this.renderTags()}
+									</div>
 								</Card>
 							</Tab>
 							<Tab className="page-header" label="Timeline" style={{background: "#FFF", color: "#555"}}>
@@ -337,9 +342,15 @@ class Profile extends Component{
 											onRequestClose={this.toggleDialog.bind(this)}
 											title={(this.state.portfolioDialog.currentDocument) ? this.state.portfolioDialog.currentDocument.title : null}
 										>
-											<DownloadIcon style={{float: "right", position: "absolute", top: "1.5rem", right: "1.5rem"}} />
-											<div style={{background: "url('http://thumb101.shutterstock.com/display_pic_with_logo/691372/154181867/stock-photo-brussels-september-twitter-is-going-public-on-september-in-brussels-154181867.jpg')"}} ></div>
+											<p style={{position: "absolute", top: "2.15rem", right: "1.5rem", fontSize: "0.75rem"}}>{(this.state.portfolioDialog.currentDocument) ? ['Uploaded: '+this.state.portfolioDialog.currentDocument.uploadedDate] : null}</p>
+											<div style={{background: "url('"+image+"') center center/cover", marginBottom: "1rem", height: "12.5rem"}} ></div>
 											<p>{(this.state.portfolioDialog.currentDocument) ? this.state.portfolioDialog.currentDocument.description : null}</p>
+											<RaisedButton 
+												label="Download"
+												icon={<DownloadIcon />}
+												primary={true}
+												style={{float: "right", marginTop: "1rem"}}
+											/>
 										</Dialog>
 									</Card>
 								</div>
