@@ -59,3 +59,15 @@
 	@include container;
 	@include span(8 of 12 no-gutters);
 }
+.expertise-0{
+	@include container;
+	@include span(4 of 12 first);
+}
+.expertise-1{
+	@include container;
+	@include span(4 of 12);
+}
+.expertise-2{
+	@include container;
+	@include span(4 of 12 last);
+}

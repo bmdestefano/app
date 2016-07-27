@@ -19,6 +19,7 @@ import PostIcon from 'material-ui/svg-icons/action/description';
 import FavoriteIcon from 'material-ui/svg-icons/action/favorite';
 import CommentIcon from 'material-ui/svg-icons/communication/comment';
 import DownloadIcon from 'material-ui/svg-icons/file/file-download';
+import ExpertiseIcon from 'material-ui/svg-icons/maps/my-location';
 let FacebookIcon = require('babel!svg-react!../../img/facebook-icon.svg?name=FacebookIcon');
 let TwitterIcon = require('babel!svg-react!../../img/twitter-icon.svg?name=TwitterIcon');
 let LinkedinIcon = require('babel!svg-react!../../img/linkedin-icon.svg?name=LinkedinIcon');
@@ -39,7 +40,7 @@ let user = {
 	state: "MA",
 	description: "I am a Senior at CampusTap University and I am candidate for a Bachelor of Science degree in Economics-Finance with a minor in Computer Information Systems. I have an interest in finance, wealth management and asset management. I am involved with the CampusTap Investment Group and the club hockey team. I am looking for advice on applying to full time investment banking positions post graduation.",
 	tags: ["boston", "history", "wellness", "dance", "technology", "running", "biotechnology", "business", "data", "research", "jazz", "engineering", "health"],
-	areasOfExpertise: ["Resume Reviews", "Informational Interviews"],
+	areasOfExpertise: ["Resume Reviews", "Informational Interviews", "General Career Advice"],
 	currentStatus: "CEO of CampusTap",
 	timeline: [
 		{
@@ -114,8 +115,8 @@ class Profile extends Component{
 	renderAreasOfExpertise(){
 		return user.areasOfExpertise.map((type, index) => {
 			return(
-				<div key={index} style={{marginLeft: "1rem", marginBottom: "1rem"}}>
-					<StarIcon style={{fill: "#00A9E0", verticalAlign: "sub"}}/>{type}
+				<div key={index} className={"profile-details-subheader expertise-"+(index%3)} style={{marginBottom: "1rem", fontSize: "1.5rem", border: "0", textAlign: "center"}}>
+					<StarIcon style={{fill: "#00A9E0", verticalAlign: "text-top"}}/>{type}
 				</div>
 			);
 		});
@@ -219,7 +220,9 @@ class Profile extends Component{
 								<div className="profile-detail-wrapper">
 									<h2 className="profile-details-header"><IntroIcon style={{fill:"#CCC", verticalAlign: "bottom", marginRight: "0.5rem"}}/>Intro<span><MapIcon />{user.city}, {user.state}</span></h2>
 									<p>{user.description}</p>
-									<h4 style={{marginTop: "1rem", fontWeight: "500", marginBottom: "0.5rem"}}>Areas of Expertise:</h4>
+								</div>
+								<div className="profile-detail-wrapper">
+									<h2 className="profile-details-header"><ExpertiseIcon style={{fill:"#CCC", verticalAlign: "bottom", marginRight: "0.5rem"}}/>Areas of Expertise</h2>
 									{this.renderAreasOfExpertise()}
 								</div>
 								<div className="profile-detail-wrapper">
