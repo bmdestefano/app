@@ -47,3 +47,21 @@
 		float: left;
 	}
 }
+.open-portfolio-dialog{
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: 3rem !important;
+	height: 3rem !important;
+	fill: #FFF !important;
+	margin-left: -1.5rem;
+	margin-top: -1.5rem;
+	background: rgba(0,0,0,.7);
+	border-radius: 0.75rem;
+	&:hover{
+		width: 3.25rem !important;
+		height: 3.25rem !important;
+		margin-left: -1.625rem;
+		margin-right: -1.625rem;
+	}
+}

@@ -1,4 +1,10 @@
 .content{
+	&.no-overlay{
+		overflow: initial;
+		> div{
+			@include box-shadow(rgba(0, 0, 0, 0.117647) 0px -6px 6px -5px !important);
+		}
+	}
 	hr + .page-label{
 		margin-top: 0;
 	}
@@ -82,7 +88,6 @@
 	}
 }
 .profile-tab-content-wrapper{
-	padding: 1rem;
 	border-top: 1px solid $border-grey;
 	color: $text-dark-grey;
 	p{
@@ -96,6 +101,21 @@
 .profile-detail-wrapper{
 	margin-bottom: 3rem;
 	overflow: overlay;
+	&.timeline{
+		overflow: initial;
+		margin-bottom: 0;
+		background: #fbfbfb;
+		.timeline-card{
+			&:first-of-type{
+				box-shadow: rgba(0, 0, 0, 0.117647) 0px 3px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px !important;
+				-webkit-box-shadow: rgba(0, 0, 0, 0.117647) 0px 3px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px !important;
+				-moz-box-shadow: rgba(0, 0, 0, 0.117647) 0px 3px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px !important;
+			}
+			&:last-of-type{
+				margin-bottom: 0;
+			}
+		}
+	}
 	hr{
 		width: 50%;
 		border-color: $brand-secondary-color;
@@ -110,26 +130,15 @@
 .profile-comment,
 .add-comment{
 	color: $text-dark-grey !important;
-	&:hover{
-		background-color: #EEE !important;
-	}
+	background-color: #FFF !important;
 }
-.profile-portfolio-wrapper{
-	.portfolio-item{
-		color: $text-dark-grey !important;
-		button{
-			display: none !important;
-		}
-	}
-	.portfolio-item,
-	.portfolio-sub-item{
+.timeline-card{
+	margin-bottom: 2rem;
+	padding: 1rem;
+}
+.portfolio-item{
+	@include box-shadow(#CCC 1px 1px 8px);
 		&:hover{
-			background-color: #FFF !important;
-		}
-	}
-	.portfolio-sub-item{
-		a{
-			color: $brand-color !important;
-		}
+		@include box-shadow(#AAA 1px 1px 20px);
 	}
 }

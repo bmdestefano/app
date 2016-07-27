@@ -8,6 +8,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 import List from 'material-ui/List';
 import ListItem from 'material-ui/List/ListItem';
 import Avatar from 'material-ui/Avatar';
+import {GridList, GridTile} from 'material-ui/GridList';
+import Dialog from 'material-ui/Dialog';
 
 import IntroIcon from 'material-ui/svg-icons/social/person';
 import EducationIcon from 'material-ui/svg-icons/social/school';
@@ -20,6 +22,7 @@ import FavoriteIcon from 'material-ui/svg-icons/action/favorite';
 import CommentIcon from 'material-ui/svg-icons/communication/comment';
 import DownloadIcon from 'material-ui/svg-icons/file/file-download';
 import ExpertiseIcon from 'material-ui/svg-icons/maps/my-location';
+import OpenIcon from 'material-ui/svg-icons/action/open-in-new';
 let FacebookIcon = require('babel!svg-react!../../img/facebook-icon.svg?name=FacebookIcon');
 let TwitterIcon = require('babel!svg-react!../../img/twitter-icon.svg?name=TwitterIcon');
 let LinkedinIcon = require('babel!svg-react!../../img/linkedin-icon.svg?name=LinkedinIcon');
@@ -66,11 +69,59 @@ let user = {
 			content: "https://www.youtube.com/embed/zNdkrtfZP8I",
 			favoriteCount: 3,
 			commentCount: 0,
+			comments: [
+				{name: "Jackie Judy", avatarUrl: "https://randomuser.me/api/portraits/med/women/53.jpg", posted: "5d", content: "Hello everyone! I am a Corporate Finance and Accounting major, class of 2017. I am looking for mentors within the tech space, as I am trying to launch and app and am in need of someone with a background in app development to help me out."},
+				{name: "John Judy", avatarUrl: "https://randomuser.me/api/portraits/med/men/53.jpg", posted: "3d", content: "Hello everyone! I am a Corporate Finance and Accounting major, class of 2017."},
+				{name: "Jake Doe", avatarUrl: "https://randomuser.me/api/portraits/med/men/43.jpg", posted: "1d", content: "Great post."},
+			],
 		},
+	],
+	documents: [
+		{
+			title: "Remy Carpinito's Resume",
+			uploadedDate: "6/15/16",
+			image: "http://thumb1.shutterstock.com/display_pic_with_logo/2842531/272513510/stock-photo-closeup-of-resume-272513510.jpg",
+			description: "Hello everyone! I am a Corporate Finance and Accounting major, class of 2017. I am looking for mentors within the tech space, as I am trying to launch and app and am in need of someone with a background in app development to help me out. If you, or someone you know is an experienced developer/coder please ask me for contact information and I would be more than happy to share that with you."
+		},
+		{
+			title: "Remy Carpinito's Cover Letter",
+			uploadedDate: "6/15/16",
+			image: "http://thumb7.shutterstock.com/display_pic_with_logo/307150/283436795/stock-vector-modern-cover-letter-design-with-blue-white-colors-283436795.jpg",
+			description: "Hello everyone! I am a Corporate Finance and Accounting major, class of 2017. I am looking for mentors within the tech space, as I am trying to launch and app and am in need of someone with a background in app development to help me out. If you, or someone you know is an experienced developer/coder please ask me for contact information and I would be more than happy to share that with you."
+		},
+		{
+			title: "Twitter Redesign Project",
+			uploadedDate: "5/12/16",
+			image: "http://thumb101.shutterstock.com/display_pic_with_logo/691372/154181867/stock-photo-brussels-september-twitter-is-going-public-on-september-in-brussels-154181867.jpg",
+			description: "This is a project I made for CS 560 as my final project."
+		},
+		{
+			title: "Connect4 Python Project",
+			uploadedDate: "5/21/16",
+			image: "http://thumb7.shutterstock.com/display_pic_with_logo/1369678/410081401/stock-photo-smart-city-and-wireless-communication-network-iot-internet-of-things-ict-information-410081401.jpg",
+			description: "This is a project I made for CS 587. It is a working Connect4 game made in Python."
+		},
+		{
+			title: "Digital Marketing Project",
+			uploadedDate: "4/11/16",
+			image: "http://thumb7.shutterstock.com/display_pic_with_logo/682636/407256469/stock-vector-big-infographics-in-flat-style-vector-illustrations-about-digital-projects-management-clients-407256469.jpg",
+			description: "This is my final digital marketing project for MKT 610."
+		}
 	],
 };
 
 class Profile extends Component{
+	constructor(props, context){
+		super(props, context);
+
+		this.state = {
+			portfolioDialog : {
+				open : false,
+				currentDocument: null
+			}
+		};
+	}
+
 	renderTags(){
 		return user.tags.map((tag, index) => {
 			return(
@@ -140,7 +191,7 @@ class Profile extends Component{
 
 	renderPost(post, index){
 		return(
-			<div style={{marginBottom: "2rem"}}>
+			<Card className="timeline-card">
 				<h2 className="profile-details-header"><PostIcon style={{fill:"#CCC", verticalAlign: "bottom", marginRight: "0.5rem"}}/>Post<span>{post.posted} ago</span></h2>
 				<div className="profile-timeline-content-wrapper">
 					{(post.content.startsWith("https://www"))
@@ -148,7 +199,7 @@ class Profile extends Component{
 						: <p>{post.content}</p>
 					}
 					<p style={{marginTop: "1rem"}}><FavoriteIcon style={{fill: "#555", verticalAlign: "middle"}}/> {post.favoriteCount} <CommentIcon style={{fill: "#555", verticalAlign: "middle"}}/> {post.commentCount}</p>
-					<List style={{background: "#EEE", margin: "1rem 0"}}>
+					<List style={{margin: "1rem 0", borderTop: "1px solid #EEE"}}>
 						{(post.comments && this.renderPostComments(post.comments))}
 						<ListItem className="add-comment">
 							<TextField hintText="Post A Comment" style={{width: "85%"}}/>
@@ -156,22 +207,18 @@ class Profile extends Component{
 						</ListItem>	
 					</List>
 				</div>
-				{(index != user.timeline.length - 1 
-					&& <hr />)}
-			</div>
+			</Card>
 		);
 	}
 
 	renderComment(comment, index){
 		return(
-			<div style={{marginBottom: "2rem"}}>
+			<Card className="timeline-card">
 				<h2 className="profile-details-header"><CommentIcon style={{fill:"#CCC", verticalAlign: "bottom", marginRight: "0.5rem"}}/>Comment<span>{comment.posted} ago</span></h2>
 				<div className="profile-timeline-content-wrapper">
 					<p>{comment.content}</p>
 				</div>
-				{(index != user.timeline.length - 1 
-					&& <hr />)}
-			</div>
+			</Card>
 		);
 	}
 
@@ -181,7 +228,35 @@ class Profile extends Component{
 		});
 	}
 
+	toggleDialog(index){
+		let dialog = this.state.portfolioDialog;
+		dialog.open = !dialog.open;
+		let currentDocument = user.documents.filter((doc, i) => {return index == i});
+		dialog.currentDocument = currentDocument[0];
+		this.setState({portfolioDialog : dialog});
+	}
+
+	renderPortfolio(){
+		return user.documents.map((doc, index) => {
+			return(
+				<GridTile 
+					key={index}
+					title={<p>{doc.title}<span style={{float: "right", marginRight: "1rem", fontSize: "0.75rem", fontWeight: "400"}}>{doc.uploadedDate}</span></p>}
+					titlePosition="top"
+					titleBackground="linear-gradient(to bottom, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)"
+					cols={(index%3 == 2) ? 2 : 1}
+					rows={1}
+					className="portfolio-item"
+					onTouchTap={() => this.toggleDialog(index)}
+				>
+					<div style={{background: "url('"+doc.image+"') center/cover", height: "100%"}}></div>
+				</GridTile>
+			);
+		});
+	}
+
 	render(){
+		let image = (this.state.portfolioDialog.currentDocument) ? this.state.portfolioDialog.currentDocument.image : null;
 		return(
 			<div>
 				<div className="hero-wrapper">
@@ -210,120 +285,63 @@ class Profile extends Component{
 						</div>
 					</div>
 				</div>
-				<Card className="keep-center" style={{marginTop: "-6rem"}}>
-					<div className="content">
+				<div className="keep-center" style={{marginTop: "-6rem", background: "#FFF"}}>
+					<div className="content no-overlay">
 						<Tabs 
 							inkBarStyle={{backgroundColor: "#00A9E0"}}
 							tabItemContainerStyle={{backgroundColor: "#FFF", width: "50%"}}
 							contentContainerClassName="profile-tab-content-wrapper">
 							<Tab className="page-header" label="About" style={{background: "#FFF", color: "#555"}}>
-								<div className="profile-detail-wrapper">
-									<h2 className="profile-details-header"><IntroIcon style={{fill:"#CCC", verticalAlign: "bottom", marginRight: "0.5rem"}}/>Intro<span><MapIcon />{user.city}, {user.state}</span></h2>
-									<p>{user.description}</p>
-								</div>
-								<div className="profile-detail-wrapper">
-									<h2 className="profile-details-header"><ExpertiseIcon style={{fill:"#CCC", verticalAlign: "bottom", marginRight: "0.5rem"}}/>Areas of Expertise</h2>
-									{this.renderAreasOfExpertise()}
-								</div>
-								<div className="profile-detail-wrapper">
-									<h2 className="profile-details-header"><EducationIcon style={{fill:"#CCC", verticalAlign: "bottom", marginRight: "0.5rem"}}/>Education</h2>
-									{this.renderSchools()}
-								</div>
-								<div className="profile-detail-wrapper">
-									<h2 className="profile-details-header"><ExperienceIcon style={{fill:"#CCC", verticalAlign: "bottom", marginRight: "0.5rem"}}/>Experience</h2>
-									{this.renderExperience()}
-								</div>
-								<div className="profile-detail-wrapper">
-									<h2 className="profile-details-header"><TagsIcon style={{fill:"#CCC", verticalAlign: "bottom", marginRight: "0.5rem"}}/>Tags</h2>
-									{this.renderTags()}
-								</div>
+								<Card style={{padding: "1rem"}}>
+									<div className="profile-detail-wrapper">
+										<h2 className="profile-details-header"><IntroIcon style={{fill:"#CCC", verticalAlign: "bottom", marginRight: "0.5rem"}}/>Intro<span><MapIcon />{user.city}, {user.state}</span></h2>
+										<p>{user.description}</p>
+									</div>
+									<div className="profile-detail-wrapper">
+										<h2 className="profile-details-header"><ExpertiseIcon style={{fill:"#CCC", verticalAlign: "bottom", marginRight: "0.5rem"}}/>Areas of Expertise</h2>
+										{this.renderAreasOfExpertise()}
+									</div>
+									<div className="profile-detail-wrapper">
+										<h2 className="profile-details-header"><EducationIcon style={{fill:"#CCC", verticalAlign: "bottom", marginRight: "0.5rem"}}/>Education</h2>
+										{this.renderSchools()}
+									</div>
+									<div className="profile-detail-wrapper">
+										<h2 className="profile-details-header"><ExperienceIcon style={{fill:"#CCC", verticalAlign: "bottom", marginRight: "0.5rem"}}/>Experience</h2>
+										{this.renderExperience()}
+									</div>
+									<div className="profile-detail-wrapper">
+										<h2 className="profile-details-header"><TagsIcon style={{fill:"#CCC", verticalAlign: "bottom", marginRight: "0.5rem"}}/>Tags</h2>
+										{this.renderTags()}
+									</div>
+								</Card>
 							</Tab>
 							<Tab className="page-header" label="Timeline" style={{background: "#FFF", color: "#555"}}>
-								<div className="profile-detail-wrapper">
+								<div className="profile-detail-wrapper timeline">
 									{this.renderTimeline()}
 								</div>
 							</Tab>
 							<Tab className="page-header" label="E-Portfolio" style={{background: "#FFF", color: "#555"}}>
-								<div className="profile-detail-wrapper">
-									<h2 className="profile-details-header"><PostIcon style={{fill:"#CCC", verticalAlign: "bottom", marginRight: "0.5rem"}}/>Documents</h2>
-									<List className="profile-portfolio-wrapper">
-										<ListItem 
-											primaryText="Resume"
-											initiallyOpen={true}
-											className="portfolio-item"
-											nestedItems={[
-												<ListItem 
-													key={1}
-													rightIcon={<DownloadIcon />}
-													primaryText={<p>Remy Carpinito's Resume<span style={{float: "right", fontSize: "0.75rem"}}>Uploaded 6/14/16</span></p>}
-													secondaryText="Hello everyone! I am a Corporate Finance and Accounting major, class of 2017. I am looking for mentors within the tech space, as I am trying to launch and app and am in need of someone with a background in app development to help me out."
-													secondaryTextLines={4}
-													className="portfolio-sub-item"
-												/>
-											]}
-										/>
-										<ListItem 
-											primaryText="Cover Letter"
-											initiallyOpen={true}
-											className="portfolio-item"
-											nestedItems={[
-												<ListItem 
-													key={1}
-													rightIcon={<DownloadIcon />}
-													primaryText={<p>Remy Carpinito's Cover Letter<span style={{float: "right", fontSize: "0.75rem"}}>Uploaded 6/15/16</span></p>}
-													secondaryText="Hello everyone! I am a Corporate Finance and Accounting major, class of 2017. I am looking for mentors within the tech space, as I am trying to launch and app and am in need of someone with a background in app development to help me out."
-													secondaryTextLines={2}
-													className="portfolio-sub-item"
-												/>
-											]}
-										/>
-										<ListItem 
-											primaryText="Projects"
-											initiallyOpen={true}
-											className="portfolio-item"
-											nestedItems={[
-												<ListItem 
-													key={1}
-													rightIcon={<DownloadIcon />}
-													primaryText={<p>Twitter Design Challenge<span style={{float: "right", fontSize: "0.75rem"}}>Uploaded 7/14/16</span></p>}
-													secondaryText="This is my final project for CAS 560, a re-designed Twitter. Yada yada yada more text here."
-													secondaryTextLines={2}
-													className="portfolio-sub-item"
-												/>,
-												<ListItem 
-													key={2}
-													rightIcon={<DownloadIcon />}
-													primaryText={<p>Connect4 Python Project<span style={{float: "right", fontSize: "0.75rem"}}>Uploaded 7/14/16</span></p>}
-													secondaryText="This is a project I did for CAS 510, a fully-functional Connect4 made in Python."
-													secondaryTextLines={2}
-													className="portfolio-sub-item"
-												/>
-											]}
-										/>
-										<ListItem 
-											primaryText="Other"
-											initiallyOpen={true}
-											className="portfolio-item"
-											nestedItems={[
-												<ListItem 
-													key={1}
-													rightIcon={<DownloadIcon />}
-													primaryText={<p>Document #1<span style={{float: "right", fontSize: "0.75rem"}}>Uploaded 7/02/16</span></p>}
-													secondaryText="This is another document."
-													secondaryTextLines={2}
-													className="portfolio-sub-item"
-												/>,
-												<ListItem 
-													key={2}
-													rightIcon={<DownloadIcon />}
-													primaryText={<p>Document #2<span style={{float: "right", fontSize: "0.75rem"}}>Uploaded 7/02/16</span></p>}
-													secondaryText="This is yet another document."
-													secondaryTextLines={2}
-													className="portfolio-sub-item"
-												/>
-											]}
-										/>
-									</List>
+								<div className="profile-detail-wrapper" style={{overflow: "initial"}}>
+									<Card style={{padding: "1rem"}}>
+										<h2 className="profile-details-header"><PostIcon style={{fill:"#CCC", verticalAlign: "bottom", marginRight: "0.5rem"}}/>Documents</h2>
+										<GridList
+											cols={2}
+											cellHeight={250}
+											padding={35}
+										>
+											{this.renderPortfolio()}
+										</GridList>
+										<Dialog
+											modal={false}
+											open={this.state.portfolioDialog.open}
+											onRequestClose={this.toggleDialog.bind(this)}
+											title={(this.state.portfolioDialog.currentDocument) ? this.state.portfolioDialog.currentDocument.title : null}
+										>
+											<DownloadIcon style={{float: "right", position: "absolute", top: "1.5rem", right: "1.5rem"}} />
+											<div style={{background: "url('http://thumb101.shutterstock.com/display_pic_with_logo/691372/154181867/stock-photo-brussels-september-twitter-is-going-public-on-september-in-brussels-154181867.jpg')"}} ></div>
+											<p>{(this.state.portfolioDialog.currentDocument) ? this.state.portfolioDialog.currentDocument.description : null}</p>
+										</Dialog>
+									</Card>
 								</div>
 							</Tab>
 						</Tabs>
@@ -332,7 +350,7 @@ class Profile extends Component{
 							<RaisedButton label="Message" style={{marginTop: "1rem", marginRight: "1rem", color: "#00A9E0"}}/>
 						</div>
 					</div>
-				</Card>			
+				</div>			
 			</div>
 		);
 	}
