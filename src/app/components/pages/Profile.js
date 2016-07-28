@@ -109,6 +109,18 @@ let user = {
 			description: "This is my final digital marketing project for MKT 610."
 		}
 	],
+	connections : [
+		{id: 0, name: "John Doe", major: "Accounting", grad: "2010", image: "https://randomuser.me/api/portraits/med/men/83.jpg"},
+		{id: 1, name: "Sam Smith", major: "Marketing", grad: "2015", image: "https://randomuser.me/api/portraits/med/men/53.jpg"},
+		{id: 2, name: "Jim James", major: "Finance", grad: "2011", image: "https://randomuser.me/api/portraits/med/men/23.jpg"},
+		{id: 3, name: "Sam Torrez", major: "International Relations", grad: "2012", image: "https://randomuser.me/api/portraits/med/women/53.jpg"},
+		{id: 4, name: "James Jones", major: "Entrepreneurship", grad: "2015", image: "https://randomuser.me/api/portraits/med/men/93.jpg"},
+		{id: 5, name: "Bob Barker", major: "Marketing", grad: "2017", image: "https://randomuser.me/api/portraits/med/men/13.jpg"},
+		{id: 6, name: "Geno Smith", major: "Business Administration", grad: "2018", image: "https://randomuser.me/api/portraits/med/men/33.jpg"},
+		{id: 7, name: "Jane Jones", major: "Entrepreneurship", grad: "2015", image: "https://randomuser.me/api/portraits/med/women/93.jpg"},
+		{id: 8, name: "Bobby Barker", major: "Marketing", grad: "2017", image: "https://randomuser.me/api/portraits/med/women/13.jpg"},
+		{id: 9, name: "Jennie Smith", major: "Business Administration", grad: "2018", image: "https://randomuser.me/api/portraits/med/women/33.jpg"},
+	],
 };
 
 class Profile extends Component{
@@ -119,7 +131,10 @@ class Profile extends Component{
 			portfolioDialog : {
 				open : false,
 				currentDocument: null
-			}
+			},
+			connectionsDialog: false,
+			connectionsShowCount: 9,
+			connections: []
 		};
 	}
 
@@ -256,6 +271,48 @@ class Profile extends Component{
 		});
 	}
 
+	renderConnections(count = false){
+		let users = (count) ? user.connections : this.state.connections;
+		return users.map((user, index) => {
+			if(count && index >= count)
+				return;
+			return(
+				<ListItem
+					key={user.id}
+					primaryText={user.name}
+					secondaryText={user.major+" "+user.grad}
+					leftAvatar={<Avatar src={user.image} />}
+					className="profile-connection" />
+			);
+		});
+	}
+
+	handleConnectionsDialogOpen(){
+		this.setState({connectionsDialog: true});
+	}
+
+	handleConnectionsDialogClose(){
+		this.setState({connectionsDialog: false});
+	}
+
+	searchUsers(event){
+		let searchValue = event.target.value;
+		let users = (length >= searchValue.length) ? this.getInitialConnectionsState() : this.state.connections.sort(function(a,b) {return (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0);});
+		length = searchValue.length;
+		const result = users.filter(function(user, key) {
+		    return user.name.toLowerCase().indexOf(searchValue) != -1;
+		});
+		this.setState({connections: result});
+	}
+
+	componentDidMount(){
+		this.setState({connections: user.connections});
+	}
+
+	getInitialConnectionsState(){
+		return user.connections;
+	}
+
 	render(){
 		let image = (this.state.portfolioDialog.currentDocument) ? this.state.portfolioDialog.currentDocument.image : null;
 		return(
@@ -316,7 +373,28 @@ class Profile extends Component{
 									</div>
 									<div className="profile-detail-wrapper">
 										<h2 className="profile-details-header"><ConnectionIcon style={{fill:"#CCC", verticalAlign: "bottom", marginRight: "0.5rem"}}/>Connections</h2>
-										{this.renderTags()}
+										<List
+											style={{overflow: "overlay"}}
+										>
+											{this.renderConnections(this.state.connectionsShowCount)}
+										</List>
+										{(this.state.connectionsShowCount < Object.keys(user.connections).length 
+											&& <a onClick={this.handleConnectionsDialogOpen.bind(this)} style={{margin: "1rem auto", width: "100%", display: "block", textAlign: "center", color: "#00A9E0"}}>See All Attendees</a>)}
+										<Dialog
+											title="All Attendees"
+											modal={false}
+											open={this.state.connectionsDialog}
+											onRequestClose={this.handleConnectionsDialogClose.bind(this)}>
+											<TextField
+												hintText="Search for connections by name"
+												fullWidth={true}
+												onChange={(e) => this.searchUsers(e)}
+												inputStyle={{color: "#555"}}
+											/>
+											<List className="attendees-dialog-wrapper">
+												{this.renderConnections()}
+											</List>
+										</Dialog>
 									</div>
 								</Card>
 							</Tab>

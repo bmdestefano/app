@@ -71,3 +71,10 @@
 	@include container;
 	@include span(4 of 12 last);
 }
+.profile-connection{
+	@include container;
+	@include span(4 of 12);
+	@media #{$small-screen}{
+		@include span(12 of 12);
+	}
+}
