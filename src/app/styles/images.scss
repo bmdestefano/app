@@ -25,3 +25,50 @@
 		margin-left: 1rem;
 	}
 }
+.profile-img{
+	max-width: 15.13rem;
+	img{
+		@include border-radius(50%);
+		border: 1px solid #CCC;
+	}
+	@media #{$small-screen}{
+		max-width: 30vw;
+	}
+}
+.profile-social-wrapper{
+	svg{
+		width: 1.25rem;
+		height: 1.25rem;
+		margin-right: .5rem;
+		margin-top: .5rem;
+		@media #{$small-screen}{
+			width: 1rem;
+			height: 1rem;
+		}
+	}
+}
+.profile-comment{
+	img{
+		width: 2rem;
+		@include border-radius(50%);
+		float: left;
+	}
+}
+.open-portfolio-dialog{
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: 3rem !important;
+	height: 3rem !important;
+	fill: #FFF !important;
+	margin-left: -1.5rem;
+	margin-top: -1.5rem;
+	background: rgba(0,0,0,.7);
+	border-radius: 0.75rem;
+	&:hover{
+		width: 3.25rem !important;
+		height: 3.25rem !important;
+		margin-left: -1.625rem;
+		margin-right: -1.625rem;
+	}
+}

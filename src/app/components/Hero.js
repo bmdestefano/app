@@ -11,13 +11,13 @@ const Hero = ({image, details}) => {
 				<div className="hero-details-inner-wrapper">
 					<div className="keep-center">
 						<div className="hero-details-align">
-							{(typeof details.title != "undefined" && 
+							{(details && typeof details.title != "undefined" && 
 								<div className="hero-details-title">{details.title}</div>
 							)}
-							{(typeof details.primaryText != "undefined" && 
+							{(details && typeof details.primaryText != "undefined" && 
 								<div className="hero-details-primary">{details.primaryText}</div>
 							)}
-							{(typeof details.secondaryText != "undefined" && 
+							{(details && typeof details.secondaryText != "undefined" && 
 								<div className="hero-details-secondary">{details.secondaryText}</div>
 							)}
 						</div>

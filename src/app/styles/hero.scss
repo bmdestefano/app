@@ -3,6 +3,9 @@
 	height: 49vw;
 	max-height: 30rem;
 	width: 100%;
+	@media #{$small-screen}{
+		height: 40vw;
+	}
 }
 .hero-wrapper{
 	position: relative;
@@ -27,7 +30,7 @@
 		left: 0;
 		bottom: 0;
 		right: 0;
-		background-color: rgba(0, 0, 0, 0.4);
+		background-color: rgba(0, 0, 0, 0.5);
 	}
 }
 .hero-details-outer-wrapper{
@@ -39,6 +42,9 @@
 	padding-bottom: 0;
 	display: table-cell;
 	vertical-align: middle;
+	@media #{$small-screen}{
+		padding: 0 1rem !important;
+	}
 }
 .hero-details-align{
 	@include span(8 of 12);
