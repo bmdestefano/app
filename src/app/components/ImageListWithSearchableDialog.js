@@ -26,7 +26,7 @@ class ImageListWithSearchableDialog extends Component{
 					key={item.id}
 					primaryText={(this.props.primaryTextField) ? item[this.props.primaryTextField] : null}
 					secondaryText={(this.props.secondaryTextField) 
-						? item[this.props.secondaryTextField] 
+						? ((this.props.secondaryTextFieldLabel) ? this.props.secondaryTextFieldLabel+item[this.props.secondaryTextField] : item[this.props.secondaryTextField]) 
 						: null}
 					leftAvatar={(this.props.avatarSrcField) ? <Avatar src={item[this.props.avatarSrcField]} style={{backgroundColor: "#EEE"}}/> : null}
 					className={this.props.itemClass} />
@@ -41,7 +41,7 @@ class ImageListWithSearchableDialog extends Component{
 	handleDialogClose(){
 		this.setState({dialog: false});
 	}
-	
+
 	search(event){
 		let searchValue = event.target.value;
 		let items = (length >= searchValue.length) ? this.getInitialItemsState() : this.state.items.sort(function(a,b) {return (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0);});

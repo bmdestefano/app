@@ -71,6 +71,11 @@
 	@include container;
 	@include span(4 of 12 last);
 }
+div[class*="expertise-"]{
+	@media #{$small-screen}{
+		@include span(12 of 12);
+	}
+}
 .one-third{
 	@include container;
 	@include span(4 of 12);
