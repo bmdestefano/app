@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
+import { Router, Route, Link, browserHistory } from 'react-router'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import Profile from './components/pages/Profile';
+import Event from './components/pages/Event';
 require('./styles/import.scss');
 
 const muiTheme = getMuiTheme({
@@ -19,7 +21,10 @@ class Main extends Component {
 	render() {
 		return (
 			<MuiThemeProvider muiTheme={muiTheme}>
-				<Profile />
+				<Router history={browserHistory}>
+					<Route path="/" component={Profile} />
+					<Route path="event" component={Event} />
+				</Router>
 			</MuiThemeProvider>
 		);
 	}
