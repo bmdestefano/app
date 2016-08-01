@@ -10,6 +10,9 @@ import ListItem from 'material-ui/List/ListItem';
 import Avatar from 'material-ui/Avatar';
 import {GridList, GridTile} from 'material-ui/GridList';
 import Dialog from 'material-ui/Dialog';
+import Checkbox from 'material-ui/Checkbox';
+
+import ImageListWithSearchableDialog from '../ImageListWithSearchableDialog';
 
 import IntroIcon from 'material-ui/svg-icons/social/person';
 import EducationIcon from 'material-ui/svg-icons/social/school';
@@ -24,6 +27,8 @@ import DownloadIcon from 'material-ui/svg-icons/file/file-download';
 import ExpertiseIcon from 'material-ui/svg-icons/maps/my-location';
 import OpenIcon from 'material-ui/svg-icons/action/open-in-new';
 import ConnectionIcon from 'material-ui/svg-icons/action/timeline';
+import GroupIcon from 'material-ui/svg-icons/social/group';
+import ExitIcon from 'material-ui/svg-icons/content/clear';
 let FacebookIcon = require('babel!svg-react!../../img/facebook-icon.svg?name=FacebookIcon');
 let TwitterIcon = require('babel!svg-react!../../img/twitter-icon.svg?name=TwitterIcon');
 let LinkedinIcon = require('babel!svg-react!../../img/linkedin-icon.svg?name=LinkedinIcon');
@@ -121,6 +126,15 @@ let user = {
 		{id: 8, name: "Bobby Barker", major: "Marketing", grad: "2017", image: "https://randomuser.me/api/portraits/med/women/13.jpg"},
 		{id: 9, name: "Jennie Smith", major: "Business Administration", grad: "2018", image: "https://randomuser.me/api/portraits/med/women/33.jpg"},
 	],
+	groups : [
+		{id: 0, name: "Accounting Majors", image: "http://cypresstxcpa.com/media/slider9/bookkeeping.png"},
+		{id: 1, name: "Baseball Team", image: "http://dailybaseballdata.com/dbd/images/Baseball-Ball.ico"},
+		{id: 2, name: "Marketing Club", image: "http://static1.squarespace.com/static/55e3cd18e4b06cf73ad26938/t/56f854c090634097447fd4c8/1459225399777/Online+Marketing+Santa+Barbara"},
+		{id: 3, name: "LGBTQ Guidance", image: "https://s3.amazonaws.com/campustapstaging/2vi484CGQuCrlBUlQLdA_16e8b888982a4ac9833b78b1b6de55fd.png"},
+		{id: 4, name: "Management 101", image: "https://s3.amazonaws.com/campustapstaging/YmYDZi2jTXe8iu9qhh09_cb71012be3614486a6bac85f286fa007.png"},
+		{id: 5, name: "Alumni Job Openings", image: "https://s3.amazonaws.com/campustapstaging/GLNMD1XuSgWqVnMbwCNU_d8bead46b947463c89e6ad8e8c2231d7.png"},
+		{id: 6, name: "Advertising Internships", image: "https://s3.amazonaws.com/campustapstaging/Pf5EayhISPKuwrp5Ml9y_5b0ae10bafe343e1b9bc1a7602cc9c9b.png"},
+	],
 };
 
 class Profile extends Component{
@@ -132,9 +146,9 @@ class Profile extends Component{
 				open : false,
 				currentDocument: null
 			},
-			connectionsDialog: false,
-			connectionsShowCount: 9,
-			connections: []
+			connectDialog : false,
+			connectStatus : "Connect",
+			messageDialog : false,
 		};
 	}
 
@@ -271,46 +285,38 @@ class Profile extends Component{
 		});
 	}
 
-	renderConnections(count = false){
-		let users = (count) ? user.connections : this.state.connections;
-		return users.map((user, index) => {
-			if(count && index >= count)
-				return;
-			return(
-				<ListItem
-					key={user.id}
-					primaryText={user.name}
-					secondaryText={user.major+" "+user.grad}
-					leftAvatar={<Avatar src={user.image} />}
-					className="profile-connection" />
-			);
+	handleConnectDialogClose(){
+		this.setState({connectDialog: false});
+	}
+	
+	handleConnectDialogOpen(){
+		this.setState({connectDialog: true});
+	}
+
+	handleSendConnection(){
+		this.setState({
+			connectDialog: false,
+			connectStatus: "Pending",
 		});
 	}
 
-	handleConnectionsDialogOpen(){
-		this.setState({connectionsDialog: true});
+	handleSendMessage(){
+		this.setState({messageDialog: false});
 	}
 
-	handleConnectionsDialogClose(){
-		this.setState({connectionsDialog: false});
+	handleMessageDialogClose(){
+		this.setState({messageDialog: false});
 	}
 
-	searchUsers(event){
-		let searchValue = event.target.value;
-		let users = (length >= searchValue.length) ? this.getInitialConnectionsState() : this.state.connections.sort(function(a,b) {return (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0);});
-		length = searchValue.length;
-		const result = users.filter(function(user, key) {
-		    return user.name.toLowerCase().indexOf(searchValue) != -1;
-		});
-		this.setState({connections: result});
+	handleMessageDialogOpen(){
+		this.setState({messageDialog: true});
 	}
 
-	componentDidMount(){
-		this.setState({connections: user.connections});
-	}
-
-	getInitialConnectionsState(){
-		return user.connections;
+	renderConnectStatusButton(){
+		if(this.state.connectStatus == "Connect")
+			return(<RaisedButton label="Connect" primary={true} style={{marginTop: "1rem", marginRight: "1rem"}} onTouchTap={() => this.handleConnectDialogOpen()}/>);
+		else
+			return(<RaisedButton label="Pending Connection" primary={true} disabled={true} style={{marginTop: "1rem", marginRight: "1rem"}} onTouchTap={() => this.handleConnectDialogOpen()}/>);
 	}
 
 	render(){
@@ -350,7 +356,7 @@ class Profile extends Component{
 							tabItemContainerStyle={{backgroundColor: "#FFF", width: "50%"}}
 							contentContainerClassName="profile-tab-content-wrapper">
 							<Tab className="page-header" label="About" style={{background: "#FFF", color: "#555"}}>
-								<Card style={{padding: "1rem"}}>
+								<Card style={{padding: "1rem", borderRadius: "0px"}}>
 									<div className="profile-detail-wrapper">
 										<h2 className="profile-details-header"><IntroIcon style={{fill:"#CCC", verticalAlign: "bottom", marginRight: "0.5rem"}}/>Intro<span><MapIcon />{user.city}, {user.state}</span></h2>
 										<p>{user.description}</p>
@@ -368,34 +374,33 @@ class Profile extends Component{
 										{this.renderExperience()}
 									</div>
 									<div className="profile-detail-wrapper">
+										<h2 className="profile-details-header"><ConnectionIcon style={{fill:"#CCC", verticalAlign: "bottom", marginRight: "0.5rem"}}/>Connections</h2>
+										<ImageListWithSearchableDialog 
+											showCount={9}
+											items={user.connections}
+											primaryTextField={"name"}
+											secondaryTextField={"major"}
+											avatarSrcField={"image"}
+											listType="Connections"
+											itemClass="one-third"
+										/>
+									</div>
+									<div className="profile-detail-wrapper">
+										<h2 className="profile-details-header"><GroupIcon style={{fill:"#CCC", verticalAlign: "bottom", marginRight: "0.5rem"}}/>Groups</h2>
+										<ImageListWithSearchableDialog 
+											showCount={6}
+											items={user.groups}
+											primaryTextField={"name"}
+											avatarSrcField={"image"}
+											listType="Groups"
+											itemClass="one-third"
+										/>
+									</div>
+									<div className="profile-detail-wrapper">
 										<h2 className="profile-details-header"><TagsIcon style={{fill:"#CCC", verticalAlign: "bottom", marginRight: "0.5rem"}}/>Tags</h2>
 										{this.renderTags()}
 									</div>
-									<div className="profile-detail-wrapper">
-										<h2 className="profile-details-header"><ConnectionIcon style={{fill:"#CCC", verticalAlign: "bottom", marginRight: "0.5rem"}}/>Connections</h2>
-										<List
-											style={{overflow: "overlay"}}
-										>
-											{this.renderConnections(this.state.connectionsShowCount)}
-										</List>
-										{(this.state.connectionsShowCount < Object.keys(user.connections).length 
-											&& <a onClick={this.handleConnectionsDialogOpen.bind(this)} style={{margin: "1rem auto", width: "100%", display: "block", textAlign: "center", color: "#00A9E0"}}>See All Attendees</a>)}
-										<Dialog
-											title="All Attendees"
-											modal={false}
-											open={this.state.connectionsDialog}
-											onRequestClose={this.handleConnectionsDialogClose.bind(this)}>
-											<TextField
-												hintText="Search for connections by name"
-												fullWidth={true}
-												onChange={(e) => this.searchUsers(e)}
-												inputStyle={{color: "#555"}}
-											/>
-											<List className="attendees-dialog-wrapper">
-												{this.renderConnections()}
-											</List>
-										</Dialog>
-									</div>
+									
 								</Card>
 							</Tab>
 							<Tab className="page-header" label="Timeline" style={{background: "#FFF", color: "#555"}}>
@@ -435,8 +440,61 @@ class Profile extends Component{
 							</Tab>
 						</Tabs>
 						<div className="profile-action-btn-wrapper">
-							<RaisedButton label="Connect" primary={true} style={{marginTop: "1rem", marginRight: "1rem"}}/>
-							<RaisedButton label="Message" style={{marginTop: "1rem", marginRight: "1rem", color: "#00A9E0"}}/>
+							{this.renderConnectStatusButton()}
+							<Dialog
+								title={<h3>Connect with {user.name}<ExitIcon style={{float: "right"}} onTouchTap={() => this.handleConnectDialogClose()}/></h3>}
+								modal={false}
+								open={this.state.connectDialog}
+								onRequestClose={this.handleConnectDialogClose.bind(this)}>
+								<p>Choose which areas you are interested in:</p>
+								<List>
+									{user.areasOfExpertise.map((type, index) => {
+										return(
+											<ListItem
+												key={index}
+												primaryText={type}
+												leftCheckbox={<Checkbox />}
+												innerDivStyle={{width: "33%", float: "left"}} />
+										);
+									})}
+								</List>
+								<TextField
+									hintText="Type your message here"
+									multiLine={true}
+									fullWidth={true}
+									rows={1}
+									rowsMax={6}
+								/>
+								<div style={{float: "right"}}>
+									<RaisedButton label="Send" primary={true} style={{marginTop: "1rem", marginRight: "1rem"}} onTouchTap={() => this.handleSendConnection()}/>
+									<RaisedButton label="Cancel" style={{marginTop: "1rem", marginRight: "1rem", color: "#00A9E0"}} onTouchTap={() => this.handleConnectDialogClose()}/>
+								</div>
+							</Dialog>
+							<RaisedButton label="Message" style={{marginTop: "1rem", marginRight: "1rem", color: "#00A9E0"}} onTouchTap={() => this.handleMessageDialogOpen()}/>
+							<Dialog
+								title={<h3>Contact {user.name}<ExitIcon style={{float: "right"}} onTouchTap={() => this.handleMessageDialogClose()}/></h3>}
+								modal={false}
+								open={this.state.messageDialog}
+								onRequestClose={this.handleMessageDialogClose.bind(this)}>
+								<TextField
+									hintText="Subject"
+									multiLine={true}
+									fullWidth={true}
+									rows={1}
+									rowsMax={2}
+								/>
+								<TextField
+									hintText="Type your message here"
+									multiLine={true}
+									fullWidth={true}
+									rows={1}
+									rowsMax={6}
+								/>
+								<div style={{float: "right"}}>
+									<RaisedButton label="Send" primary={true} style={{marginTop: "1rem", marginRight: "1rem"}} onTouchTap={() => this.handleSendMessage()}/>
+									<RaisedButton label="Cancel" style={{marginTop: "1rem", marginRight: "1rem", color: "#00A9E0"}} onTouchTap={() => this.handleMessageDialogClose()}/>
+								</div>
+							</Dialog>
 						</div>
 					</div>
 				</div>			

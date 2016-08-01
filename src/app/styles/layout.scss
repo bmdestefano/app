@@ -71,7 +71,7 @@
 	@include container;
 	@include span(4 of 12 last);
 }
-.profile-connection{
+.one-third{
 	@include container;
 	@include span(4 of 12);
 	@media #{$small-screen}{

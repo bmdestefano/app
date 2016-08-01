@@ -46,8 +46,8 @@
 		fill: $text-dark-grey !important;
 	}
 }
-.attendees-dialog-wrapper{
-	overflow: scroll;
+.item-dialog-wrapper{
+	overflow: auto;
 	max-height: 20.31rem;
 }
 .suggested-events-wrapper{
