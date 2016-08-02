@@ -27,6 +27,7 @@
 }
 .profile-img{
 	max-width: 15.13rem;
+	position: relative;
 	img{
 		@include border-radius(50%);
 		border: 1px solid #CCC;

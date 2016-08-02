@@ -1,12 +1,17 @@
 import React, {Component} from 'react';
+import ReactFilepicker from 'react-filepicker';
+import {List, ListItem} from 'material-ui/List';
+import RaisedButton from 'material-ui/RaisedButton';
+import AddIcon from 'material-ui/svg-icons/image/photo-camera';
+import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
 import ProfileRenderer from '../ProfileRenderer';
+import EditableField from '../EditableField';
 
 let FacebookIcon = require('babel!svg-react!../../img/facebook-icon.svg?name=FacebookIcon');
 let TwitterIcon = require('babel!svg-react!../../img/twitter-icon.svg?name=TwitterIcon');
 let LinkedinIcon = require('babel!svg-react!../../img/linkedin-icon.svg?name=LinkedinIcon');
 let user = {
 	avatarUrl: "https://www.filepicker.io/api/file/hDvuYs7eSNKDdWDwy4Mr",
-	backgroundUrl: "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F21363263%2F170576045191%2F1%2Foriginal.jpg?w=1000&rect=0%2C578%2C5616%2C2808&s=1b98247e23d2a311eaac71c474d394b1",
 	name: "Remy Carpinito",
 	schools: [
 		{name: "Suffolk University", year: "2014", major: "Entrepreneurship", minor: "Spanish", degree: "Bachelor of Arts"},
@@ -129,18 +134,55 @@ let user = {
 	],
 };
 
-class Profile extends Component{
+const DEFAULT_BACKGROUND_URL = "http://www.bostonlogic.com/wp-content/uploads/2015/03/photodune-2705436-boston-waterfront-m1.jpg";
+
+class Settings extends Component{
 	constructor(props, context){
 		super(props, context);
 
-		this.state = {};
+		this.updateState = this.updateState.bind(this);
+		this.state = {
+			user: null,
+		};
+	}
+
+	componentWillMount(){
+		this.setState({user: user});
+	}
+
+	updateState(key, value){
+		this.setState({[key]:value});
+	}
+
+	handleUploadSuccess(type, fpfiles){
+		let user = this.state.user;
+		user[type] = fpfiles.url;
+		this.updateState('user', user);
 	}
 
 	getHeroImageMarkup(){
 		return(
 			<div className="hero-image-wrapper">
-				<img src={user.backgroundUrl} />
+				<img src={(user.backgroundUrl) ? user.backgroundUrl : DEFAULT_BACKGROUND_URL} />
 				<div className="overlay"></div>
+				<ReactFilepicker 
+					apikey={"A4dOeHXUnQHS0qVUJYRRez"} 
+					options={{
+						buttonText: '',
+						buttonClass: 'filepicker filepicker-background-photo',
+						mimetype: 'image/*',
+						webcamDim: [1280, 720],
+						webcam: {
+							videoRes: '1280x720'
+						}
+					}}
+					onSuccess={this.handleUploadSuccess.bind(this, 'backgroundUrl')} 
+				/>
+				<List className="update-background-photo">
+					<ListItem
+						leftIcon={<AddIcon />}
+						primaryText="Update Background Photo" />
+				</List>
 			</div>
 		);
 	}
@@ -149,6 +191,24 @@ class Profile extends Component{
 		return(
 			<div className="profile-img">
 				<img src={user.avatarUrl} />
+				<ReactFilepicker 
+					apikey={"A4dOeHXUnQHS0qVUJYRRez"} 
+					options={{
+						buttonText: '',
+						buttonClass: 'filepicker filepicker-avatar-photo',
+						mimetype: 'image/*',
+						webcamDim: [1280, 720],
+						webcam: {
+							videoRes: '1280x720'
+						}
+					}}
+					onSuccess={this.handleUploadSuccess.bind(this, 'avatarUrl')} 
+				/>
+				<List className="update-avatar-photo">
+					<ListItem
+						leftIcon={<AddIcon />}
+						primaryText="Update Avatar" />
+				</List>
 			</div>
 		);
 	}
@@ -156,10 +216,26 @@ class Profile extends Component{
 	getUserDetails(){
 		return(
 			<div className="profile-user-details">
-				<h2 className="profile-name">{user.name}</h2>
-				<h3 className="profile-school">{user.schools[0].name} - <span className="hidden-mobile">Class of </span>{user.schools[0].year}</h3>
-				<h3 className="profile-school">{user.currentStatus}</h3>
-				<h3 className="profile-school">{user.city+', '+user.state}</h3>
+				<EditableField text={user.name} cssClass="profile-name" />
+				<div>
+					<h3 className="profile-school inline-block">{user.schools[0].name} - <span className="hidden-mobile">Class of </span>{user.schools[0].year}</h3>
+					<RaisedButton 
+						className="editable-btn"
+						icon={<EditIcon />}
+						onTouchTap={() => this.smoothScroll('schools')}
+					/>
+				</div>
+				<div>
+					<h3 className="profile-school inline-block">{user.currentStatus}</h3>
+					<RaisedButton 
+						className="editable-btn"
+						icon={<EditIcon />}
+						onTouchTap={() => this.smoothScroll('jobs')}
+					/>
+				</div>
+				<div style={{width: "100%", overflow: "overlay"}}>
+					<EditableField text={user.city} cssClass="profile-school" style={{float: "left"}}/><EditableField text={user.state} cssClass="profile-school" style={{float: "left"}}/>
+				</div>
 				<div className="profile-social-wrapper">
 					<a><FacebookIcon /></a>
 					<a><TwitterIcon /></a>
@@ -167,6 +243,56 @@ class Profile extends Component{
 				</div>
 			</div>
 		);
+	}
+
+	currentYPosition() {
+		// Firefox, Chrome, Opera, Safari
+		if (self.pageYOffset) 
+			return self.pageYOffset;
+		// Internet Explorer 6 - standards mode
+		if (document.documentElement && document.documentElement.scrollTop)
+			return document.documentElement.scrollTop;
+		// Internet Explorer 6, 7 and 8
+		if (document.body.scrollTop) return document.body.scrollTop;
+			return 0;
+	}
+
+	elmYPosition(eID) {
+		var elm = document.getElementById(eID);
+		var y = elm.offsetTop;
+		var node = elm;
+		while (node.offsetParent && node.offsetParent != document.body) {
+			node = node.offsetParent;
+			y += node.offsetTop;
+		} return y;
+	}
+
+	smoothScroll(eID) {
+		var startY = this.currentYPosition();
+		var stopY = this.elmYPosition(eID);
+		var distance = stopY > startY ? stopY - startY : startY - stopY;
+		if (distance < 100) {
+			scrollTo(0, stopY); 
+			return;
+		}
+		var speed = Math.round(distance / 100);
+		if (speed >= 20) 
+			speed = 20;
+		var step = Math.round(distance / 25);
+		var leapY = stopY > startY ? startY + step : startY - step;
+		var timer = 0;
+		if (stopY > startY) {
+			for ( var i=startY; i<stopY; i+=step ) {
+				setTimeout("window.scrollTo(0, "+leapY+")", timer * speed);
+				leapY += step; if (leapY > stopY) leapY = stopY; timer++;
+			} 
+			return;
+		}
+		for ( var i=startY; i>stopY; i-=step ) {
+			setTimeout("window.scrollTo(0, "+leapY+")", timer * speed);
+			leapY -= step; if (leapY < stopY) leapY = stopY; timer++;
+		}
+		return false;
 	}
 
 	render(){
@@ -181,4 +307,4 @@ class Profile extends Component{
 	}
 }
 
-export default Profile;
+export default Settings;

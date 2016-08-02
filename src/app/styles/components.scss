@@ -191,3 +191,70 @@
 		@include box-shadow(#AAA 1px 1px 20px);
 	}
 }
+.update-background-photo{
+	background-color: rgb(256, 256, 256);
+	background-color: rgba(256, 256, 256, 0.6);
+	span{
+		color: #000 !important;
+		font-size: 1.5rem !important;
+		svg{
+			fill: #000 !important;
+		}
+	}
+}
+.filepicker-background-photo,
+.update-background-photo{
+	position: absolute;
+	left: 50%;
+	margin-left: -12rem;
+	width: 24rem;
+	height: 4rem;
+	top: 0%;
+}
+.filepicker-avatar-photo{
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	width: 100%;
+	bottom: 0;
+}
+.update-avatar-photo{
+	position: absolute;
+    top: 0;
+    background-color: rgb(256, 256, 256);
+	background-color: rgba(256, 256, 256, 0.6);
+    right: 0;
+    left: 0;
+    bottom: 0.1875rem;
+    @include border-radius(50%);
+    span{
+		color: #000 !important;
+		margin-top: 40% !important;
+		svg{
+			left: 50% !important;
+			margin-left: -0.75rem !important;
+			top: -2rem !important;
+			fill: #000 !important;
+		}
+    }
+}
+.filepicker{
+	border: 0;
+	background: transparent;
+	color: transparent;
+	z-index: 3;
+}
+.editable-field{
+	background-color: rgb(256, 256, 256) !important;
+	background-color: rgba(256, 256, 256, 0.6) !important;
+	padding: 0 1rem;
+	input{
+		color: #000 !important;
+	}
+	hr{
+		width: inherit !important;
+		left: 1rem !important;
+		right: 1rem !important;
+	}
+}
