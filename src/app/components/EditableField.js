@@ -25,7 +25,11 @@ class EditableField extends Component{
 	handleSaveClick(value = false){
 		let text = (value) ? value : document.getElementById('editable-field').value;
 		this.setState({saving: true});
-		window.setTimeout(() => {this.setState({saving: false, active: false, text: text})}, 3000);
+		this.props.user[this.props.field] = text;
+		window.setTimeout(() => {
+			this.setState({saving: false, active: false, text: text});
+			this.props.onUpdate("user", this.props.user);
+		}, 3000);
 	}
 
 	renderButton(){
@@ -33,7 +37,7 @@ class EditableField extends Component{
 			return(
 				<RaisedButton 
 					label="Save"
-					style={{float: "right", marginTop: "0.75rem"}}
+					style={{marginLeft: "1rem", marginTop: "0.75rem"}}
 					onTouchTap={() => this.handleSaveClick()}
 					disabled={this.state.saveDisabled}
 				/>
@@ -58,7 +62,7 @@ class EditableField extends Component{
 	}
 
 	handleOnBlur(e){
-		if(this.refs.textField.getValue() == this.props.text)
+		if(this.refs.textField.getValue() == this.state.text)
 			this.setState({
 				active: false,
 				text: this.props.text,
@@ -74,7 +78,7 @@ class EditableField extends Component{
 			<div style={this.props.style}>
 				{(!this.state.active && 
 					<div>
-						<h3 className={this.props.cssClass+" inline-block"}>{this.state.text}</h3>
+						{React.createElement(this.props.element, {className: this.props.cssClass+" inline-block"}, this.state.text)}
 						<RaisedButton 
 							className="editable-btn"
 							icon={<EditIcon />}
@@ -84,17 +88,35 @@ class EditableField extends Component{
 				)}
 				{(this.state.active &&
 					<div style={{position: "relative"}}>
-						<TextField 
-							id="editable-field"
-							className={this.props.cssClass+" editable-field reset-height"}
-							underlineFocusStyle={{borderColor: "#000"}}
-							underlineStyle={{borderColor: "#000"}}
-							defaultValue={this.state.text}
-							ref="textField"
-							onChange={() => this.checkForEmptyValue()}
-							style={{width: "85%"}}
-							onBlur={(e) => this.handleOnBlur(e)}
-						/>
+						{(!this.props.height 
+							&& <TextField 
+								id="editable-field"
+								className={this.props.cssClass+" editable-field"}
+								underlineFocusStyle={{borderColor: "#000"}}
+								underlineStyle={{borderColor: "#000"}}
+								defaultValue={this.state.text}
+								ref="textField"
+								onChange={() => this.checkForEmptyValue()}
+								style={{width: this.props.width}}
+								onBlur={(e) => this.handleOnBlur(e)}
+								multiLine={true}
+								rows={4}
+								rowsMax={4}
+							/>)}
+						{(this.props.height && 
+							<TextField 
+								id="editable-field"
+								className={this.props.cssClass+" editable-field"}
+								underlineFocusStyle={{borderColor: "#000"}}
+								underlineStyle={{borderColor: "#000"}}
+								defaultValue={this.state.text}
+								ref="textField"
+								onChange={() => this.checkForEmptyValue()}
+								style={{width: this.props.width}}
+								onBlur={(e) => this.handleOnBlur(e)}
+								multiLine={true}
+								height={this.props.height}
+						/>)}
 						{this.renderButton()}
 					</div>	
 				)}

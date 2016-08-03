@@ -32,7 +32,8 @@
 	}
 }
 .hover-transparent{
-	&:hover{
+	&:hover,
+	&:active{
 		background-color: transparent !important;
 	}
 }
@@ -46,4 +47,7 @@
 }
 .reset-height{
 	height: initial !important;
+}
+.no-border{
+	border: 0 !important;
 }

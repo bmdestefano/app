@@ -30,6 +30,7 @@
     "susy": "^2.2.12",
     "svg-react-loader": "^0.3.6",
     "transfer-webpack-plugin": "^0.1.4",
+    "underscore": "^1.8.3",
     "ustates": "^0.1.5",
     "webpack": "^1.12.9",
     "webpack-dev-server": "^1.14.0"

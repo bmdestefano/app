@@ -11,13 +11,14 @@ class ImageListWithSearchableDialog extends Component{
 		super(props, context);
 
 		this.state = {
+			pageItems: [],
 			items: [],
 			dialog: false,
 		};
 	}
 
 	renderItems(count = false){
-		let items = (count) ? this.props.items : this.state.items;
+		let items = (count) ? ((this.props.edit) ? this.state.pageItems : this.props.items) : this.state.items;
 		return items.map((item, index) => {
 			if(count && index >= count)
 				return;
@@ -29,9 +30,20 @@ class ImageListWithSearchableDialog extends Component{
 						? ((this.props.secondaryTextFieldLabel) ? this.props.secondaryTextFieldLabel+item[this.props.secondaryTextField] : item[this.props.secondaryTextField]) 
 						: null}
 					leftAvatar={(this.props.avatarSrcField) ? <Avatar src={item[this.props.avatarSrcField]} style={{backgroundColor: "#EEE"}}/> : null}
-					className={this.props.itemClass} />
+					className={this.props.itemClass}
+					rightIcon={(count === false && this.props.edit) ? <ExitIcon style={{fill: "#FF0000"}} onTouchTap={() => this.deleteItem(item)} /> : null} />
 			);
 		});
+	}
+
+	deleteItem(itemToDelete){
+		let newItems = this.state.items.filter((item, index) => {
+			return item != itemToDelete;
+		});
+		let newPageItems = this.state.pageItems.filter((item, index) => {
+			return item != itemToDelete;
+		});
+		this.setState({items: newItems, pageItems: newPageItems});
 	}
 
 	handleDialogOpen(){
@@ -53,7 +65,10 @@ class ImageListWithSearchableDialog extends Component{
 	}
 
 	componentDidMount(){
-		this.setState({items: this.props.items});
+		if(this.props.edit)
+			this.setState({items: this.props.items, pageItems: this.props.items});
+		else
+			this.setState({items: this.props.items});
 	}
 
 	getInitialItemsState(){
@@ -68,8 +83,8 @@ class ImageListWithSearchableDialog extends Component{
 				>
 					{this.renderItems(this.props.showCount)}
 				</List>
-				{(this.props.showCount < Object.keys(this.props.items).length 
-					&& <a onClick={this.handleDialogOpen.bind(this)} style={{margin: "1rem auto", width: "100%", display: "block", textAlign: "center", color: "#00A9E0"}}>See All {this.props.listType}</a>)}
+				{((this.props.showCount < Object.keys(this.props.items).length || this.props.edit)
+					&& <a onClick={this.handleDialogOpen.bind(this)} style={{margin: "1rem auto", width: "100%", display: "block", textAlign: "center", color: "#00A9E0"}}>{this.props.openText}</a>)}
 				<Dialog
 					title={<h3>All {this.props.listType}<ExitIcon style={{float: "right"}} onTouchTap={() => this.handleDialogClose()}/></h3>}
 					modal={false}
