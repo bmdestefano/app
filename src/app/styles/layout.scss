@@ -83,3 +83,11 @@ div[class*="expertise-"]{
 		@include span(12 of 12);
 	}
 }
+.goals-list-left{
+	@include container;
+	@include span(6 of 12 first);
+}
+.goals-list-right{
+	@include container;
+	@include span(6 of 12 last);
+}

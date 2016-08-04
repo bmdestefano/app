@@ -84,7 +84,7 @@ class ImageListWithSearchableDialog extends Component{
 					{this.renderItems(this.props.showCount)}
 				</List>
 				{((this.props.showCount < Object.keys(this.props.items).length || this.props.edit)
-					&& <a onClick={this.handleDialogOpen.bind(this)} style={{margin: "1rem auto", width: "100%", display: "block", textAlign: "center", color: "#00A9E0"}}>{this.props.openText}</a>)}
+					&& <a onClick={this.handleDialogOpen.bind(this)} style={{margin: "1rem auto", width: "100%", display: "block", textAlign: "center", color: "#143A7B"}}>{this.props.openText}</a>)}
 				<Dialog
 					title={<h3>All {this.props.listType}<ExitIcon style={{float: "right"}} onTouchTap={() => this.handleDialogClose()}/></h3>}
 					modal={false}

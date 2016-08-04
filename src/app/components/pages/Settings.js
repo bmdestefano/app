@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import _ from 'underscore';
 import ReactFilepicker from 'react-filepicker';
+import areIntlLocalesSupported from 'intl-locales-supported';
 import {List, ListItem} from 'material-ui/List';
 import RaisedButton from 'material-ui/RaisedButton';
 import Dialog from 'material-ui/Dialog';
@@ -12,6 +13,10 @@ import RefreshIndicator from 'material-ui/RefreshIndicator';
 import Avatar from 'material-ui/Avatar';
 import {GridList, GridTile} from 'material-ui/GridList';
 import IconButton from 'material-ui/IconButton';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
+import LinearProgress from 'material-ui/LinearProgress';
+import DatePicker from 'material-ui/DatePicker';
 
 import AddIcon from 'material-ui/svg-icons/image/photo-camera';
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
@@ -33,6 +38,7 @@ import CoverLetterIcon from 'material-ui/svg-icons/action/flip-to-front';
 import ProjectIcon from 'material-ui/svg-icons/image/brush';
 import OtherIcon from 'material-ui/svg-icons/action/extension';
 import DownloadIcon from 'material-ui/svg-icons/file/file-download';
+import AddDocumentIcon from 'material-ui/svg-icons/content/add';
 
 import ProfileRenderer from '../ProfileRenderer';
 import EditableField from '../EditableField';
@@ -116,35 +122,40 @@ let user = {
 			type: "resume",
 			uploadedDate: "6/15/16",
 			image: "http://thumb1.shutterstock.com/display_pic_with_logo/2842531/272513510/stock-photo-closeup-of-resume-272513510.jpg",
-			description: "Hello everyone! I am a Corporate Finance and Accounting major, class of 2017. I am looking for mentors within the tech space, as I am trying to launch and app and am in need of someone with a background in app development to help me out. If you, or someone you know is an experienced developer/coder please ask me for contact information and I would be more than happy to share that with you."
+			description: "Hello everyone! I am a Corporate Finance and Accounting major, class of 2017. I am looking for mentors within the tech space, as I am trying to launch and app and am in need of someone with a background in app development to help me out. If you, or someone you know is an experienced developer/coder please ask me for contact information and I would be more than happy to share that with you.",
+			document: "/path/to/doc.pdf"
 		},
 		{
 			title: "Remy Carpinito's Cover Letter",
 			type: "cover-letter",
 			uploadedDate: "6/15/16",
 			image: "http://thumb7.shutterstock.com/display_pic_with_logo/307150/283436795/stock-vector-modern-cover-letter-design-with-blue-white-colors-283436795.jpg",
-			description: "Hello everyone! I am a Corporate Finance and Accounting major, class of 2017. I am looking for mentors within the tech space, as I am trying to launch and app and am in need of someone with a background in app development to help me out. If you, or someone you know is an experienced developer/coder please ask me for contact information and I would be more than happy to share that with you."
+			description: "Hello everyone! I am a Corporate Finance and Accounting major, class of 2017. I am looking for mentors within the tech space, as I am trying to launch and app and am in need of someone with a background in app development to help me out. If you, or someone you know is an experienced developer/coder please ask me for contact information and I would be more than happy to share that with you.",
+			document: "/path/to/doc.pdf"
 		},
 		{
 			title: "Twitter Redesign Project",
 			type: "project",
 			uploadedDate: "5/12/16",
 			image: "http://thumb101.shutterstock.com/display_pic_with_logo/691372/154181867/stock-photo-brussels-september-twitter-is-going-public-on-september-in-brussels-154181867.jpg",
-			description: "This is a project I made for CS 560 as my final project."
+			description: "This is a project I made for CS 560 as my final project.",
+			document: "/path/to/doc.pdf"
 		},
 		{
 			title: "Connect4 Python Project",
 			type: "project",
 			uploadedDate: "5/21/16",
 			image: "http://thumb7.shutterstock.com/display_pic_with_logo/1369678/410081401/stock-photo-smart-city-and-wireless-communication-network-iot-internet-of-things-ict-information-410081401.jpg",
-			description: "This is a project I made for CS 587. It is a working Connect4 game made in Python."
+			description: "This is a project I made for CS 587. It is a working Connect4 game made in Python.",
+			document: "/path/to/doc.pdf"
 		},
 		{
 			title: "Digital Marketing Project",
 			type: "other",
 			uploadedDate: "4/11/16",
 			image: "http://thumb7.shutterstock.com/display_pic_with_logo/682636/407256469/stock-vector-big-infographics-in-flat-style-vector-illustrations-about-digital-projects-management-clients-407256469.jpg",
-			description: "This is my final digital marketing project for MKT 610."
+			description: "This is my final digital marketing project for MKT 610.",
+			document: "/path/to/doc.pdf"
 		}
 	],
 	connections : [
@@ -186,7 +197,15 @@ let tags = [
 	"Accounting", "United States", "Teaching"
 ];
 const DEFAULT_BACKGROUND_URL = "http://www.bostonlogic.com/wp-content/uploads/2015/03/photodune-2705436-boston-waterfront-m1.jpg";
-
+let careerPath = ["Setup Profile", "Upload Resume", "Setup Github Account", "Attend An Event"];
+let DateTimeFormat;
+if (areIntlLocalesSupported(['fr'])) {
+  DateTimeFormat = global.Intl.DateTimeFormat;
+} else {
+  const IntlPolyfill = require('intl');
+  DateTimeFormat = IntlPolyfill.DateTimeFormat;
+  require('intl/locale-data/jsonp/fr');
+}
 class Settings extends Component{
 	constructor(props, context){
 		super(props, context);
@@ -203,11 +222,28 @@ class Settings extends Component{
 				open : false,
 				currentDocument: null
 			},
+			documentDialogOpen: false,
+			documentTypeValue: "resume",
+			documentPrivacyValue: "public",
+			documentImage: DEFAULT_BACKGROUND_URL,
+			documentUrl: null,
+			progressValue: 0,
+			goals: [
+				{progress: 0, name: "List 1", due: "1/03/17", goals: [{name:"Default 1", description: "t"}, {name:"Default 2", description: "t"}, {name:"Default 3", description: "t"}]},
+				{progress: 0, name: "List 2", due: "2/12/17", goals: [{name:"Default 1", description: "t"}, {name:"Default 2", description: "t"}, {name:"Default 3", description: "t"}]},
+			],
+			addListDialogOpen: false,
+			tasks: [],
+			saveListDisabled: true,
 		};
 	}
 
 	componentWillMount(){
 		this.setState({user: user});
+	}
+
+	componentDidMount(){
+		this.state.user.documents.unshift({});
 	}
 
 	updateState(key, value){
@@ -757,9 +793,127 @@ class Settings extends Component{
 		
 	}
 
+	saveDocument(){
+		let date = new Date();
+		let newDocument = {
+			title: this.refs.newDocumentName.getValue(),
+			type: this.state.documentTypeValue,
+			uploadedDate: date.getMonth()+"/"+date.getDate()+"/"+date.getFullYear(),
+			image: this.state.documentImage,
+			description: this.refs.newDocumentDescription.getValue(),
+			document: this.state.documentUrl
+		};
+		let user = this.state.user;
+		user.documents.push(newDocument);
+		this.setState({
+			user: user, 
+			documentDialogOpen: false,
+			documentTypeValue: "resume",
+			documentPrivacyValue: "public",
+			documentImage: DEFAULT_BACKGROUND_URL,
+			documentUrl: null
+		});
+	}
+
+	handleDocumentTypeChange(event, index, value){
+		this.setState({documentTypeValue: value});
+	}
+
+	handleDocumentPrivacyChange(event, index, value){
+		this.setState({documentPrivacyValue: value});
+	}
+
+	onDocumentImageUploadSuccess(fpfiles){
+		this.setState({documentImage: fpfiles.url});
+	}
+
+	onDocumentUploadSuccess(fpfiles){
+		this.setState({documentUrl: fpfiles.url});
+	}
+
 	renderPortfolio(){
-		return user.documents.map((doc, index) => {
-			return(
+		return this.state.user.documents.map((doc, index) => {
+			return((index == 0)
+				? <GridTile 
+					cols={(index%3 == 2 || window.outerWidth < 768) ? 2 : 1}
+					rows={1}
+					className="portfolio-item"
+					style={{position: "relative"}}
+					onTouchTap={() => this.updateState("documentDialogOpen", true)}
+				>
+					<AddDocumentIcon 
+						style={{position: "absolute", width: "3rem", height: "3rem", left: "50%", marginLeft: "-1.5rem", top: "25%", fill: "#555"}}
+					/>
+					<h2
+						style={{position: "absolute", textAlign: "center", top: "55%", color: "#555", width: "100%", fontSize: "2rem"}}
+					>Add New Document</h2>
+					<Dialog
+						title="Add A New Document"
+						actions={[
+							<RaisedButton
+								label="Save"
+								primary={true}
+								onTouchTap={() => this.saveDocument()}
+								style={{marginRight: "1rem"}}
+							/>,
+							<RaisedButton
+								label="Cancel"
+								primary={false}
+								onTouchTap={() => this.updateState("documentDialogOpen", false)}
+							/>]
+						}
+						modal={false}
+						open={this.state.documentDialogOpen}
+						onRequestClose={() => this.updateState("documentDialogOpen", false)}
+						>
+							<TextField floatingLabelText="Document Name" ref="newDocumentName" fullWidth={true}/>
+							<SelectField value={this.state.documentTypeValue} onChange={this.handleDocumentTypeChange.bind(this)} style={{width: "49%", float: "left"}} ref="newDocumentType">
+								<MenuItem value={"resume"} primaryText="Resume" />
+								<MenuItem value={"coverLetter"} primaryText="Cover Letter" />
+								<MenuItem value={"project"} primaryText="Project" />
+								<MenuItem value={"other"} primaryText="Other" />
+							</SelectField>
+							<SelectField value={this.state.documentPrivacyValue} onChange={this.handleDocumentPrivacyChange.bind(this)} style={{width: "49%", float: "right"}} ref="newDocumentPrivacy">
+								<MenuItem value={"public"} primaryText="Public" />
+								<MenuItem value={"private"} primaryText="Private" />
+							</SelectField>
+							<TextField floatingLabelText="Document Description" ref="newDocumentDescription" fullWidth={true} />
+							<RaisedButton
+								label="Upload An Image (optional)"
+								style={{position: "absolute", left: "1.5rem", bottom: "15.5rem"}}
+							/>
+							<img src={this.state.documentImage} style={{width: "10rem", height: "10rem", marginTop: "3rem"}} ref="newDocumentImage"/>
+							<ReactFilepicker apikey={"A4dOeHXUnQHS0qVUJYRRez"} 
+								options={{
+									buttonText: '',
+									buttonClass: 'filepicker filepicker-document-image',
+									mimetype: 'image/*',
+									webcamDim: [1280, 720],
+									webcam: {
+										videoRes: '1280x720'
+									}
+								}}
+								onSuccess={this.onDocumentImageUploadSuccess.bind(this)} 
+							/>
+							<RaisedButton
+								label="Upload Document"
+								style={{position: "absolute", left: "17rem", bottom: "15.5rem"}}
+							/>
+							<ReactFilepicker apikey={"A4dOeHXUnQHS0qVUJYRRez"} 
+								options={{
+									buttonText: '',
+									buttonClass: 'filepicker filepicker-document',
+									webcamDim: [1280, 720],
+									webcam: {
+										videoRes: '1280x720'
+									}
+								}}
+								onSuccess={this.onDocumentUploadSuccess.bind(this)} 
+							/>
+							<p style={{position: "absolute", left: "17rem", bottom: "8rem"}} ref="newDocumentFile">{this.state.documentUrl}</p>
+						</Dialog>
+				</GridTile>
+				:
 				<GridTile 
 					key={index}
 					title={<p>{doc.title}<span style={{float: "right", marginRight: "1rem", fontSize: "0.75rem", fontWeight: "400"}}>{doc.uploadedDate}</span></p>}
@@ -785,15 +939,119 @@ class Settings extends Component{
 		dialog.currentDocument = currentDocument[0];
 		this.setState({portfolioDialog : dialog});
 	}
-	
+
+	incrementProgress(index, checked){
+		let globalThis = this;
+		let increment = 100/careerPath.length;
+		window.setTimeout(function(){
+			globalThis.setState({progressValue: (checked) ? (globalThis.state.progressValue + increment) : (globalThis.state.progressValue - increment)});
+		}, 1);
+	}
+
+	renderCareerPath(){
+		return careerPath.map((item, index) => {
+			return(
+				<ListItem primaryText={item} leftIcon={<Checkbox onCheck={this.incrementProgress.bind(this)}/>} className="hover-transparent"/>
+			);
+		});
+	}
+
+	incrementGoalsProgress(index, event, checked){
+		let goals = this.state.goals;
+		let increment = 100/goals[index].goals.length;
+		goals[index].progress = (checked) ? (goals[index].progress + increment) : (goals[index].progress - increment);
+		let globalThis = this;
+		window.setTimeout(function(){
+			globalThis.setState({goals: goals});
+		}, 1);
+	}
+
+	renderGoalsList(){
+		return this.state.goals.map((goalList, index) => {
+			return (
+			<div className={(index%2 == 0) ? "goals-list-left" : "goals-list-right"} style={{marginBottom: "3rem"}}>
+				<h2 style={{marginBottom: "1rem", fontSize: "1.5rem"}} className="brand-color">{this.state.goals[index].name}</h2>
+				<LinearProgress mode="determinate" color="#FCB606" value={this.state.goals[index].progress} />
+				<p style={{marginTop: "1rem", color: "#555"}}><span className="brand-color">Progress: </span>{Math.round(this.state.goals[index].progress)+"%"}<p style={{float: "right"}}> {this.state.goals[index].due} </p><span style={{float: "right", marginRight: "0.25rem"}}>Due Date:</span></p>
+				<List>
+					{this.renderGoals(goalList)}
+				</List>
+			</div>
+			);	
+		});
+	}
+
+	renderGoals(list){
+		return list.goals.map((goal, index) => {
+			return(
+				<ListItem primaryText={goal.name} secondaryText={goal.description} leftIcon={<Checkbox onCheck={this.incrementGoalsProgress.bind(this, this.state.goals.indexOf(list))}/>} className="hover-transparent"/>
+			);
+		});
+	}
+
+	renderTaskList(){
+		return this.state.tasks.map((task, index) => {
+			return(
+				<ListItem primaryText={task.name} secondaryText={task.description} className="hover-transparent" rightIcon={<ExitIcon style={{fill: "#FF0000"}} onTouchTap={() => this.removeTask(index)} />}/>
+			);
+		});
+	}
+
+	addTask(){
+		let task = {
+			name: this.refs.newTaskName.getValue(),
+			description: this.refs.newTaskDesc.getValue()
+		};
+		document.getElementById('new-task-name').value = '';
+		document.getElementById('new-task-desc').value = '';
+		let tasks = this.state.tasks;
+		tasks.push(task);
+		this.setState({tasks: tasks});
+	}
+
+	removeTask(indexToRemove){
+		let result = this.state.tasks.filter((task, index) => {
+			return index != indexToRemove;
+		});
+		this.setState({tasks: result});
+	}
+
+	saveNewList(){
+		let list = {
+			progress: 0, 
+			name: this.refs.newListName.getValue(), 
+			due: this.state.newListDate, 
+			goals: this.state.tasks
+		};
+		let lists = this.state.goals;
+		lists.push(list);
+		this.setState({goals: lists, addListDialogOpen: false});
+	}
+
+	addNewListDate(e, date){
+		let d = new Date(date);
+		this.updateState("newListDate", d.getMonth()+"/"+d.getDate()+"/"+d.getFullYear());
+	}
+
 	getTabs(){
 		return(
 			<div>
 				<Tabs 
-					inkBarStyle={{backgroundColor: "#00A9E0"}}
+					inkBarStyle={{backgroundColor: "#143A7B"}}
 					tabItemContainerStyle={{backgroundColor: "#FFF"}}
-					contentContainerClassName="profile-tab-content-wrapper"
-					className="tab-split-wrapper">
+					contentContainerClassName="profile-tab-content-wrapper">
+					<Tab className="page-header" label="Career Path" style={{background: "#FFF", color: "#555"}}>
+						<Card style={{padding: "1rem", borderRadius: "0px"}}>
+							<div className="profile-detail-wrapper" style={{overflow: "visible"}}>
+								<h2 style={{textAlign: "center", marginBottom: "1rem", color: "#555", fontSize: "1.5rem"}}>Use the list below to get started on CampusTap and begin your career</h2>
+								<LinearProgress mode="determinate" color="#FCB606" value={this.state.progressValue} />
+								<p style={{marginTop: "1rem", color: "#555"}}><span>Progress: </span>{Math.round(this.state.progressValue)+"%"}<p style={{float: "right"}}> 12/24/16 </p><span style={{float: "right", marginRight: "0.25rem"}}>Due Date:</span></p>
+								<List>
+									{this.renderCareerPath()}
+								</List>
+							</div>
+						</Card>
+					</Tab>
 					<Tab className="page-header" label="About" style={{background: "#FFF", color: "#555"}}>
 						<Card style={{padding: "1rem", borderRadius: "0px"}}>
 							<div className="profile-detail-wrapper" style={{overflow: "visible"}}>
@@ -822,7 +1080,7 @@ class Settings extends Component{
 								{this.state.user.triumphs.map((triumph, index) => {
 									return(
 										<ListItem 
-											leftIcon={<TriumphIcon style={{fill: "#00A9E0"}}/>}
+											leftIcon={<TriumphIcon style={{fill: "#143A7B"}}/>}
 											className="hover-transparent"
 										>{triumph}<ExitIcon onTouchTap={() => this.removeTriumph(triumph)} style={{fill: "#FF0000", verticalAlign: "top", marginLeft: "1rem", marginTop: "-0.3rem"}} />
 										</ListItem>
@@ -958,11 +1216,6 @@ class Settings extends Component{
 							</div>
 						</Card>
 					</Tab>
-					<Tab className="page-header" label="Timeline" style={{background: "#FFF", color: "#555"}}>
-						<div className="profile-detail-wrapper timeline">
-							{this.renderTimeline()}
-						</div>
-					</Tab>
 					<Tab className="page-header" label="E-Portfolio" style={{background: "#FFF", color: "#555"}}>
 						<div className="profile-detail-wrapper" style={{overflow: "initial"}}>
 							<Card style={{padding: "1rem"}}>
@@ -1002,6 +1255,58 @@ class Settings extends Component{
 								</Dialog>
 							</Card>
 						</div>
+					</Tab>
+					<Tab className="page-header" label="Goals" style={{background: "#FFF", color: "#555"}}>
+						<Card style={{padding: "1rem", borderRadius: "0px"}}>
+							<RaisedButton 
+								label="Add New List"
+								primary={true}
+								style={{marginBottom: "1rem"}}
+								onTouchTap={() => this.updateState("addListDialogOpen", true)}
+							/>
+							<Dialog
+								title="Add A New List"
+								actions={[
+									<RaisedButton
+										label="Save"
+										primary={true}
+										onTouchTap={() => this.saveNewList()}
+										style={{marginRight: "1rem"}}
+										disabled={this.state.saveListDisabled}
+									/>,
+									<RaisedButton
+										label="Cancel"
+										primary={false}
+										onTouchTap={() => this.updateState("addListDialogOpen", false)}
+									/>]
+								}
+								modal={false}
+								open={this.state.addListDialogOpen}
+								onRequestClose={() => this.updateState("addListDialogOpen", false)}
+								>
+									<TextField floatingLabelText="List Name" ref="newListName" style={{width: "60%"}} onBlur={() => this.updateState("saveListDisabled", false)}/>
+									<DatePicker
+										hintText="Due Date"
+										firstDayOfWeek={0}
+										formatDate={new DateTimeFormat('en-US', {
+											day: 'numeric',
+											month: 'long',
+											year: 'numeric',
+										}).format}
+										style={{float: "right", marginTop: "1.5rem"}}
+										onChange={(event, date) => this.addNewListDate(event, date)}
+									/>
+									<TextField floatingLabelText="Task Name" fullWidth={true} ref="newTaskName" id="new-task-name"/>
+									<TextField floatingLabelText="Task Description" multiLine={true} style={{width: "75%"}} rowsMax={4} ref="newTaskDesc" id="new-task-desc"/>
+									<RaisedButton label="Add Task" onTouchTap={() => this.addTask()} style={{float: "right", marginTop: "3rem"}}/>
+									<List>
+										{this.renderTaskList()}
+									</List>	
+								</Dialog>
+							<div className="profile-detail-wrapper" style={{overflow: "overlay"}}>
+								{this.renderGoalsList()}
+							</div>
+						</Card>
 					</Tab>
 				</Tabs>
 			</div>

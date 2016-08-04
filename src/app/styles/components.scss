@@ -258,3 +258,20 @@
 		right: 1rem !important;
 	}
 }
+.filepicker-document-image{
+	position: absolute;
+	left: 1.5rem;
+	bottom: 15.5rem;
+	height: 2.25rem;
+	width: 15rem;
+}
+.filepicker-document{
+	position: absolute;
+	left: 17rem;
+	bottom: 15.5rem;
+	height: 2.25rem;
+	width: 11rem;
+}
+.fp__overlay{
+	z-index: 1501 !important;
+}

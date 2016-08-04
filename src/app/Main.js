@@ -18,7 +18,7 @@ const muiTheme = getMuiTheme({
 		pickerHeaderColor: "#143A7B",
 	},
 	datePicker: {
-		selectColor: "#00A9E0",
+		selectColor: "#143A7B",
 	}
 });
 

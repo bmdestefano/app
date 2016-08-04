@@ -41,7 +41,7 @@ let TwitterIcon = require('babel!svg-react!../../img/twitter-icon.svg?name=Twitt
 let LinkedinIcon = require('babel!svg-react!../../img/linkedin-icon.svg?name=LinkedinIcon');
 let user = {
 	avatarUrl: "https://www.filepicker.io/api/file/hDvuYs7eSNKDdWDwy4Mr",
-	backgroundUrl: "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F21363263%2F170576045191%2F1%2Foriginal.jpg?w=1000&rect=0%2C578%2C5616%2C2808&s=1b98247e23d2a311eaac71c474d394b1",
+	backgroundUrl: "http://www.bostonlogic.com/wp-content/uploads/2015/03/photodune-2705436-boston-waterfront-m1.jpg",
 	name: "Remy Carpinito",
 	schools: [
 		{name: "Suffolk University", year: "2014", major: "Entrepreneurship", minor: "Spanish", degree: "Bachelor of Arts"},
@@ -222,7 +222,7 @@ class Profile extends Component{
 		return user.areasOfExpertise.map((type, index) => {
 			return(
 				<div key={index} className={"profile-details-subheader expertise-"+(index%3)} style={{marginBottom: "1rem", fontSize: "1.5rem", border: "0", textAlign: "center"}}>
-					<StarIcon style={{fill: "#00A9E0", verticalAlign: "text-top"}}/>{type}
+					<StarIcon style={{fill: "#143A7B", verticalAlign: "text-top"}}/>{type}
 				</div>
 			);
 		});
@@ -260,7 +260,7 @@ class Profile extends Component{
 			return(
 				<Chip
 					key={index}
-					backgroundColor={(tag.match) ? "#EA7600" : "#FFDC66"}
+					backgroundColor={(tag.match) ? "#EA7600" : "#CCC"}
 					labelColor={"#FFF"}
 					style={{textTransform: 'uppercase', float: 'left', marginRight: "10px", marginTop: "10px"}}
 					className="tag-chip"
@@ -412,7 +412,7 @@ class Profile extends Component{
 		return(
 			<div>
 				<Tabs 
-					inkBarStyle={{backgroundColor: "#00A9E0"}}
+					inkBarStyle={{backgroundColor: "#143A7B"}}
 					tabItemContainerStyle={{backgroundColor: "#FFF"}}
 					contentContainerClassName="profile-tab-content-wrapper"
 					className="tab-split-wrapper">
@@ -431,7 +431,7 @@ class Profile extends Component{
 									return(
 										<ListItem 
 											primaryText={triumph}
-											leftIcon={<TriumphIcon style={{fill: "#00A9E0"}}/>}
+											leftIcon={<TriumphIcon style={{fill: "#143A7B"}}/>}
 											className="hover-transparent"
 										/>
 									);
@@ -497,18 +497,13 @@ class Profile extends Component{
 								<div style={{position: "absolute", top: "0.25rem", left: "6.5rem"}}>
 									<div style={{background: "#EA7600", borderRadius: "50%", height: "1rem", width: "1rem", float: "left", marginRight: "0.5rem"}}></div>
 									<p style={{float: "left", fontSize: ".75rem", color: "#AAA", marginRight: "0.5rem"}}>Matched</p>
-									<div style={{background: "#FFDC66", borderRadius: "50%", height: "1rem", width: "1rem", float: "left", marginRight: "0.5rem"}}></div>
+									<div style={{background: "#CCC", borderRadius: "50%", height: "1rem", width: "1rem", float: "left", marginRight: "0.5rem"}}></div>
 									<p style={{float: "left", fontSize: ".75rem", color: "#AAA", marginRight: "0.5rem"}}>Unmatched</p>
 								</div>
 								{this.renderTags()}
 							</div>
 							
 						</Card>
-					</Tab>
-					<Tab className="page-header" label="Timeline" style={{background: "#FFF", color: "#555"}}>
-						<div className="profile-detail-wrapper timeline">
-							{this.renderTimeline()}
-						</div>
 					</Tab>
 					<Tab className="page-header" label="E-Portfolio" style={{background: "#FFF", color: "#555"}}>
 						<div className="profile-detail-wrapper" style={{overflow: "initial"}}>
@@ -587,10 +582,10 @@ class Profile extends Component{
 						/>
 						<div style={{float: "right"}}>
 							<RaisedButton label="Send" primary={true} style={{marginTop: "1rem", marginRight: "1rem"}} onTouchTap={() => this.handleSendConnection()}/>
-							<RaisedButton label="Cancel" style={{marginTop: "1rem", marginRight: "1rem", color: "#00A9E0"}} onTouchTap={() => this.handleConnectDialogClose()}/>
+							<RaisedButton label="Cancel" style={{marginTop: "1rem", marginRight: "1rem", color: "#143A7B"}} onTouchTap={() => this.handleConnectDialogClose()}/>
 						</div>
 					</Dialog>
-					<RaisedButton label="Message" style={{color: "#00A9E0"}} onTouchTap={() => this.handleMessageDialogOpen()}/>
+					<RaisedButton label="Message" style={{color: "#143A7B"}} onTouchTap={() => this.handleMessageDialogOpen()}/>
 					<Dialog
 						title={
 							<div>
@@ -620,7 +615,7 @@ class Profile extends Component{
 						/>
 						<div style={{float: "right"}}>
 							<RaisedButton label="Send" primary={true} style={{marginTop: "1rem", marginRight: "1rem"}} onTouchTap={() => this.handleSendMessage()}/>
-							<RaisedButton label="Cancel" style={{marginTop: "1rem", marginRight: "1rem", color: "#00A9E0"}} onTouchTap={() => this.handleMessageDialogClose()}/>
+							<RaisedButton label="Cancel" style={{marginTop: "1rem", marginRight: "1rem", color: "#143A7B"}} onTouchTap={() => this.handleMessageDialogClose()}/>
 						</div>
 					</Dialog>
 				</div>
