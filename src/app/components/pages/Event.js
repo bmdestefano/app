@@ -25,6 +25,21 @@ let FacebookIcon = require('babel!svg-react!../../img/facebook-icon.svg?name=Fac
 let TwitterIcon = require('babel!svg-react!../../img/twitter-icon.svg?name=TwitterIcon');
 let LinkedinIcon = require('babel!svg-react!../../img/linkedin-icon.svg?name=LinkedinIcon');
 let EmailIcon = require('babel!svg-react!../../img/email-icon.svg?name=EmailIcon');
+require('../../styles/import.scss');
+
+const muiTheme = getMuiTheme({
+	palette: {
+		primary1Color: "#00A9E0",
+		accent1Color: "#EA7600",
+		pickerHeaderColor: "#00A9E0",
+	},
+	datePicker: {
+		selectColor: "#00A9E0",
+	}
+});
+
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 const heroDetails = {
 	title: "School of Management Networking Night", 
@@ -172,186 +187,188 @@ class Main extends Component {
 
 	render() {
 		return (
-			<div>
-				<Hero 
-					image="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F21363263%2F170576045191%2F1%2Foriginal.jpg?w=1000&rect=0%2C578%2C5616%2C2808&s=1b98247e23d2a311eaac71c474d394b1"
-					details={heroDetails} />
-				<Card className="keep-center">
-					<div className="content">
-						<div className="page-header">
-							<div className="page-header--icon-wrapper">
-								{this.renderBookmark()}
-								<Snackbar 
-									open={this.state.snackbarOpen}
-									message={(this.state.eventSaved) ? "Event saved" : "Event removed"}
-									autoHideDuration={5000}
-								/>
-							</div>
-							<div className="page-header--details-wrapper">
-								<div className="page-header--details">
-									<p className="event-price">FREE - $20</p>
-									<div className="event-register-btn-wrapper">
-										<button onClick={this.handleDialogOpen.bind(this, 'registerDialogOpen')} className="btn-rounded-secondary">Register</button>
+			<MuiThemeProvider muiTheme={muiTheme}>
+				<div>
+					<Hero 
+						image="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F21363263%2F170576045191%2F1%2Foriginal.jpg?w=1000&rect=0%2C578%2C5616%2C2808&s=1b98247e23d2a311eaac71c474d394b1"
+						details={heroDetails} />
+					<Card className="keep-center">
+						<div className="content">
+							<div className="page-header">
+								<div className="page-header--icon-wrapper">
+									{this.renderBookmark()}
+									<Snackbar 
+										open={this.state.snackbarOpen}
+										message={(this.state.eventSaved) ? "Event saved" : "Event removed"}
+										autoHideDuration={5000}
+									/>
+								</div>
+								<div className="page-header--details-wrapper">
+									<div className="page-header--details">
+										<p className="event-price">FREE - $20</p>
+										<div className="event-register-btn-wrapper">
+											<button onClick={this.handleDialogOpen.bind(this, 'registerDialogOpen')} className="btn-rounded-secondary">Register</button>
+										</div>
+										<Dialog
+											title="Register"
+											modal={false}
+											open={this.state.registerDialogOpen}
+											actions={
+												<div style={{overflow: "overlay"}}>
+													<button onClick={this.handleDialogClose.bind(this)} className="btn-rounded-secondary" style={{float: "right"}} disabled={this.isCheckoutDisabled()}>
+														Checkout
+													</button>
+												</div>
+											}
+											onRequestClose={this.handleDialogClose.bind(this, 'registerDialogOpen')}>
+											<List>
+												<ListItem
+													primaryText="Ticket 1"
+													secondaryText="Free"
+													style={{borderLeft: "3px solid #CCC", marginBottom: "1rem"}}
+													rightToggle={this.getTicketDropdown('ticket1')} />
+												<ListItem
+													primaryText="Ticket 2"
+													secondaryText="$20"
+													style={{borderLeft: "3px solid #CCC", marginBottom: "1rem"}}
+													rightToggle={this.getTicketDropdown('ticket2')} />	
+											</List>
+										</Dialog>
 									</div>
+								</div>
+							</div>
+							<div className="page">
+								<p className="page-label">About</p>
+								<div className="page-content">
+									<p>Knausgaard roof party lo-fi tilde lomo. Church-key offal flexitarian tote bag, cardigan gastropub echo park single-origin coffee fap gluten-free dreamcatcher gochujang. Celiac four loko cred cardigan cray direct trade. Venmo gluten-free art party hoodie, craft beer ramps crucifix tofu bespoke etsy tacos 90's master cleanse. Jean shorts +1 fap tumblr umami, slow-carb cray pickled bushwick ramps before they sold out iPhone vinyl.</p>
+									<p>Tofu kombucha cardigan, migas before they sold out sustainable scenester asymmetrical. Health goth migas kale chips, hoodie 3 wolf moon man bun lo-fi squid irony yr occupy farm-to-table franzen. Single-origin coffee YOLO chia everyday carry, cold-pressed skateboard authentic gastropub schlitz ethical tacos bicycle rights polaroid green juice scenester. Williamsburg plaid fap, blog gluten-free selvage iPhone pinterest stumptown DIY kale chips 8-bit sriracha bushwick. Photo booth godard meditation green juice stumptown fanny pack brunch. Paleo umami shabby chic meh normcore, yuccie banh mi. +1 hammock everyday carry, put a bird on it fashion axe williamsburg plaid vinyl bushwick semiotics.</p>
+								</div>
+								<p className="page-label">When</p>
+								<div className="page-content">
+									<p>Friday, August 7th, 2016 at 9:00 PM (EST) - <a onClick={this.handleDialogOpen.bind(this, 'calendarDialog')}>Add Event to My Calendar</a></p>
 									<Dialog
-										title="Register"
+										title="Add to Calendar"
 										modal={false}
-										open={this.state.registerDialogOpen}
-										actions={
-											<div style={{overflow: "overlay"}}>
-												<button onClick={this.handleDialogClose.bind(this)} className="btn-rounded-secondary" style={{float: "right"}} disabled={this.isCheckoutDisabled()}>
-													Checkout
-												</button>
-											</div>
-										}
-										onRequestClose={this.handleDialogClose.bind(this, 'registerDialogOpen')}>
-										<List>
+										open={this.state.calendarDialog}
+										onRequestClose={this.handleDialogClose.bind(this, 'calendarDialog')}>
+										<List className="add-to-calendar">
 											<ListItem
-												primaryText="Ticket 1"
-												secondaryText="Free"
-												style={{borderLeft: "3px solid #CCC", marginBottom: "1rem"}}
-												rightToggle={this.getTicketDropdown('ticket1')} />
+												primaryText="Apple Mail"
+												leftIcon={<AppleIcon />}
+												rightIcon={<RightArrowIcon />} />
 											<ListItem
-												primaryText="Ticket 2"
-												secondaryText="$20"
-												style={{borderLeft: "3px solid #CCC", marginBottom: "1rem"}}
-												rightToggle={this.getTicketDropdown('ticket2')} />	
+												primaryText="Google Mail"
+												leftIcon={<GoogleIcon />}
+												rightIcon={<RightArrowIcon />} />
+											<ListItem
+												primaryText="Yahoo Mail"
+												leftIcon={<YahooIcon />}
+												rightIcon={<RightArrowIcon />} />
+											<ListItem
+												primaryText="Outlook Mail"
+												leftIcon={<OutlookIcon />}
+												rightIcon={<RightArrowIcon />} />		
 										</List>
 									</Dialog>
 								</div>
-							</div>
-						</div>
-						<div className="page">
-							<p className="page-label">About</p>
-							<div className="page-content">
-								<p>Knausgaard roof party lo-fi tilde lomo. Church-key offal flexitarian tote bag, cardigan gastropub echo park single-origin coffee fap gluten-free dreamcatcher gochujang. Celiac four loko cred cardigan cray direct trade. Venmo gluten-free art party hoodie, craft beer ramps crucifix tofu bespoke etsy tacos 90's master cleanse. Jean shorts +1 fap tumblr umami, slow-carb cray pickled bushwick ramps before they sold out iPhone vinyl.</p>
-								<p>Tofu kombucha cardigan, migas before they sold out sustainable scenester asymmetrical. Health goth migas kale chips, hoodie 3 wolf moon man bun lo-fi squid irony yr occupy farm-to-table franzen. Single-origin coffee YOLO chia everyday carry, cold-pressed skateboard authentic gastropub schlitz ethical tacos bicycle rights polaroid green juice scenester. Williamsburg plaid fap, blog gluten-free selvage iPhone pinterest stumptown DIY kale chips 8-bit sriracha bushwick. Photo booth godard meditation green juice stumptown fanny pack brunch. Paleo umami shabby chic meh normcore, yuccie banh mi. +1 hammock everyday carry, put a bird on it fashion axe williamsburg plaid vinyl bushwick semiotics.</p>
-							</div>
-							<p className="page-label">When</p>
-							<div className="page-content">
-								<p>Friday, August 7th, 2016 at 9:00 PM (EST) - <a onClick={this.handleDialogOpen.bind(this, 'calendarDialog')}>Add Event to My Calendar</a></p>
-								<Dialog
-									title="Add to Calendar"
-									modal={false}
-									open={this.state.calendarDialog}
-									onRequestClose={this.handleDialogClose.bind(this, 'calendarDialog')}>
-									<List className="add-to-calendar">
-										<ListItem
-											primaryText="Apple Mail"
-											leftIcon={<AppleIcon />}
-											rightIcon={<RightArrowIcon />} />
-										<ListItem
-											primaryText="Google Mail"
-											leftIcon={<GoogleIcon />}
-											rightIcon={<RightArrowIcon />} />
-										<ListItem
-											primaryText="Yahoo Mail"
-											leftIcon={<YahooIcon />}
-											rightIcon={<RightArrowIcon />} />
-										<ListItem
-											primaryText="Outlook Mail"
-											leftIcon={<OutlookIcon />}
-											rightIcon={<RightArrowIcon />} />		
+								<p className="page-label">Where</p>
+								<div className="page-content">
+									<p>CIC Boston Floor 15 - 50 Milk Street, Boston, MA 02110</p>
+								</div>
+								<p className="page-label">Tags</p>
+								<div className="page-content">
+									{this.renderTags()}
+								</div>
+								<p className="page-label">Social Share</p>
+								<div className="social-wrapper">
+									<button className="social-btn facebook">
+										<FacebookIcon />
+									</button>	
+									<button className="social-btn twitter">
+										<TwitterIcon />
+									</button>	
+									<button className="social-btn linkedin">
+										<LinkedinIcon />
+									</button>
+									<button className="social-btn email">
+										<EmailIcon />
+									</button>
+								</div>
+								<hr />
+								<div className="event-map-wrapper">
+									<img width="655" src="http://maps.googleapis.com/maps/api/staticmap?center=Boston,+MA&zoom=13&scale=1&size=600x300&maptype=roadmap&format=png&visual_refresh=true&markers=size:mid%7Ccolor:0xec7600%7Clabel:%7CBoston,+MA" alt="Google Map of Boston, MA" />
+									<div className="event-venue">CIC Boston Floor 15</div>
+									<div className="event-address">50 Milk Street, Boston, MA 02110</div>
+									<div className="event-map-directions">
+										<a className="event-direction-wrapper">
+											<WalkIcon />
+											Walk
+										</a>
+										<a className="event-direction-wrapper">
+											<BikeIcon />
+											Bike
+										</a>
+										<a className="event-direction-wrapper">
+											<DriveIcon />
+											Drive
+										</a>
+										<a className="event-direction-wrapper">
+											<SubwayIcon />
+											Subway
+										</a>
+									</div>
+								</div>
+								<hr />
+								<p className="page-label">Attendees</p>
+								<div className="page-content event-attendees-wrapper">
+									<List className="attendees-preview" style={{overflow: "overlay"}}>
+										{this.renderAttendees(attendeeShowCount)}
 									</List>
-								</Dialog>
-							</div>
-							<p className="page-label">Where</p>
-							<div className="page-content">
-								<p>CIC Boston Floor 15 - 50 Milk Street, Boston, MA 02110</p>
-							</div>
-							<p className="page-label">Tags</p>
-							<div className="page-content">
-								{this.renderTags()}
-							</div>
-							<p className="page-label">Social Share</p>
-							<div className="social-wrapper">
-								<button className="social-btn facebook">
-									<FacebookIcon />
-								</button>	
-								<button className="social-btn twitter">
-									<TwitterIcon />
-								</button>	
-								<button className="social-btn linkedin">
-									<LinkedinIcon />
-								</button>
-								<button className="social-btn email">
-									<EmailIcon />
-								</button>
-							</div>
-							<hr />
-							<div className="event-map-wrapper">
-								<img width="655" src="http://maps.googleapis.com/maps/api/staticmap?center=Boston,+MA&zoom=13&scale=1&size=600x300&maptype=roadmap&format=png&visual_refresh=true&markers=size:mid%7Ccolor:0xec7600%7Clabel:%7CBoston,+MA" alt="Google Map of Boston, MA" />
-								<div className="event-venue">CIC Boston Floor 15</div>
-								<div className="event-address">50 Milk Street, Boston, MA 02110</div>
-								<div className="event-map-directions">
-									<a className="event-direction-wrapper">
-										<WalkIcon />
-										Walk
-									</a>
-									<a className="event-direction-wrapper">
-										<BikeIcon />
-										Bike
-									</a>
-									<a className="event-direction-wrapper">
-										<DriveIcon />
-										Drive
-									</a>
-									<a className="event-direction-wrapper">
-										<SubwayIcon />
-										Subway
-									</a>
+									{(attendeeShowCount < Object.keys(attendees).length 
+										&& <a onClick={this.handleDialogOpen.bind(this, 'attendeesDialog')} style={{margin: "1rem auto", width: "100%", display: "block", textAlign: "center"}}>See All Attendees</a>)}
+									<Dialog
+										title="All Attendees"
+										modal={false}
+										open={this.state.attendeesDialog}
+										onRequestClose={this.handleDialogClose.bind(this, 'attendeesDialog')}>
+										<TextField
+											hintText="Search for attendees by name"
+											fullWidth={true}
+											onChange={(e) => this.searchUsers(e)}
+											inputStyle={{color: "#555"}}
+										/>
+										<List className="attendees-dialog-wrapper">
+											{this.renderAttendees()}
+										</List>
+									</Dialog>
+								</div>
+								<hr />
+								<p className="page-label">Suggested Events</p>
+								<div className="page-content suggested-events-wrapper">
+									<GridList
+										cols={2}
+										cellHeight={200}
+										padding={1}
+									>
+										{suggestedEvents.map((event) =>(
+											<GridTile
+												key={event.id}
+												title={(event.maxPrice) ? (event.name+" ("+event.price+" - "+event.maxPrice+")") : (event.name+" ("+event.price+")")}
+												titlePosition="top"
+												titleBackground="linear-gradient(to bottom, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)"
+												cols={event.featured ? 2 : 1}
+												rows={1}
+											>
+												<img style={{background: "url("+event.image+") no-repeat center/cover"}} />
+											</GridTile>	
+										))}
+									</GridList>
 								</div>
 							</div>
-							<hr />
-							<p className="page-label">Attendees</p>
-							<div className="page-content event-attendees-wrapper">
-								<List className="attendees-preview" style={{overflow: "overlay"}}>
-									{this.renderAttendees(attendeeShowCount)}
-								</List>
-								{(attendeeShowCount < Object.keys(attendees).length 
-									&& <a onClick={this.handleDialogOpen.bind(this, 'attendeesDialog')} style={{margin: "1rem auto", width: "100%", display: "block", textAlign: "center"}}>See All Attendees</a>)}
-								<Dialog
-									title="All Attendees"
-									modal={false}
-									open={this.state.attendeesDialog}
-									onRequestClose={this.handleDialogClose.bind(this, 'attendeesDialog')}>
-									<TextField
-										hintText="Search for attendees by name"
-										fullWidth={true}
-										onChange={(e) => this.searchUsers(e)}
-										inputStyle={{color: "#555"}}
-									/>
-									<List className="attendees-dialog-wrapper">
-										{this.renderAttendees()}
-									</List>
-								</Dialog>
-							</div>
-							<hr />
-							<p className="page-label">Suggested Events</p>
-							<div className="page-content suggested-events-wrapper">
-								<GridList
-									cols={2}
-									cellHeight={200}
-									padding={1}
-								>
-									{suggestedEvents.map((event) =>(
-										<GridTile
-											key={event.id}
-											title={(event.maxPrice) ? (event.name+" ("+event.price+" - "+event.maxPrice+")") : (event.name+" ("+event.price+")")}
-											titlePosition="top"
-											titleBackground="linear-gradient(to bottom, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)"
-											cols={event.featured ? 2 : 1}
-											rows={1}
-										>
-											<img style={{background: "url("+event.image+") no-repeat center/cover"}} />
-										</GridTile>	
-									))}
-								</GridList>
-							</div>
 						</div>
-					</div>
-				</Card>
-			</div>
+					</Card>
+				</div>
+			</MuiThemeProvider>
 		);
 	}
 }

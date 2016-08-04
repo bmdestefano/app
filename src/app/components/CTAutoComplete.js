@@ -13,7 +13,11 @@ class CTAutoComplete extends Component{
 	}
 
 	addTag(request, index){
+<<<<<<< HEAD
 		this.refs.autoCompleteInput.value = '';
+=======
+		this.setState({searchText: ''});
+>>>>>>> 4ac7a1edcf475c243809ff5e1dee06f3eaaa1ac6
 
 		const tags = this.state.activeTags;
 

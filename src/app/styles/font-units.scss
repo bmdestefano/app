@@ -113,3 +113,29 @@
 		float: right;
 	}
 }
+.authenticate-header{
+	text-align: center;
+	font-size: 2rem;
+	font-weight: 500;
+	color: $text-dark-grey;
+	margin-top: 1rem;
+}
+.request-account{
+	text-align: right;
+	font-size: .85rem;
+	color: $brand-color;
+}
+.forgot-password{
+	text-align: left;
+	font-size: .85rem;
+	color: $brand-color;
+}
+.required-field{
+	font-size: 0.5rem;
+}
+.authenticate-header{
+	text-align: center;
+	font-size: 1.5rem;
+	font-weight: 400;
+	margin-bottom: 1rem;
+}
