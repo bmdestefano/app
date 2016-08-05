@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router';
+import School from '../models/School';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 
+import FullBackground from './FullBackground';
 import Login from './Login';
 import Register from './Register';
 import PersonalInfo from './PersonalInfo';
@@ -23,12 +25,12 @@ require('../styles/import.scss');
 
 const muiTheme = getMuiTheme({
 	palette: {
-		primary1Color: "#143A7B",
-		accent1Color: "#FCB606",
-		pickerHeaderColor: "#143A7B",
+		primary1Color: School.primaryColor,
+		accent1Color: School.secondaryColor,
+		pickerHeaderColor: School.primaryColor,
 	},
 	datePicker: {
-		selectColor: "#143A7B",
+		selectColor: School.primaryColor,
 	}
 });
 
@@ -78,8 +80,8 @@ class Authentication extends Component{
 		return(
 			<div>
 				<AuthenticateLargeHeader 
-					logoUrl="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTU6xTuPALE2X4rM7vryx06LT0fl0IDJcjo853v0uUJEtCKgMNr4GdfnA"
-					schoolName="Southern New Hampshire University"
+					logoUrl={School.logo}
+					schoolName={School.name}
 				/>
 				<TextField
 					floatingLabelText="E-mail"
@@ -199,11 +201,17 @@ class Authentication extends Component{
 	render(){
 		return(
 			<MuiThemeProvider muiTheme={muiTheme}>
-				<div style={{height: "100vh", background: "url('https://s3.amazonaws.com/campustapstaging/FrxPdjEiTE22uFBTYC3h_6406608eb1c847c08ec8b3e81915dc3a.png') no-repeat center/cover"}}>
-				<Link to="event" style={{position: "fixed", right: "0"}}>Event</Link>
-				<Dialog className="authenticate-wrapper" open={true} contentClassName="js-authenticate-wrapper" contentStyle={{maxWidth: "25rem", marginBottom: "4rem"}}>
-					{this.renderView()}
-				</Dialog>
+				<div>
+					<FullBackground
+						image={School.authenticateSplashBackgroundUrl}
+					/>
+					<Dialog 
+						className="authenticate-wrapper" 
+						open={true} 
+						contentClassName="js-authenticate-wrapper" 
+						contentStyle={{maxWidth: "25rem", marginBottom: "4rem"}}>
+						{this.renderView()}
+					</Dialog>
 				</div>
 			</MuiThemeProvider>
 		);

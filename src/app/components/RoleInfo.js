@@ -32,16 +32,24 @@ class RoleInfo extends Component{
 		return(
 			<div>
 				<h2 className="authenticate-header">Your Role</h2>
-				<p style={{textAlign: "center"}}>Select how you would like to participate in CampusTap</p>
+				<p className="text-center">Select how you would like to participate in CampusTap</p>
 				<List>
-					<ListItem primaryText="Mentor" className="js-role-choice" data-index="0" onTouchTap={(e) => this.handleRoleChange(e)}/>
-					<ListItem primaryText="Mentee" className="js-role-choice" data-index="1" onTouchTap={(e) => this.handleRoleChange(e)} />
+					<ListItem 
+						primaryText="Mentor" 
+						className="js-role-choice" 
+						data-index="0" 
+						onTouchTap={(e) => this.handleRoleChange(e)}/>
+					<ListItem 
+						primaryText="Mentee" 
+						className="js-role-choice" 
+						data-index="1" 
+						onTouchTap={(e) => this.handleRoleChange(e)} />
 				</List>
 				<FlatButton
 					label="Continue"
 					primary={true}
 					disabled={(this.state.chosenRole != null) ? false : true}
-					style={{float: "right", margin: "1rem 0 0 1rem"}}
+					className="lower-right-btn"
 					onTouchTap={() => this.props.changeView('currentView','givingBack')}
 				/>
 			</div>

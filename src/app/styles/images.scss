@@ -1,11 +1,3 @@
-.page-header--icon{
-	position: relative;
-	float: left;
-	width: 2rem !important;
-	height: 2rem !important;
-	fill: $brand-color !important;
-	margin: 1rem;
-}
 .add-to-calendar{
 	//to target svg wrapper
 	div{
@@ -24,6 +16,73 @@
 		margin-right: 1rem;
 		margin-left: 1rem;
 	}
+}
+.authenticate-add-another-school{
+	fill: $text-dark-grey !important;
+}
+.authenticate-avatar{
+	margin: 1rem auto; 
+	display: block !important;
+	border: 1px solid $text-dark-grey;
+}
+.authenticate-icon{
+	width: 2rem;
+	height: 2rem;
+	fill: $text-dark-grey;
+	margin: 0 0.5rem;
+	g[id^="Layer"]{
+		fill: $text-dark-grey !important;
+	}
+}
+.authenticate-icons-wrapper{
+	margin: 1rem auto 0;
+	width: 12rem;
+}
+.avatar-override{
+	border: 1px solid #CCC !important;
+	background: transparent !important;
+}
+.logo--header{
+	margin-left: 1rem;
+	margin-top: 0.25rem;
+}
+.open-portfolio-dialog{
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: 3rem !important;
+	height: 3rem !important;
+	fill: #FFF !important;
+	margin-left: -1.5rem;
+	margin-top: -1.5rem;
+	background: rgba(0,0,0,.7);
+	border-radius: 0.75rem;
+	&:hover{
+		width: 3.25rem !important;
+		height: 3.25rem !important;
+		margin-left: -1.625rem;
+		margin-right: -1.625rem;
+	}
+}
+.page-header--icon{
+	position: relative;
+	float: left;
+	width: 2rem !important;
+	height: 2rem !important;
+	fill: $brand-color !important;
+	margin: 1rem;
+}
+.profile-comment{
+	img{
+		width: 2rem;
+		@include border-radius(50%);
+		float: left;
+	}
+}
+.profile-header-icon{
+	fill: #CCC;
+	vertical-align: bottom;
+	margin-right: 0.5rem;
 }
 .profile-img{
 	max-width: 15.13rem;
@@ -50,44 +109,8 @@
 		}
 	}
 }
-.profile-comment{
-	img{
-		width: 2rem;
-		@include border-radius(50%);
-		float: left;
+.quiz-circle{
+	circle{
+		stroke: $brand-color !important;
 	}
-}
-.open-portfolio-dialog{
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	width: 3rem !important;
-	height: 3rem !important;
-	fill: #FFF !important;
-	margin-left: -1.5rem;
-	margin-top: -1.5rem;
-	background: rgba(0,0,0,.7);
-	border-radius: 0.75rem;
-	&:hover{
-		width: 3.25rem !important;
-		height: 3.25rem !important;
-		margin-left: -1.625rem;
-		margin-right: -1.625rem;
-	}
-}
-.authenticate-icon{
-	width: 2rem;
-	height: 2rem;
-	fill: $text-dark-grey;
-	margin: 0 0.5rem;
-	g[id^="Layer"]{
-		fill: $text-dark-grey !important;
-	}
-}
-.avatar-override{
-	border: 1px solid #CCC !important;
-	background: transparent !important;
-}
-.authenticate-add-another-school{
-	fill: $text-dark-grey !important;
 }

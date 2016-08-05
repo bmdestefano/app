@@ -2,6 +2,11 @@ import React, {Component} from 'react';
 import _ from 'underscore';
 import ReactFilepicker from 'react-filepicker';
 import areIntlLocalesSupported from 'intl-locales-supported';
+import User from '../../models/User';
+import School from '../../models/School';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+
 import {List, ListItem} from 'material-ui/List';
 import RaisedButton from 'material-ui/RaisedButton';
 import Dialog from 'material-ui/Dialog';
@@ -49,138 +54,17 @@ import CTAutoComplete from '../CTAutoComplete';
 let FacebookIcon = require('babel!svg-react!../../img/facebook-icon.svg?name=FacebookIcon');
 let TwitterIcon = require('babel!svg-react!../../img/twitter-icon.svg?name=TwitterIcon');
 let LinkedinIcon = require('babel!svg-react!../../img/linkedin-icon.svg?name=LinkedinIcon');
-let user = {
-	avatarUrl: "https://www.filepicker.io/api/file/hDvuYs7eSNKDdWDwy4Mr",
-	name: "Remy Carpinito",
-	schools: [
-		{name: "Suffolk University", year: "2014", major: "Entrepreneurship", minor: "Spanish", degree: "Bachelor of Arts"},
-		{name: "Emerson College", year: "2015", major: "Finance", degree: "Graduate Degree"}
-	],
-	experience: [
-		{company: "CampusTap", startYear: "2014", position: "CEO"},
-		{company: "Fidelity", startYear: "2013", endYear: "2014", position: "Systems Analyst Intern"},
-	],
-	city: "Reading",
-	state: "MA",
-	description: "I am a Senior at CampusTap University and I am candidate for a Bachelor of Science degree in Economics-Finance with a minor in Computer Information Systems. I have an interest in finance, wealth management and asset management. I am involved with the CampusTap Investment Group and the club hockey team. I am looking for advice on applying to full time investment banking positions post graduation.",
-	bestAdvice: "Shoreditch yr taxidermy, retro kale chips roof party lumbersexual normcore bicycle rights selvage brooklyn neutra +1 williamsburg street art. Synth humblebrag vegan squid tote bag, neutra next level gluten-free +1 seitan tilde viral microdosing tofu tacos.",
-	triumphs: ["Founded company at age 19", "Named Boston's Top 20 Under 20", "Graduated College at age 16"],
-	authenticatedNetworks: [
-		{name: "Facebook", image: <FacebookIcon />, url: "http://path/to/fbook"},
-		{name: "Linkedin", image: <LinkedinIcon />, url: "http://path/to/linkedin"}
-	],
-	tags: [
-		{key: 4, label: "boston"}, 
-		{key: 5, label: "history"}, 
-		{key: 6, label: "wellness"}, 
-		{key: 7, label: "dance"}, 
-		{key: 8, label: "technology", match: true}, 
-		{key: 9, label: "running", match: true}, 
-		{key: 10, label: "biotechnology", match: false}, 
-		{key: 11, label: "business", match: true}, 
-		{key: 12, label: "data", match: false}, 
-		{key: 13, label: "research", match: true}, 
-		{key: 15, label: "jazz", match: false}, 
-		{key: 16, label: "engineering", match: true}, 
-		{key: 66, label: "health", match: true}
-	],
-	areasOfExpertise: ["Resume Reviews", "Informational Interviews", "General Career Advice"],
-	currentStatus: "CEO of CampusTap",
-	timeline: [
-		{
-			type: "post", 
-			posted: "1d", 
-			content: "Hello everyone! I am a Corporate Finance and Accounting major, class of 2017. I am looking for mentors within the tech space, as I am trying to launch and app and am in need of someone with a background in app development to help me out. If you, or someone you know is an experienced developer/coder please ask me for contact information and I would be more than happy to share that with you.",
-			favoriteCount: 13,
-			commentCount: 3,
-			comments: [
-				{name: "Jackie Judy", avatarUrl: "https://randomuser.me/api/portraits/med/women/53.jpg", posted: "5d", content: "Hello everyone! I am a Corporate Finance and Accounting major, class of 2017. I am looking for mentors within the tech space, as I am trying to launch and app and am in need of someone with a background in app development to help me out."},
-				{name: "John Judy", avatarUrl: "https://randomuser.me/api/portraits/med/men/53.jpg", posted: "3d", content: "Hello everyone! I am a Corporate Finance and Accounting major, class of 2017."},
-				{name: "Jake Doe", avatarUrl: "https://randomuser.me/api/portraits/med/men/43.jpg", posted: "1d", content: "Great post."},
-			],
-		},
-		{
-			type: "comment",
-			posted: "3d",
-			content: "Hello everyone! I am a Corporate Finance and Accounting major, class of 2017. I am looking for mentors within the tech space, as I am trying to launch and app and am in need of someone with a background in app development to help me out. If you, or someone you know is an experienced developer/coder please ask me for contact information and I would be more than happy to share that with you."
-		},
-		{
-			type: "post", 
-			posted: "5d", 
-			content: "https://www.youtube.com/embed/zNdkrtfZP8I",
-			favoriteCount: 3,
-			commentCount: 0,
-			comments: [
-				{name: "Jackie Judy", avatarUrl: "https://randomuser.me/api/portraits/med/women/53.jpg", posted: "5d", content: "Hello everyone! I am a Corporate Finance and Accounting major, class of 2017. I am looking for mentors within the tech space, as I am trying to launch and app and am in need of someone with a background in app development to help me out."},
-				{name: "John Judy", avatarUrl: "https://randomuser.me/api/portraits/med/men/53.jpg", posted: "3d", content: "Hello everyone! I am a Corporate Finance and Accounting major, class of 2017."},
-				{name: "Jake Doe", avatarUrl: "https://randomuser.me/api/portraits/med/men/43.jpg", posted: "1d", content: "Great post."},
-			],
-		},
-	],
-	documents: [
-		{
-			title: "Remy Carpinito's Resume",
-			type: "resume",
-			uploadedDate: "6/15/16",
-			image: "https://s3-us-west-1.amazonaws.com/ctap-testing/resume.jpg",
-			description: "Hello everyone! I am a Corporate Finance and Accounting major, class of 2017. I am looking for mentors within the tech space, as I am trying to launch and app and am in need of someone with a background in app development to help me out. If you, or someone you know is an experienced developer/coder please ask me for contact information and I would be more than happy to share that with you.",
-			document: "/path/to/doc.pdf"
-		},
-		{
-			title: "Remy Carpinito's Cover Letter",
-			type: "cover-letter",
-			uploadedDate: "6/15/16",
-			image: "https://s3-us-west-1.amazonaws.com/ctap-testing/coverLetter.jpg",
-			description: "Hello everyone! I am a Corporate Finance and Accounting major, class of 2017. I am looking for mentors within the tech space, as I am trying to launch and app and am in need of someone with a background in app development to help me out. If you, or someone you know is an experienced developer/coder please ask me for contact information and I would be more than happy to share that with you.",
-			document: "/path/to/doc.pdf"
-		},
-		{
-			title: "Twitter Redesign Project",
-			type: "project",
-			uploadedDate: "5/12/16",
-			image: "https://s3-us-west-1.amazonaws.com/ctap-testing/twitterredesign.png",
-			description: "This is a project I made for CS 560 as my final project.",
-			document: "/path/to/doc.pdf"
-		},
-		{
-			title: "Connect4 Python Project",
-			type: "project",
-			uploadedDate: "5/21/16",
-			image: "https://nulogy.com/wp-content/uploads/2014/11/javascript-function-redux-es6-2.jpg",
-			description: "This is a project I made for CS 587. It is a working Connect4 game made in Python.",
-			document: "/path/to/doc.pdf"
-		},
-		{
-			title: "Digital Marketing Project",
-			type: "other",
-			uploadedDate: "4/11/16",
-			image: "https://s3-us-west-1.amazonaws.com/ctap-testing/marketingthing.jpg",
-			description: "This is my final digital marketing project for MKT 610.",
-			document: "/path/to/doc.pdf"
-		}
-	],
-	connections : [
-		{id: 0, name: "John Doe", major: "Accounting", grad: "2010", image: "https://randomuser.me/api/portraits/med/men/83.jpg"},
-		{id: 1, name: "Sam Smith", major: "Marketing", grad: "2015", image: "https://randomuser.me/api/portraits/med/men/53.jpg"},
-		{id: 2, name: "Jim James", major: "Finance", grad: "2011", image: "https://randomuser.me/api/portraits/med/men/23.jpg"},
-		{id: 3, name: "Sam Torrez", major: "International Relations", grad: "2012", image: "https://randomuser.me/api/portraits/med/women/53.jpg"},
-		{id: 4, name: "James Jones", major: "Entrepreneurship", grad: "2015", image: "https://randomuser.me/api/portraits/med/men/93.jpg"},
-		{id: 5, name: "Bob Barker", major: "Marketing", grad: "2017", image: "https://randomuser.me/api/portraits/med/men/13.jpg"},
-		{id: 6, name: "Geno Smith", major: "Business Administration", grad: "2018", image: "https://randomuser.me/api/portraits/med/men/33.jpg"},
-		{id: 7, name: "Jane Jones", major: "Entrepreneurship", grad: "2015", image: "https://randomuser.me/api/portraits/med/women/93.jpg"},
-		{id: 8, name: "Bobby Barker", major: "Marketing", grad: "2017", image: "https://randomuser.me/api/portraits/med/women/13.jpg"},
-		{id: 9, name: "Jennie Smith", major: "Business Administration", grad: "2018", image: "https://randomuser.me/api/portraits/med/women/33.jpg"},
-	],
-	groups : [
-		{id: 0, name: "Accounting Majors", image: "http://cypresstxcpa.com/media/slider9/bookkeeping.png", members: 46},
-		{id: 1, name: "Baseball Team", image: "http://dailybaseballdata.com/dbd/images/Baseball-Ball.ico", members: 16},
-		{id: 2, name: "Marketing Club", image: "http://static1.squarespace.com/static/55e3cd18e4b06cf73ad26938/t/56f854c090634097447fd4c8/1459225399777/Online+Marketing+Santa+Barbara", members: 13},
-		{id: 3, name: "LGBTQ Guidance", image: "https://s3.amazonaws.com/campustapstaging/2vi484CGQuCrlBUlQLdA_16e8b888982a4ac9833b78b1b6de55fd.png", members: 346},
-		{id: 4, name: "Management 101", image: "https://s3.amazonaws.com/campustapstaging/YmYDZi2jTXe8iu9qhh09_cb71012be3614486a6bac85f286fa007.png", members: 41},
-		{id: 5, name: "Alumni Job Openings", image: "https://s3.amazonaws.com/campustapstaging/GLNMD1XuSgWqVnMbwCNU_d8bead46b947463c89e6ad8e8c2231d7.png", members: 90},
-		{id: 6, name: "Advertising Internships", image: "https://s3.amazonaws.com/campustapstaging/Pf5EayhISPKuwrp5Ml9y_5b0ae10bafe343e1b9bc1a7602cc9c9b.png", members: 46},
-	],
-};
+let user = User;
+const muiTheme = getMuiTheme({
+	palette: {
+		primary1Color: School.primaryColor,
+		accent1Color: School.secondaryColor,
+		pickerHeaderColor: School.primaryColor,
+	},
+	datePicker: {
+		selectColor: School.primaryColor,
+	}
+});
 let availableSocialNetworks = [
 	{name: "Facebook", image: <FacebookIcon />},
 	{name: "Twitter", image: <TwitterIcon />},
@@ -295,7 +179,7 @@ class Settings extends Component{
 		);
 	}
 
-	getAvatartImageMarkup(){
+	getAvatarImageMarkup(){
 		return(
 			<div className="profile-img">
 				<img src={this.state.user.avatarUrl} />
@@ -315,7 +199,8 @@ class Settings extends Component{
 				<List className="update-avatar-photo">
 					<ListItem
 						leftIcon={<AddIcon />}
-						primaryText="Update Avatar" />
+						primaryText="Update Avatar"
+						className="text-center" />
 				</List>
 			</div>
 		);
@@ -993,7 +878,7 @@ class Settings extends Component{
 			return (
 			<div className={(index%2 == 0) ? "goals-list-left" : "goals-list-right"} style={{marginBottom: "3rem"}}>
 				<h2 style={{marginBottom: "1rem", fontSize: "1.5rem"}} className="brand-color">{this.state.goals[index].name}</h2>
-				<LinearProgress mode="determinate" color="#FCB606" value={this.state.goals[index].progress} />
+				<LinearProgress mode="determinate" color={muiTheme.palette.accent1Color} value={this.state.goals[index].progress} />
 				<p style={{marginTop: "1rem", color: "#555"}}><span className="brand-color">Progress: </span>{Math.round(this.state.goals[index].progress)+"%"}<p style={{float: "right"}}> {this.state.goals[index].due} </p><span style={{float: "right", marginRight: "0.25rem"}}>Due Date:</span></p>
 				<List>
 					{this.renderGoals(goalList)}
@@ -1059,14 +944,14 @@ class Settings extends Component{
 		return(
 			<div>
 				<Tabs 
-					inkBarStyle={{backgroundColor: "#143A7B"}}
+					inkBarStyle={{backgroundColor: muiTheme.palette.primary1Color}}
 					tabItemContainerStyle={{backgroundColor: "#FFF"}}
 					contentContainerClassName="profile-tab-content-wrapper">
 					<Tab className="page-header" label="My Path" style={{background: "#FFF", color: "#555"}}>
 						<Card style={{padding: "1rem", borderRadius: "0px"}}>
 							<div className="profile-detail-wrapper" style={{overflow: "visible"}}>
-								<h2 style={{textAlign: "center", marginBottom: "1rem", color: "#555", fontSize: "1.5rem"}}>Complete the steps below to jumpstart your <span style={{background: "#143A7B", color: "#FFF", padding: "0 0.5rem"}}>ENGINEERING</span> career</h2>
-								<LinearProgress mode="determinate" color="#FCB606" value={this.state.progressValue} />
+								<h2 style={{textAlign: "center", marginBottom: "1rem", color: "#555", fontSize: "1.5rem"}}>Complete the steps below to jumpstart your <span style={{background: muiTheme.palette.primary1Color, color: "#FFF", padding: "0 0.5rem"}}>ENGINEERING</span> career</h2>
+								<LinearProgress mode="determinate" color={muiTheme.palette.accent1Color} value={this.state.progressValue} />
 								<p style={{marginTop: "1rem", color: "#555"}}><span>Progress: </span>{Math.round(this.state.progressValue)+"%"}<p style={{float: "right"}}> 12/24/16 </p><span style={{float: "right", marginRight: "0.25rem"}}>Due Date:</span></p>
 								<List>
 									{this.renderCareerPath()}
@@ -1075,7 +960,7 @@ class Settings extends Component{
 						</Card>
 					</Tab>
 					<Tab className="page-header" label="About" style={{background: "#FFF", color: "#555"}}>
-						<Card style={{padding: "1rem", borderRadius: "0px"}}>
+						<Card style={{padding: "1rem"}}>
 							<div className="profile-detail-wrapper" style={{overflow: "visible"}}>
 								<h2 className="profile-details-header"><IntroIcon style={{fill:"#CCC", verticalAlign: "bottom", marginRight: "0.5rem"}}/>Intro<span><MapIcon />{this.state.user.city}, {this.state.user.state}</span></h2>
 								<EditableField 
@@ -1340,7 +1225,7 @@ class Settings extends Component{
 			<ProfileRenderer 
 				user={user}
 				heroImageMarkup={this.getHeroImageMarkup()}
-				avatarImageMarkup={this.getAvatartImageMarkup()}
+				avatarImageMarkup={this.getAvatarImageMarkup()}
 				userDetails={this.getUserDetails()}
 				tabs={this.getTabs()}
 			/>

@@ -112,7 +112,7 @@ class Main extends Component {
 					key={tag.key}
 					backgroundColor={"#EA7600"}
 					labelColor={"#FFF"}
-					style={{textTransform: 'uppercase', float: 'left', marginRight: "0.5rem", marginBottom: "1rem"}}
+					className="tag"
 				>{tag.label}</Chip>
 			);
 		});

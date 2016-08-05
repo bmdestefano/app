@@ -1,0 +1,43 @@
+.quiz-options{
+	height: 2.75rem;
+}
+.quiz-radio{
+	width: 20% !important;
+	float: left;
+}
+.quiz-radio > div > div{
+	margin: 0 auto !important;
+}
+.quiz-large-radio{
+	height: 2.75rem !important;
+	& > div{
+		width: 2.75rem !important;
+		& > div{
+			width: 2.75rem !important;
+			height: 2.75rem !important;
+		}
+	}
+	svg{
+		width: 2.75rem !important;
+		height: 2.75rem !important;
+	}
+}
+.quiz-medium-radio{
+	margin-top: 0.25rem;
+	height: 2.125rem !important;
+	padding: 0 0.5rem;
+	& > div{
+		width: 2.125rem !important;
+		& > div{
+			width: 2.125rem !important;
+			height: 2.125rem !important;
+		}
+	}
+	svg{
+		width: 2.125rem !important;
+		height: 2.125rem !important;
+	}
+}
+.quiz-small-radio{
+	margin-top: 0.6rem;
+}

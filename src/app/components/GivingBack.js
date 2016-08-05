@@ -67,13 +67,13 @@ class GivingBack extends Component{
 				<p style={{textAlign: "center"}}>{textByRole[this.state.role].intro}</p>
 				<List>
 					{this.renderOptions()}
-					<ListItem primaryText="Select All" style={{float: "left", width: "50%"}} className="js-choice" onTouchTap={(e) => this.handleChange(e)}/>
-					<ListItem primaryText="Select None" style={{float: "left", width: "50%"}} className="js-choice js-select-none selected" onTouchTap={(e) => this.handleChange(e)}/>
+					<ListItem primaryText="Select All" className="half-left js-choice" onTouchTap={(e) => this.handleChange(e)}/>
+					<ListItem primaryText="Select None" className="half-right js-choice js-select-none selected" onTouchTap={(e) => this.handleChange(e)}/>
 				</List>
 				<FlatButton
 					label="Continue"
 					primary={true}
-					style={{float: "right", margin: "1rem 0 0 1rem"}}
+					className="lower-right-btn"
 					onTouchTap={() => this.props.changeView('currentView','quiz')}
 				/>
 			</div>

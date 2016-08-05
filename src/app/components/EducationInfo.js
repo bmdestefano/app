@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import School from '../models/School';
+import User from '../models/User';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import Avatar from 'material-ui/Avatar';
 import AutoComplete from 'material-ui/AutoComplete';
@@ -14,9 +16,7 @@ const availableSchools = [
 	{id: 2, name: "Northeastern University", logo: "http://www.kaplanconstructs.com/wp-content/uploads/2015/11/northeasternuniversity_logoseal.png"},
 	{id: 3, name: "Skidmore College", logo: "https://www.parchment.com/c/images/college/1168-crest-250-200-fcf5b93c6cf0c00672c656460be4aa4e.png"}
 ];
-const userSchoolInfo = [
-	{schoolId: 0, major: "Computer Science", minor: "Spanish", grad: "2011", degree: "Bachelor of Science"},
-];
+const userSchoolInfo = User.schoolInfo;
 const degreeTypes = ["Bachelor of Arts", "Bachelor of Fine Arts", "Bachelor of Architecture", "Bachelor of Science"];
 
 class EducationInfo extends Component{
@@ -25,7 +25,7 @@ class EducationInfo extends Component{
 
 		this.state = {
 			schools: [
-				{id: 0, name: "Southern New Hampshire University", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTU6xTuPALE2X4rM7vryx06LT0fl0IDJcjo853v0uUJEtCKgMNr4GdfnA"}
+				{id: 0, name: School.name, logo: School.logo}
 			],
 			searchText: '',
 			degreeSearchText: '',
@@ -77,6 +77,7 @@ class EducationInfo extends Component{
 						searchText={(schoolInfo[0]) ? schoolInfo[0].degree : this.state.degreeSearchText}
 						onUpdateInput={this.handleDegreeUpdateInput.bind(this)}
 						fullWidth={true}
+						style={{marginTop: "1rem"}}
 					/>
 				</Tab>
 			);
@@ -146,7 +147,7 @@ class EducationInfo extends Component{
 				<FlatButton
 					label="Continue"
 					primary={true}
-					style={{float: "right", margin: "1rem 0 0 1rem"}}
+					className="lower-right-btn"
 					onTouchTap={() => this.handleContinue()}
 				/>
 				<Snackbar

@@ -1,3 +1,23 @@
+.half-left{
+	@include container;
+	width: 49.15254% !important;
+	float: left;
+	@media #{$small-screen}{
+		width: 100% !important;
+	}
+}
+.half-right{
+	@include container;
+	width: 49.15254% !important;
+	float: right;
+	@media #{$small-screen}{
+		width: 100% !important;
+	}
+}
+
+
+
+
 .content{
 	position: relative;
 	margin-top: 2rem;

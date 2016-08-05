@@ -1,5 +1,9 @@
 import React, {Component} from 'react';
 import ReactFilepicker from 'react-filepicker';
+import School from '../models/School';
+import User from '../models/User';
+import FilePickerConfig from '../constants/FilePickerConfig';
+
 import Avatar from 'material-ui/Avatar';
 import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
@@ -10,15 +14,6 @@ import AuthenticateLargeHeader from './AuthenticateLargeHeader';
 
 import AddImageIcon from 'material-ui/svg-icons/content/add';
 
-const options = {
-	buttonText: '',
-	buttonClass: 'filepicker',
-	mimetype: 'image/*',
-	webcamDim: [1280, 720],
-	webcam: {
-		videoRes: '1280x720'
-	},
-};
 class PersonalInfo extends Component{
 	constructor(props, context){
 		super(props, context);
@@ -30,36 +25,44 @@ class PersonalInfo extends Component{
 		this.setState({userSrc: fpfiles.url});
 	}
 
+	componentDidMount(){
+		let dialog = document.getElementsByClassName('js-authenticate-wrapper')[0];
+		dialog.style.maxWidth = (parseInt(dialog.style.maxWidth.replace('rem', '')) + 18)+'rem';
+	}
+
 	render(){
 		return(
 			<div>
 				<AuthenticateLargeHeader 
-					logoUrl="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTU6xTuPALE2X4rM7vryx06LT0fl0IDJcjo853v0uUJEtCKgMNr4GdfnA"
-					schoolName="Southern New Hampshire University"
+					logoUrl={School.logo}
+					schoolName={School.name}
 				/>
-				<div style={{position: "relative"}}>
-					<ReactFilepicker apikey={"A4dOeHXUnQHS0qVUJYRRez"} options={options} onSuccess={this.handleUploadSuccess.bind(this)} />
+				<div className="relative">
+					<ReactFilepicker 
+						apikey={FilePickerConfig.key} 
+						options={FilePickerConfig.options} 
+						onSuccess={this.handleUploadSuccess.bind(this)} 
+					/>
 					<Avatar 
 						size={96} 
+						className="authenticate-avatar"
 						style={(this.state.userSrc == '') 
-							? {margin: "1rem auto", display: "block", border: "1px solid #555"} 
-							: {margin: "1rem auto", display: "block", border: "1px solid #555", background: "transparent"}} 
+							? "" 
+							: {background: "transparent"}} 
 						src={this.state.userSrc} 
 						icon={(this.state.userSrc != '') 
 							? null 
 							: <AddImageIcon />} />
-					{(this.props.userAvatarSrc == '') && <p style={{textAlign: "center"}}>Add Image To Profile</p>}
+					{(this.props.userAvatarSrc == '') && <p className="text-center">Add Image To Profile</p>}
 				</div>
 				<TextField
 					floatingLabelText="First Name"
-					className="input-group-textfield"
-					fullWidth={true}
+					className="input-group-textfield half-left"
 					errorText={this.props.firstNameError}
 				/>
 				<TextField
 					floatingLabelText="Last Name"
-					className="input-group-textfield"
-					fullWidth={true}
+					className="input-group-textfield half-right"
 					errorText={this.props.lastNameError}
 				/>
 				<TextField
@@ -69,20 +72,26 @@ class PersonalInfo extends Component{
 				/>
 				<TextField
 					floatingLabelText="Current City"
-					className="input-group-textfield"
-					fullWidth={true}
+					className="input-group-textfield half-left"
 				/>
 				<TextField
-					floatingLabelText="Hometown"
-					className="input-group-textfield"
-					fullWidth={true}
+					floatingLabelText="State"
+					className="input-group-textfield half-right"
 				/>
-				<SelectField value={this.props.genderValue} onChange={this.props.onGenderChange} fullWidth={true} style={{marginTop: "1rem"}}>
+				<SelectField 
+					value={this.props.genderValue} 
+					className="half-left" 
+					onChange={this.props.onGenderChange} 
+					style={{marginTop: "1rem"}}>
 					<MenuItem value="male" primaryText="Male" />
 					<MenuItem value="female" primaryText="Female" />
 					<MenuItem value="trans" primaryText="Transgender" />
 				</SelectField>
-				<SelectField value={this.props.ethnicityValue} onChange={this.props.onEthnicityChange} fullWidth={true} style={{marginTop: "1rem"}}>
+				<SelectField 
+					value={this.props.ethnicityValue} 
+					className="half-right" 
+					onChange={this.props.onEthnicityChange} 
+					style={{marginTop: "1rem"}}>
 					<MenuItem value="american-indian" primaryText="American Indian or Alaska Native" />
 					<MenuItem value="asian" primaryText="Asian" />
 					<MenuItem value="black" primaryText="Black or African American" />
@@ -92,7 +101,7 @@ class PersonalInfo extends Component{
 				<FlatButton
 					label="Continue"
 					primary={true}
-					style={{float: "right", margin: "1rem 0 0 1rem"}}
+					className="lower-right-btn"
 					onTouchTap={() => this.props.changeView('currentView','education')}
 				/>
 			</div>
