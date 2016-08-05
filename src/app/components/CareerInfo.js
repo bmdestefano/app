@@ -58,16 +58,24 @@ class CareerInfo extends Component{
 						className="input-group-textfield"
 						fullWidth={true}
 					/>
-					<DatePicker hintText="Start Date" fullWidth={true} formatDate={new DateTimeFormat('en-US', {
-											day: 'numeric',
-											month: 'long',
-											year: 'numeric',
-										}).format}/>
-					<DatePicker hintText="End Date" fullWidth={true} formatDate={new DateTimeFormat('en-US', {
-											day: 'numeric',
-											month: 'long',
-											year: 'numeric',
-										}).format}/>
+					<DatePicker 
+						hintText="Start Date" 
+						fullWidth={true} 
+						formatDate={new DateTimeFormat('en-US', {
+							day: 'numeric',
+							month: 'long',
+							year: 'numeric',
+						}).format}
+						style={{marginTop: "1rem"}}/>
+					<DatePicker 
+						hintText="End Date" 
+						fullWidth={true} 
+						formatDate={new DateTimeFormat('en-US', {
+							day: 'numeric',
+							month: 'long',
+							year: 'numeric',
+						}).format}
+						style={{marginTop: "1rem"}}/>
 				</Tab>
 			);
 		}
@@ -107,7 +115,7 @@ class CareerInfo extends Component{
 				<FlatButton
 					label="Continue"
 					primary={true}
-					style={{float: "right", margin: "1rem 0 0 1rem"}}
+					className="lower-right-btn"
 					onTouchTap={() => this.props.changeView('currentView','industries')}
 				/>
 			</div>

@@ -14,7 +14,7 @@ class IndustriesInfo extends Component{
 		return(
 			<div>
 				<h2 className="authenticate-header">Industries</h2>
-				<p style={{textAlign: "center"}}>Add industries of interest below</p>
+				<p className="text-center">Add industries of interest below</p>
 				<CTAutoComplete 
 					data={industries}
 					floatingText="Enter Industries"
@@ -23,7 +23,7 @@ class IndustriesInfo extends Component{
 				<FlatButton
 					label="Continue"
 					primary={true}
-					style={{float: "right", margin: "1rem 0 0 1rem"}}
+					className="lower-right-btn"
 					onTouchTap={() => this.props.changeView('currentView','role')}
 				/>
 			</div>

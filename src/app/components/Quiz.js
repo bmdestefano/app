@@ -3,6 +3,13 @@ import {List, ListItem} from 'material-ui/List';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import FlatButton from 'material-ui/FlatButton';
 
+let UncheckedLarge = require('babel!svg-react!../img/unchecked-large.svg?name=UncheckedLarge');
+let CheckedLarge = require('babel!svg-react!../img/checked-large.svg?name=CheckedLarge');
+let UncheckedMedium = require('babel!svg-react!../img/unchecked-medium.svg?name=UncheckedMedium');
+let CheckedMedium = require('babel!svg-react!../img/checked-medium.svg?name=CheckedMedium');
+let UncheckedSmall = require('babel!svg-react!../img/unchecked-small.svg?name=UncheckedSmall');
+let CheckedSmall = require('babel!svg-react!../img/checked-small.svg?name=CheckedSmall');
+
 let questions = [
 	"Am the life of the party",
 	"Feel little concern for others",
@@ -35,11 +42,31 @@ class Quiz extends Component{
 					<div>
 						<span className="quiz-left">Inaccurate</span>
 						<RadioButtonGroup className="quiz-options">
-							<RadioButton value={1} className="quiz-radio quiz-large-radio"/>
-							<RadioButton value={2} className="quiz-radio quiz-medium-radio"/>
-							<RadioButton value={3} className="quiz-radio quiz-small-radio"/>
-							<RadioButton value={4} className="quiz-radio quiz-medium-radio"/>
-							<RadioButton value={5} className="quiz-radio quiz-large-radio"/>
+							<RadioButton 
+								value={1} 
+								uncheckedIcon={<UncheckedLarge />} 
+								checkedIcon={<CheckedLarge className="quiz-circle"/>} 
+								className="quiz-radio quiz-large-radio"/>
+							<RadioButton 
+								value={2} 
+								uncheckedIcon={<UncheckedMedium />} 
+								checkedIcon={<CheckedMedium className="quiz-circle"/>} 
+								className="quiz-radio quiz-medium-radio"/>
+							<RadioButton 
+								value={3} 
+								uncheckedIcon={<UncheckedSmall />} 
+								checkedIcon={<CheckedSmall className="quiz-circle"/>}
+								className="quiz-radio quiz-small-radio"/>
+							<RadioButton 
+								value={4} 
+								uncheckedIcon={<UncheckedMedium />} 
+								checkedIcon={<CheckedMedium className="quiz-circle"/>} 
+								className="quiz-radio quiz-medium-radio"/>
+							<RadioButton 
+								value={5} 
+								uncheckedIcon={<UncheckedLarge />} 
+								checkedIcon={<CheckedLarge className="quiz-circle"/>} 
+								className="quiz-radio quiz-large-radio"/>
 						</RadioButtonGroup>
 						<span className="quiz-right">Accurate</span>
 					</div>
@@ -52,15 +79,15 @@ class Quiz extends Component{
 		return(
 			<div>
 				<h2 className="authenticate-header">Personality Quiz</h2>
-				<p style={{textAlign: "center"}}>Now to find out more about you as a person.</p>
-				<p style={{textAlign: "center", marginTop: "1rem"}}>For each statement below, select the dot that corresponds to how well you feel it represents you. The more honest you are, the better your matches will be.</p>
+				<p className="text-center" >Now to find out more about you as a person.</p>
+				<p className="text-center" style={{marginTop: "1rem"}}>For each statement below, select the dot that corresponds to how well you feel it represents you. The more honest you are, the better your matches will be.</p>
 				<List>
 					{this.renderQuizQuestions()}
 				</List>
 				<FlatButton
 					label="Continue"
 					primary={true}
-					style={{float: "right", margin: "1rem 0 0 1rem"}}
+					className="lower-right-btn"
 					onTouchTap={() => this.props.changeView('currentView','results')}
 				/>
 			</div>

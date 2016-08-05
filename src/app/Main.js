@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router'
+import School from './models/School';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import AppBar from 'material-ui/AppBar';
@@ -13,12 +14,12 @@ require('./styles/import.scss');
 
 const muiTheme = getMuiTheme({
 	palette: {
-		primary1Color: "#143A7B",
-		accent1Color: "#FCB606",
-		pickerHeaderColor: "#143A7B",
+		primary1Color: School.primaryColor,
+		accent1Color: School.secondaryColor,
+		pickerHeaderColor: School.primaryColor,
 	},
 	datePicker: {
-		selectColor: "#143A7B",
+		selectColor: School.primaryColor,
 	}
 });
 
@@ -28,8 +29,8 @@ class Main extends Component {
 			<MuiThemeProvider muiTheme={muiTheme}>
 				<div>
 					<AppBar 
-						title="Southern New Hampshire University"
-						iconElementLeft={<Avatar src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTU6xTuPALE2X4rM7vryx06LT0fl0IDJcjo853v0uUJEtCKgMNr4GdfnA" style={{marginLeft: "1rem", marginTop: "0.25rem"}}/>}
+						title={School.name}
+						iconElementLeft={<Avatar src={School.logo} className="logo--header"/>}
 						iconElementRight={
 							<IconMenu
 								iconButtonElement={
@@ -40,9 +41,9 @@ class Main extends Component {
 								iconStyle={{fill: muiTheme.palette.accent1Color}}
 								menuStyle={{backgroundColor: muiTheme.palette.accent1Color}}
 							>
-								<Link to="/profile"><MenuItem primaryText="Profile" style={{color: "#FFF"}}/></Link>
-								<Link to="/settings"><MenuItem primaryText="Settings" style={{color: "#FFF"}}/></Link>
-								<Link to="/"><MenuItem primaryText="Log out" style={{color: "#FFF"}}/></Link>
+								<Link to="/profile"><MenuItem primaryText="Profile" className="text-white"/></Link>
+								<Link to="/settings"><MenuItem primaryText="Settings" className="text-white"/></Link>
+								<Link to="/"><MenuItem primaryText="Log out" className="text-white"/></Link>
 							</IconMenu>
 						}
 					/>

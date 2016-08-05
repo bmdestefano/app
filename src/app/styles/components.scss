@@ -91,7 +91,6 @@
 }
 .profile-img,
 .profile-user-details{
-	max-height: 15.13rem;
 	@media #{$small-screen}{
 		max-height: 30vw;
 	}	
@@ -294,21 +293,6 @@
 	padding-top: .75rem;
 	box-shadow: inset 0 9px 11px -5px #CCC;
 }
-.input-group{
-	position: relative;
-	.input-group-icon{
-		position: absolute;
-		top: 2.25rem;
-		fill: $text-dark-grey !important;
-	}
-	.input-group-textfield{
-		margin-left: 2rem;
-		width: 90% !important;
-		input{
-			color: $text-dark-grey !important;
-		}
-	}
-}
 .filepicker{
 	position: absolute;
 	left: 50%;
@@ -332,28 +316,9 @@
 		line-height: 1.35rem !important;
 	}
 }
-.quiz-radio{
-	width: 20% !important;
+.tag{
+	text-transform: uppercase;
 	float: left;
-}
-.quiz-radio > div > div{
-	margin: 0 auto !important;
-}
-.quiz-large-radio{
-	padding-right: 1rem;
-	svg{
-		width: 44px !important;
-		height: 44px !important;
-	}
-}
-.quiz-medium-radio{
-	margin-top: 0.25rem;
-	padding-right: 0.75rem;
-	svg{
-		width: 34px !important;
-		height: 34px !important;
-	}
-}
-.quiz-small-radio{
-	margin-top: 0.6rem;
+	margin-right: 0.5rem;
+	margin-bottom: 1rem;
 }

@@ -36,15 +36,15 @@ class Results extends Component{
 		return(
 			<div>
 				<h2 className="authenticate-header">Results</h2>
-				<p style={{textAlign: "center"}}>See? Who doesn’t love a good personality quiz?</p>
-				<p style={{textAlign: "center", marginTop: "1rem"}}>Here’s how you rank on five key personality traits that have been vetted by the professionals.</p>
+				<p className="text-center" >See? Who doesn’t love a good personality quiz?</p>
+				<p className="text-center" style={{marginTop: "1rem"}}>Here’s how you rank on five key personality traits that have been vetted by the professionals.</p>
 				<List>
 					{this.renderResults()}
 				</List>
 				<FlatButton
 					label="Continue"
 					primary={true}
-					style={{float: "right", margin: "1rem 0 0 1rem"}}
+					className="lower-right-btn"
 					onTouchTap={() => this.props.changeView('currentView','interests')}
 				/>
 			</div>

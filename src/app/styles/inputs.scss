@@ -1,0 +1,15 @@
+.input-group{
+	position: relative;
+	.input-group-icon{
+		position: absolute;
+		top: 2.25rem;
+		fill: $text-dark-grey !important;
+	}
+	.input-group-textfield{
+		margin-left: 2rem;
+		width: 90% !important;
+		input{
+			color: $text-dark-grey !important;
+		}
+	}
+}
