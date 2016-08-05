@@ -83,3 +83,51 @@ div[class*="expertise-"]{
 		@include span(12 of 12);
 	}
 }
+.goals-list-left{
+	@include container;
+	@include span(6 of 12 first);
+}
+.goals-list-right{
+	@include container;
+	@include span(6 of 12 last);
+}	
+.request-account{
+	@include container;
+	@include span(6 of 12 no-gutters);
+}
+.forgot-password{
+	@include container;
+	@include span(6 of 12 last);
+}
+.quiz-left{
+	@include container;
+	@include span(3 of 12 first);
+	text-align: left;
+	margin-top: 1rem;
+}
+.quiz-right{
+	@include container;
+	@include span(3 of 12 last);
+	text-align: right;
+	margin-top: 1rem;
+}
+.quiz-options{
+	@include container;
+	@include span(6 of 12);
+}
+.quiz-results-left{
+	@include container;
+	@include span(3 of 12 first);
+	text-align: center;
+	margin-top: 1rem;
+}
+.quiz-results-right{
+	@include container;
+	@include span(3 of 12 last);
+	text-align: center;
+	margin-top: 1rem;
+}
+.quiz-results{
+	@include container;
+	@include span(6 of 12);
+}

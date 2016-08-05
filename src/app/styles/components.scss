@@ -13,8 +13,6 @@
 	hr{
 		margin-top: 3rem;
 		margin-bottom: 3rem;
-		border: 2px solid $brand-secondary-color;
-		width: 50%;
 	}
 }
 .page-header{
@@ -190,4 +188,172 @@
 		&:hover{
 		@include box-shadow(#AAA 1px 1px 20px);
 	}
+}
+.update-background-photo{
+	background-color: rgb(256, 256, 256);
+	background-color: rgba(256, 256, 256, 0.6);
+	span{
+		color: #000 !important;
+		font-size: 1.5rem !important;
+		svg{
+			fill: #000 !important;
+		}
+	}
+}
+.filepicker-background-photo,
+.update-background-photo{
+	position: absolute;
+	left: 50%;
+	margin-left: -12rem;
+	width: 24rem;
+	height: 4rem;
+	top: 0%;
+}
+.filepicker-avatar-photo{
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	width: 100%;
+	bottom: 0;
+}
+.update-avatar-photo{
+	position: absolute;
+    top: 0;
+    background-color: rgb(256, 256, 256);
+	background-color: rgba(256, 256, 256, 0.6);
+    right: 0;
+    left: 0;
+    bottom: 0.1875rem;
+    @include border-radius(50%);
+    span{
+		color: #000 !important;
+		margin-top: 40% !important;
+		svg{
+			left: 50% !important;
+			margin-left: -0.75rem !important;
+			top: -2rem !important;
+			fill: #000 !important;
+		}
+    }
+}
+.filepicker{
+	border: 0;
+	background: transparent;
+	color: transparent;
+	z-index: 3;
+}
+.editable-field{
+	background-color: rgb(256, 256, 256) !important;
+	background-color: rgba(256, 256, 256, 0.6) !important;
+	padding: 0 1rem;
+	input{
+		color: #000 !important;
+	}
+	hr{
+		width: inherit !important;
+		left: 1rem !important;
+		right: 1rem !important;
+	}
+}
+.filepicker-document-image{
+	position: absolute;
+	left: 1.5rem;
+	bottom: 15.5rem;
+	height: 2.25rem;
+	width: 15rem;
+}
+.filepicker-document{
+	position: absolute;
+	left: 17rem;
+	bottom: 15.5rem;
+	height: 2.25rem;
+	width: 11rem;
+}
+.fp__overlay{
+	z-index: 1501 !important;
+}
+.authenticate-wrapper{
+	overflow: overlay;
+	z-index: 999 !important;
+	//mui override
+	div{
+		div{
+			div{
+				div{
+					max-height: none !important;	
+				}	
+			}	
+		}
+	}
+}
+.authenticate-lower-addon{
+	margin: 4rem -1.5rem -1.5rem;
+	padding-bottom: 1.5rem;
+	background: $border-grey;
+	padding-top: .75rem;
+	box-shadow: inset 0 9px 11px -5px #CCC;
+}
+.input-group{
+	position: relative;
+	.input-group-icon{
+		position: absolute;
+		top: 2.25rem;
+		fill: $text-dark-grey !important;
+	}
+	.input-group-textfield{
+		margin-left: 2rem;
+		width: 90% !important;
+		input{
+			color: $text-dark-grey !important;
+		}
+	}
+}
+.filepicker{
+	position: absolute;
+	left: 50%;
+	margin-left: -3rem;
+	top: 0%;
+	height: 6rem;
+	width: 6rem;
+	border-radius: 50%;
+	border: 0;
+	background: transparent;
+	color: transparent;
+}
+.role-selected,
+.selected{
+	background: #DDD !important;
+}
+.authenticate-school-not-found{
+	div{
+		background-color: $brand-secondary-color !important;
+		height: 3rem !important;
+		line-height: 1.35rem !important;
+	}
+}
+.quiz-radio{
+	width: 20% !important;
+	float: left;
+}
+.quiz-radio > div > div{
+	margin: 0 auto !important;
+}
+.quiz-large-radio{
+	padding-right: 1rem;
+	svg{
+		width: 44px !important;
+		height: 44px !important;
+	}
+}
+.quiz-medium-radio{
+	margin-top: 0.25rem;
+	padding-right: 0.75rem;
+	svg{
+		width: 34px !important;
+		height: 34px !important;
+	}
+}
+.quiz-small-radio{
+	margin-top: 0.6rem;
 }

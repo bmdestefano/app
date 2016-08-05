@@ -1,47 +1,47 @@
 import React, {Component} from 'react';
-import Card from 'material-ui/Card';
 import {Tabs, Tab} from 'material-ui/Tabs';
-import Chip from 'material-ui/Chip';
-import TextField from 'material-ui/TextField';
-import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
-import IconButton from 'material-ui/IconButton';
+import Card from 'material-ui/Card';
 import List from 'material-ui/List';
 import ListItem from 'material-ui/List/ListItem';
+import Chip from 'material-ui/Chip';
 import Avatar from 'material-ui/Avatar';
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
 import {GridList, GridTile} from 'material-ui/GridList';
+import IconButton from 'material-ui/IconButton';
 import Dialog from 'material-ui/Dialog';
 import Checkbox from 'material-ui/Checkbox';
+import FlatButton from 'material-ui/FlatButton';
 
+import ProfileRenderer from '../ProfileRenderer';
 import ImageListWithSearchableDialog from '../ImageListWithSearchableDialog';
 
 import IntroIcon from 'material-ui/svg-icons/social/person';
-import EducationIcon from 'material-ui/svg-icons/social/school';
-import ExperienceIcon from 'material-ui/svg-icons/action/work';
 import MapIcon from 'material-ui/svg-icons/maps/place';
-import TagsIcon from 'material-ui/svg-icons/maps/local-offer';
-import StarIcon from 'material-ui/svg-icons/toggle/star';
-import PostIcon from 'material-ui/svg-icons/action/description';
-import FavoriteIcon from 'material-ui/svg-icons/action/favorite';
-import CommentIcon from 'material-ui/svg-icons/communication/comment';
-import DownloadIcon from 'material-ui/svg-icons/file/file-download';
-import ExpertiseIcon from 'material-ui/svg-icons/maps/my-location';
-import OpenIcon from 'material-ui/svg-icons/action/open-in-new';
-import ConnectionIcon from 'material-ui/svg-icons/action/timeline';
-import GroupIcon from 'material-ui/svg-icons/social/group';
-import ExitIcon from 'material-ui/svg-icons/content/clear';
 import InspirationIcon from 'material-ui/svg-icons/image/blur-on';
 import TriumphIcon from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
+import ExpertiseIcon from 'material-ui/svg-icons/maps/my-location';
+import EducationIcon from 'material-ui/svg-icons/social/school';
+import ExperienceIcon from 'material-ui/svg-icons/action/work';
+import ConnectionIcon from 'material-ui/svg-icons/action/timeline';
+import TagsIcon from 'material-ui/svg-icons/maps/local-offer';
+import PostIcon from 'material-ui/svg-icons/action/description';
 import CoverLetterIcon from 'material-ui/svg-icons/action/flip-to-front';
 import ProjectIcon from 'material-ui/svg-icons/image/brush';
 import OtherIcon from 'material-ui/svg-icons/action/extension';
+import DownloadIcon from 'material-ui/svg-icons/file/file-download';
+import StarIcon from 'material-ui/svg-icons/toggle/star';
+import GroupIcon from 'material-ui/svg-icons/social/group';
+import FavoriteIcon from 'material-ui/svg-icons/action/favorite';
+import CommentIcon from 'material-ui/svg-icons/communication/comment';
+import ExitIcon from 'material-ui/svg-icons/content/clear';
+
 let FacebookIcon = require('babel!svg-react!../../img/facebook-icon.svg?name=FacebookIcon');
 let TwitterIcon = require('babel!svg-react!../../img/twitter-icon.svg?name=TwitterIcon');
 let LinkedinIcon = require('babel!svg-react!../../img/linkedin-icon.svg?name=LinkedinIcon');
-
 let user = {
 	avatarUrl: "https://www.filepicker.io/api/file/hDvuYs7eSNKDdWDwy4Mr",
-	backgroundUrl: "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F21363263%2F170576045191%2F1%2Foriginal.jpg?w=1000&rect=0%2C578%2C5616%2C2808&s=1b98247e23d2a311eaac71c474d394b1",
+	backgroundUrl: "http://www.bostonlogic.com/wp-content/uploads/2015/03/photodune-2705436-boston-waterfront-m1.jpg",
 	name: "Remy Carpinito",
 	schools: [
 		{name: "Suffolk University", year: "2014", major: "Entrepreneurship", minor: "Spanish", degree: "Bachelor of Arts"},
@@ -56,6 +56,10 @@ let user = {
 	description: "I am a Senior at CampusTap University and I am candidate for a Bachelor of Science degree in Economics-Finance with a minor in Computer Information Systems. I have an interest in finance, wealth management and asset management. I am involved with the CampusTap Investment Group and the club hockey team. I am looking for advice on applying to full time investment banking positions post graduation.",
 	bestAdvice: "Shoreditch yr taxidermy, retro kale chips roof party lumbersexual normcore bicycle rights selvage brooklyn neutra +1 williamsburg street art. Synth humblebrag vegan squid tote bag, neutra next level gluten-free +1 seitan tilde viral microdosing tofu tacos.",
 	triumphs: ["Founded company at age 19", "Named Boston's Top 20 Under 20", "Graduated College at age 16"],
+	authenticatedNetworks: [
+		{name: "Facebook", image: <FacebookIcon />, url: "http://path/to/fbook"},
+		{name: "Linkedin", image: <LinkedinIcon />, url: "http://path/to/linkedin"}
+	],
 	tags: [
 		{name: "boston", match: true}, 
 		{name: "history", match: false}, 
@@ -109,36 +113,41 @@ let user = {
 			title: "Remy Carpinito's Resume",
 			type: "resume",
 			uploadedDate: "6/15/16",
-			image: "http://thumb1.shutterstock.com/display_pic_with_logo/2842531/272513510/stock-photo-closeup-of-resume-272513510.jpg",
-			description: "Hello everyone! I am a Corporate Finance and Accounting major, class of 2017. I am looking for mentors within the tech space, as I am trying to launch and app and am in need of someone with a background in app development to help me out. If you, or someone you know is an experienced developer/coder please ask me for contact information and I would be more than happy to share that with you."
+			image: "https://s3-us-west-1.amazonaws.com/ctap-testing/resume.jpg",
+			description: "Hello everyone! I am a Corporate Finance and Accounting major, class of 2017. I am looking for mentors within the tech space, as I am trying to launch and app and am in need of someone with a background in app development to help me out. If you, or someone you know is an experienced developer/coder please ask me for contact information and I would be more than happy to share that with you.",
+			document: "/path/to/doc.pdf"
 		},
 		{
 			title: "Remy Carpinito's Cover Letter",
 			type: "cover-letter",
 			uploadedDate: "6/15/16",
-			image: "http://thumb7.shutterstock.com/display_pic_with_logo/307150/283436795/stock-vector-modern-cover-letter-design-with-blue-white-colors-283436795.jpg",
-			description: "Hello everyone! I am a Corporate Finance and Accounting major, class of 2017. I am looking for mentors within the tech space, as I am trying to launch and app and am in need of someone with a background in app development to help me out. If you, or someone you know is an experienced developer/coder please ask me for contact information and I would be more than happy to share that with you."
+			image: "https://s3-us-west-1.amazonaws.com/ctap-testing/coverLetter.jpg",
+			description: "Hello everyone! I am a Corporate Finance and Accounting major, class of 2017. I am looking for mentors within the tech space, as I am trying to launch and app and am in need of someone with a background in app development to help me out. If you, or someone you know is an experienced developer/coder please ask me for contact information and I would be more than happy to share that with you.",
+			document: "/path/to/doc.pdf"
 		},
 		{
 			title: "Twitter Redesign Project",
 			type: "project",
 			uploadedDate: "5/12/16",
-			image: "http://thumb101.shutterstock.com/display_pic_with_logo/691372/154181867/stock-photo-brussels-september-twitter-is-going-public-on-september-in-brussels-154181867.jpg",
-			description: "This is a project I made for CS 560 as my final project."
+			image: "https://s3-us-west-1.amazonaws.com/ctap-testing/twitterredesign.png",
+			description: "This is a project I made for CS 560 as my final project.",
+			document: "/path/to/doc.pdf"
 		},
 		{
 			title: "Connect4 Python Project",
 			type: "project",
 			uploadedDate: "5/21/16",
-			image: "http://thumb7.shutterstock.com/display_pic_with_logo/1369678/410081401/stock-photo-smart-city-and-wireless-communication-network-iot-internet-of-things-ict-information-410081401.jpg",
-			description: "This is a project I made for CS 587. It is a working Connect4 game made in Python."
+			image: "https://nulogy.com/wp-content/uploads/2014/11/javascript-function-redux-es6-2.jpg",
+			description: "This is a project I made for CS 587. It is a working Connect4 game made in Python.",
+			document: "/path/to/doc.pdf"
 		},
 		{
 			title: "Digital Marketing Project",
 			type: "other",
 			uploadedDate: "4/11/16",
-			image: "http://thumb7.shutterstock.com/display_pic_with_logo/682636/407256469/stock-vector-big-infographics-in-flat-style-vector-illustrations-about-digital-projects-management-clients-407256469.jpg",
-			description: "This is my final digital marketing project for MKT 610."
+			image: "https://s3-us-west-1.amazonaws.com/ctap-testing/marketingthing.jpg",
+			description: "This is my final digital marketing project for MKT 610.",
+			document: "/path/to/doc.pdf"
 		}
 	],
 	connections : [
@@ -179,16 +188,47 @@ class Profile extends Component{
 		};
 	}
 
-	renderTags(){
-		return user.tags.map((tag, index) => {
+	getHeroImageMarkup(){
+		return(
+			<div className="hero-image-wrapper">
+				<img src={user.backgroundUrl} />
+				<div className="overlay"></div>
+			</div>
+		);
+	}
+
+	getAvatartImageMarkup(){
+		return(
+			<div className="profile-img">
+				<img src={user.avatarUrl} />
+			</div>
+		);
+	}
+
+	getUserDetails(){
+		return(
+			<div className="profile-user-details">
+				<h2 className="profile-name">{user.name}</h2>
+				<h3 className="profile-school">{user.schools[0].name} - <span className="hidden-mobile">Class of </span>{user.schools[0].year}</h3>
+				<h3 className="profile-school">{user.currentStatus}</h3>
+				<h3 className="profile-school">{user.city+', '+user.state}</h3>
+				<div className="profile-social-wrapper">
+					{user.authenticatedNetworks.map((network, index) => {
+						return(
+							<a>{network.image}</a>
+						);
+					})}
+				</div>
+			</div>
+		);
+	}
+
+	renderAreasOfExpertise(){
+		return user.areasOfExpertise.map((type, index) => {
 			return(
-				<Chip
-					key={index}
-					backgroundColor={(tag.match) ? "#EA7600" : "#FFDC66"}
-					labelColor={"#FFF"}
-					style={{textTransform: 'uppercase', float: 'left', marginRight: "10px", marginTop: "10px"}}
-					className="tag-chip"
-				>{tag.name}</Chip>
+				<div key={index} className={"profile-details-subheader expertise-"+(index%3)} style={{marginBottom: "1rem", fontSize: "1.5rem", border: "0", textAlign: "center"}}>
+					<StarIcon style={{fill: "#143A7B", verticalAlign: "text-top"}}/>{type}
+				</div>
 			);
 		});
 	}
@@ -220,28 +260,16 @@ class Profile extends Component{
 		});
 	}
 
-	renderAreasOfExpertise(){
-		return user.areasOfExpertise.map((type, index) => {
+	renderTags(){
+		return user.tags.map((tag, index) => {
 			return(
-				<div key={index} className={"profile-details-subheader expertise-"+(index%3)} style={{marginBottom: "1rem", fontSize: "1.5rem", border: "0", textAlign: "center"}}>
-					<StarIcon style={{fill: "#00A9E0", verticalAlign: "text-top"}}/>{type}
-				</div>
-			);
-		});
-	}
-
-	renderPostComments(comments){
-		return comments.map((comment, index) => {
-			let text = <p>{comment.name} &bull; <span style={{fontSize: "0.75rem", verticalAlign: "top", fontWeight: "400"}}>{comment.posted}</span></p>;
-			return(
-				<ListItem 
+				<Chip
 					key={index}
-					className="profile-comment"
-					leftAvatar={<Avatar src={comment.avatarUrl} />}
-					primaryText={text}
-					secondaryText={comment.content}
-					secondaryTextLines={2}
-				/>
+					backgroundColor={(tag.match) ? "#EA7600" : "#CCC"}
+					labelColor={"#FFF"}
+					style={{textTransform: 'uppercase', float: 'left', marginRight: "10px", marginTop: "10px"}}
+					className="tag-chip"
+				>{tag.name}</Chip>
 			);
 		});
 	}
@@ -268,6 +296,22 @@ class Profile extends Component{
 		);
 	}
 
+	renderPostComments(comments){
+		return comments.map((comment, index) => {
+			let text = <p>{comment.name} &bull; <span style={{fontSize: "0.75rem", verticalAlign: "top", fontWeight: "400"}}>{comment.posted}</span></p>;
+			return(
+				<ListItem 
+					key={index}
+					className="profile-comment"
+					leftAvatar={<Avatar src={comment.avatarUrl} />}
+					primaryText={text}
+					secondaryText={comment.content}
+					secondaryTextLines={2}
+				/>
+			);
+		});
+	}
+
 	renderComment(comment, index){
 		return(
 			<Card className="timeline-card">
@@ -285,12 +329,11 @@ class Profile extends Component{
 		});
 	}
 
-	toggleDialog(index){
-		let dialog = this.state.portfolioDialog;
-		dialog.open = !dialog.open;
-		let currentDocument = user.documents.filter((doc, i) => {return index == i});
-		dialog.currentDocument = currentDocument[0];
-		this.setState({portfolioDialog : dialog});
+	renderConnectStatusButton(){
+		if(this.state.connectStatus == "Connect")
+			return(<RaisedButton label="Connect" primary={true} onTouchTap={() => this.handleConnectDialogOpen()}/>);
+		else
+			return(<RaisedButton label="Pending Connection" primary={true} disabled={true} onTouchTap={() => this.handleConnectDialogOpen()}/>);
 	}
 
 	getPortfolioIcon(type){
@@ -335,6 +378,14 @@ class Profile extends Component{
 		});
 	}
 
+	toggleDialog(index){
+		let dialog = this.state.portfolioDialog;
+		dialog.open = !dialog.open;
+		let currentDocument = user.documents.filter((doc, i) => {return index == i});
+		dialog.currentDocument = currentDocument[0];
+		this.setState({portfolioDialog : dialog});
+	}
+
 	handleConnectDialogClose(){
 		this.setState({connectDialog: false});
 	}
@@ -362,259 +413,230 @@ class Profile extends Component{
 		this.setState({messageDialog: true});
 	}
 
-	renderConnectStatusButton(){
-		if(this.state.connectStatus == "Connect")
-			return(<RaisedButton label="Connect" primary={true} onTouchTap={() => this.handleConnectDialogOpen()}/>);
-		else
-			return(<RaisedButton label="Pending Connection" primary={true} disabled={true} onTouchTap={() => this.handleConnectDialogOpen()}/>);
+	getTabs(){
+		return(
+			<div>
+				<Tabs 
+					inkBarStyle={{backgroundColor: "#143A7B"}}
+					tabItemContainerStyle={{backgroundColor: "#FFF"}}
+					contentContainerClassName="profile-tab-content-wrapper"
+					className="tab-split-wrapper">
+					<Tab className="page-header" label="About" style={{background: "#FFF", color: "#555"}}>
+						<Card style={{padding: "1rem", borderRadius: "0px"}}>
+							<div className="profile-detail-wrapper">
+								<h2 className="profile-details-header"><IntroIcon style={{fill:"#CCC", verticalAlign: "bottom", marginRight: "0.5rem"}}/>Intro<span><MapIcon />{user.city}, {user.state}</span></h2>
+								<p>{user.description}</p>
+							</div>
+							<div className="profile-detail-wrapper">
+								<h2 className="profile-details-header"><InspirationIcon style={{fill:"#CCC", verticalAlign: "bottom", marginRight: "0.5rem"}}/>Inspiration</h2>
+								<p><span>Best Advice I Ever Received</span></p>
+								<p>{user.bestAdvice}</p>
+								<p style={{marginTop: "1rem"}}><span>Personal Triumphs</span></p>
+								{user.triumphs.map((triumph, index) => {
+									return(
+										<ListItem 
+											primaryText={triumph}
+											leftIcon={<TriumphIcon style={{fill: "#143A7B"}}/>}
+											className="hover-transparent"
+										/>
+									);
+								})}
+							</div>
+							<div className="profile-detail-wrapper">
+								<h2 className="profile-details-header"><ExpertiseIcon style={{fill:"#CCC", verticalAlign: "bottom", marginRight: "0.5rem"}}/>Areas of Expertise</h2>
+								{this.renderAreasOfExpertise()}
+							</div>
+							<div id="schools" className="profile-detail-wrapper">
+								<h2 className="profile-details-header"><EducationIcon style={{fill:"#CCC", verticalAlign: "bottom", marginRight: "0.5rem"}}/>Education</h2>
+								{this.renderSchools()}
+							</div>
+							<div id="jobs" className="profile-detail-wrapper">
+								<h2 className="profile-details-header"><ExperienceIcon style={{fill:"#CCC", verticalAlign: "bottom", marginRight: "0.5rem"}}/>Experience</h2>
+								{this.renderExperience()}
+							</div>
+							<div className="profile-detail-wrapper">
+								<h2 className="profile-details-header">
+									<ConnectionIcon style={{fill:"#CCC", verticalAlign: "bottom", marginRight: "0.5rem"}}/>Connections
+									{(Object.keys(user.connections).length > 0 
+										&& <p 
+											style={{display: "inline-block", marginLeft: "0.5rem", fontSize: "inherit"}}>&bull; {Object.keys(user.connections).length}
+											</p>
+									)}
+								</h2>
+								<ImageListWithSearchableDialog 
+									showCount={9}
+									items={user.connections}
+									primaryTextField={"name"}
+									secondaryTextField={"major"}
+									avatarSrcField={"image"}
+									listType="Connections"
+									itemClass="one-third"
+									openText="See All Connections"
+								/>
+							</div>
+							<div className="profile-detail-wrapper">
+								<h2 className="profile-details-header">
+									<GroupIcon style={{fill:"#CCC", verticalAlign: "bottom", marginRight: "0.5rem"}}/>Groups
+									{(Object.keys(user.groups).length > 0 
+										&& <p 
+											style={{display: "inline-block", marginLeft: "0.5rem", fontSize: "inherit"}}>&bull; {Object.keys(user.groups).length}
+											</p>
+									)}
+								</h2>
+								<ImageListWithSearchableDialog 
+									showCount={6}
+									items={user.groups}
+									primaryTextField={"name"}
+									secondaryTextField={"members"}
+									secondaryTextFieldLabel={"Members: "}
+									avatarSrcField={"image"}
+									listType="Groups"
+									itemClass="one-third"
+									openText="See All Groups"
+								/>
+							</div>
+							<div className="profile-detail-wrapper" style={{position: "relative"}}>
+								<h2 className="profile-details-header">
+									<TagsIcon style={{fill:"#CCC", verticalAlign: "bottom", marginRight: "0.5rem"}}/>Tags
+								</h2>
+								<div style={{position: "absolute", top: "0.25rem", left: "6.5rem"}}>
+									<div style={{background: "#EA7600", borderRadius: "50%", height: "1rem", width: "1rem", float: "left", marginRight: "0.5rem"}}></div>
+									<p style={{float: "left", fontSize: ".75rem", color: "#AAA", marginRight: "0.5rem"}}>Matched</p>
+									<div style={{background: "#CCC", borderRadius: "50%", height: "1rem", width: "1rem", float: "left", marginRight: "0.5rem"}}></div>
+									<p style={{float: "left", fontSize: ".75rem", color: "#AAA", marginRight: "0.5rem"}}>Unmatched</p>
+								</div>
+								{this.renderTags()}
+							</div>
+							
+						</Card>
+					</Tab>
+					<Tab className="page-header" label="E-Portfolio" style={{background: "#FFF", color: "#555"}}>
+						<div className="profile-detail-wrapper" style={{overflow: "initial"}}>
+							<Card style={{padding: "1rem"}}>
+								<h2 className="profile-details-header"><PostIcon style={{fill:"#CCC", verticalAlign: "bottom", marginRight: "0.5rem"}}/>Documents</h2>
+								<div style={{position: "absolute", top: "1rem", left: "12.5rem"}}>
+									<PostIcon style={{float: "left", fill: "#555", width: "1rem", height: "1rem", marginTop: "0.125rem"}}/>
+									<p style={{float: "left", fontSize: ".75rem", color: "#AAA", marginRight: "0.5rem"}}>Resume</p>
+									<CoverLetterIcon style={{float: "left", fill: "#555", width: "1rem", height: "1rem", marginTop: "0.125rem"}}/>
+									<p style={{float: "left", fontSize: ".75rem", color: "#AAA", marginRight: "0.5rem"}}>Cover Letter</p>
+									<ProjectIcon style={{float: "left", fill: "#555", width: "1rem", height: "1rem", marginTop: "0.125rem"}}/>
+									<p style={{float: "left", fontSize: ".75rem", color: "#AAA", marginRight: "0.5rem"}}>Project</p>
+									<OtherIcon style={{float: "left", fill: "#555", width: "1rem", height: "1rem", marginTop: "0.125rem"}}/>
+									<p style={{float: "left", fontSize: ".75rem", color: "#AAA", marginRight: "0.5rem"}}>Other</p>
+								</div>
+								<GridList
+									cols={2}
+									cellHeight={250}
+									padding={35}
+								>
+									{this.renderPortfolio()}
+								</GridList>
+								<Dialog
+									modal={false}
+									open={this.state.portfolioDialog.open}
+									onRequestClose={this.toggleDialog.bind(this)}
+									title={(this.state.portfolioDialog.currentDocument) ? this.state.portfolioDialog.currentDocument.title : null}
+								>
+									<p style={{position: "absolute", top: "2.15rem", right: "1.5rem", fontSize: "0.75rem"}}>{(this.state.portfolioDialog.currentDocument) ? ['Uploaded: '+this.state.portfolioDialog.currentDocument.uploadedDate] : null}</p>
+									<div style={{background: "url('"+((this.state.portfolioDialog.currentDocument) ? this.state.portfolioDialog.currentDocument.image : null)+"') center center/cover", marginBottom: "1rem", height: "12.5rem"}} ></div>
+									<p>{(this.state.portfolioDialog.currentDocument) ? this.state.portfolioDialog.currentDocument.description : null}</p>
+									<RaisedButton 
+										label="Download"
+										icon={<DownloadIcon />}
+										primary={true}
+										style={{float: "right", marginTop: "1rem"}}
+									/>
+								</Dialog>
+							</Card>
+						</div>
+					</Tab>
+				</Tabs>
+				<div className="profile-action-btn-wrapper">
+					{this.renderConnectStatusButton()}
+					<Dialog
+						title={
+							<div>
+								<ListItem
+									primaryText={<div>Connect with {user.name} <ExitIcon style={{float: "right"}} onTouchTap={() => this.handleConnectDialogClose()}/></div>}
+									secondaryText={"Class of "+user.schools[0].year+" | "+user.currentStatus}
+									leftAvatar={<Avatar src={user.avatarUrl}/>}
+									className="hover-transparent"/>
+							</div>
+						}
+						modal={false}
+						open={this.state.connectDialog}
+						onRequestClose={this.handleConnectDialogClose.bind(this)}>
+						<p>Choose which areas you are interested in:</p>
+						<List>
+							{user.areasOfExpertise.map((type, index) => {
+								return(
+									<ListItem
+										key={index}
+										primaryText={type}
+										leftCheckbox={<Checkbox />}
+										innerDivStyle={{width: "33%", float: "left"}} />
+								);
+							})}
+						</List>
+						<TextField
+							hintText="Type your message here"
+							multiLine={true}
+							fullWidth={true}
+							rows={1}
+							rowsMax={6}
+						/>
+						<div style={{float: "right"}}>
+							<RaisedButton label="Send" primary={true} style={{marginTop: "1rem", marginRight: "1rem"}} onTouchTap={() => this.handleSendConnection()}/>
+							<RaisedButton label="Cancel" style={{marginTop: "1rem", marginRight: "1rem", color: "#143A7B"}} onTouchTap={() => this.handleConnectDialogClose()}/>
+						</div>
+					</Dialog>
+					<RaisedButton label="Message" style={{color: "#143A7B"}} onTouchTap={() => this.handleMessageDialogOpen()}/>
+					<Dialog
+						title={
+							<div>
+								<ListItem
+									primaryText={<div>Contact {user.name} <ExitIcon style={{float: "right"}} onTouchTap={() => this.handleMessageDialogClose()}/></div>}
+									secondaryText={"Class of "+user.schools[0].year+" | "+user.currentStatus}
+									leftAvatar={<Avatar src={user.avatarUrl}/>}
+									className="hover-transparent"/>
+							</div>
+						}
+						modal={false}
+						open={this.state.messageDialog}
+						onRequestClose={this.handleMessageDialogClose.bind(this)}>
+						<TextField
+							hintText="Subject"
+							multiLine={true}
+							fullWidth={true}
+							rows={1}
+							rowsMax={2}
+						/>
+						<TextField
+							hintText="Type your message here"
+							multiLine={true}
+							fullWidth={true}
+							rows={1}
+							rowsMax={6}
+						/>
+						<div style={{float: "right"}}>
+							<RaisedButton label="Send" primary={true} style={{marginTop: "1rem", marginRight: "1rem"}} onTouchTap={() => this.handleSendMessage()}/>
+							<RaisedButton label="Cancel" style={{marginTop: "1rem", marginRight: "1rem", color: "#143A7B"}} onTouchTap={() => this.handleMessageDialogClose()}/>
+						</div>
+					</Dialog>
+				</div>
+			</div>
+		);
 	}
 
 	render(){
-		let image = (this.state.portfolioDialog.currentDocument) ? this.state.portfolioDialog.currentDocument.image : null;
 		return(
-			<div>
-				<div className="hero-wrapper">
-					<div className="hero-image-wrapper">
-						<img src={user.backgroundUrl} />
-						<div className="overlay"></div>
-					</div>
-					<div className="hero-details-outer-wrapper">
-						<div className="hero-details-inner-wrapper" style={{paddingBottom: "4rem"}}>
-							<div className="keep-center">
-								<div className="profile-img">
-									<img src={user.avatarUrl} />
-								</div>
-								<div className="profile-user-details">
-									<h2 className="profile-name">{user.name}</h2>
-									<h3 className="profile-school">{user.schools[0].name} - <span className="hidden-mobile">Class of </span>{user.schools[0].year}</h3>
-									<h3 className="profile-school">{user.currentStatus}</h3>
-									<h3 className="profile-school">{user.city+', '+user.state}</h3>
-									<div className="profile-social-wrapper">
-										<a><FacebookIcon /></a>
-										<a><TwitterIcon /></a>
-										<a><LinkedinIcon /></a>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div className="keep-center profile-lower-wrapper">
-					<div className="content no-overlay">
-						<Tabs 
-							inkBarStyle={{backgroundColor: "#00A9E0"}}
-							tabItemContainerStyle={{backgroundColor: "#FFF"}}
-							contentContainerClassName="profile-tab-content-wrapper"
-							className="tab-split-wrapper">
-							<Tab className="page-header" label="About" style={{background: "#FFF", color: "#555"}}>
-								<Card style={{padding: "1rem", borderRadius: "0px"}}>
-									<div className="profile-detail-wrapper">
-										<h2 className="profile-details-header"><IntroIcon style={{fill:"#CCC", verticalAlign: "bottom", marginRight: "0.5rem"}}/>Intro<span><MapIcon />{user.city}, {user.state}</span></h2>
-										<p>{user.description}</p>
-									</div>
-									<div className="profile-detail-wrapper">
-										<h2 className="profile-details-header"><InspirationIcon style={{fill:"#CCC", verticalAlign: "bottom", marginRight: "0.5rem"}}/>Inspiration</h2>
-										<p><span>Best Advice I Ever Received</span></p>
-										<p>{user.bestAdvice}</p>
-										<p style={{marginTop: "1rem"}}><span>Personal Triumphs</span></p>
-										{user.triumphs.map((triumph, index) => {
-											return(
-												<ListItem 
-													primaryText={triumph}
-													leftIcon={<TriumphIcon style={{fill: "#00A9E0"}}/>}
-													className="hover-transparent"
-												/>
-											);
-										})}
-									</div>
-									<div className="profile-detail-wrapper">
-										<h2 className="profile-details-header"><ExpertiseIcon style={{fill:"#CCC", verticalAlign: "bottom", marginRight: "0.5rem"}}/>Areas of Expertise</h2>
-										{this.renderAreasOfExpertise()}
-									</div>
-									<div className="profile-detail-wrapper">
-										<h2 className="profile-details-header"><EducationIcon style={{fill:"#CCC", verticalAlign: "bottom", marginRight: "0.5rem"}}/>Education</h2>
-										{this.renderSchools()}
-									</div>
-									<div className="profile-detail-wrapper">
-										<h2 className="profile-details-header"><ExperienceIcon style={{fill:"#CCC", verticalAlign: "bottom", marginRight: "0.5rem"}}/>Experience</h2>
-										{this.renderExperience()}
-									</div>
-									<div className="profile-detail-wrapper">
-										<h2 className="profile-details-header">
-											<ConnectionIcon style={{fill:"#CCC", verticalAlign: "bottom", marginRight: "0.5rem"}}/>Connections
-											{(Object.keys(user.connections).length > 0 
-												&& <p 
-													style={{display: "inline-block", marginLeft: "0.5rem", fontSize: "inherit"}}>&bull; {Object.keys(user.connections).length}
-													</p>
-											)}
-										</h2>
-										<ImageListWithSearchableDialog 
-											showCount={9}
-											items={user.connections}
-											primaryTextField={"name"}
-											secondaryTextField={"major"}
-											avatarSrcField={"image"}
-											listType="Connections"
-											itemClass="one-third"
-										/>
-									</div>
-									<div className="profile-detail-wrapper">
-										<h2 className="profile-details-header">
-											<GroupIcon style={{fill:"#CCC", verticalAlign: "bottom", marginRight: "0.5rem"}}/>Groups
-											{(Object.keys(user.groups).length > 0 
-												&& <p 
-													style={{display: "inline-block", marginLeft: "0.5rem", fontSize: "inherit"}}>&bull; {Object.keys(user.groups).length}
-													</p>
-											)}
-										</h2>
-										<ImageListWithSearchableDialog 
-											showCount={6}
-											items={user.groups}
-											primaryTextField={"name"}
-											secondaryTextField={"members"}
-											secondaryTextFieldLabel={"Members: "}
-											avatarSrcField={"image"}
-											listType="Groups"
-											itemClass="one-third"
-										/>
-									</div>
-									<div className="profile-detail-wrapper" style={{position: "relative"}}>
-										<h2 className="profile-details-header">
-											<TagsIcon style={{fill:"#CCC", verticalAlign: "bottom", marginRight: "0.5rem"}}/>Tags
-										</h2>
-										<div style={{position: "absolute", top: "0.25rem", left: "6.5rem"}}>
-											<div style={{background: "#EA7600", borderRadius: "50%", height: "1rem", width: "1rem", float: "left", marginRight: "0.5rem"}}></div>
-											<p style={{float: "left", fontSize: ".75rem", color: "#AAA", marginRight: "0.5rem"}}>Matched</p>
-											<div style={{background: "#FFDC66", borderRadius: "50%", height: "1rem", width: "1rem", float: "left", marginRight: "0.5rem"}}></div>
-											<p style={{float: "left", fontSize: ".75rem", color: "#AAA", marginRight: "0.5rem"}}>Unmatched</p>
-										</div>
-										{this.renderTags()}
-									</div>
-									
-								</Card>
-							</Tab>
-							<Tab className="page-header" label="Timeline" style={{background: "#FFF", color: "#555"}}>
-								<div className="profile-detail-wrapper timeline">
-									{this.renderTimeline()}
-								</div>
-							</Tab>
-							<Tab className="page-header" label="E-Portfolio" style={{background: "#FFF", color: "#555"}}>
-								<div className="profile-detail-wrapper" style={{overflow: "initial"}}>
-									<Card style={{padding: "1rem"}}>
-										<h2 className="profile-details-header"><PostIcon style={{fill:"#CCC", verticalAlign: "bottom", marginRight: "0.5rem"}}/>Documents</h2>
-										<div style={{position: "absolute", top: "1rem", left: "12.5rem"}}>
-											<PostIcon style={{float: "left", fill: "#555", width: "1rem", height: "1rem", marginTop: "0.125rem"}}/>
-											<p style={{float: "left", fontSize: ".75rem", color: "#AAA", marginRight: "0.5rem"}}>Resume</p>
-											<CoverLetterIcon style={{float: "left", fill: "#555", width: "1rem", height: "1rem", marginTop: "0.125rem"}}/>
-											<p style={{float: "left", fontSize: ".75rem", color: "#AAA", marginRight: "0.5rem"}}>Cover Letter</p>
-											<ProjectIcon style={{float: "left", fill: "#555", width: "1rem", height: "1rem", marginTop: "0.125rem"}}/>
-											<p style={{float: "left", fontSize: ".75rem", color: "#AAA", marginRight: "0.5rem"}}>Project</p>
-											<OtherIcon style={{float: "left", fill: "#555", width: "1rem", height: "1rem", marginTop: "0.125rem"}}/>
-											<p style={{float: "left", fontSize: ".75rem", color: "#AAA", marginRight: "0.5rem"}}>Other</p>
-										</div>
-										<GridList
-											cols={2}
-											cellHeight={250}
-											padding={35}
-										>
-											{this.renderPortfolio()}
-										</GridList>
-										<Dialog
-											modal={false}
-											open={this.state.portfolioDialog.open}
-											onRequestClose={this.toggleDialog.bind(this)}
-											title={(this.state.portfolioDialog.currentDocument) ? this.state.portfolioDialog.currentDocument.title : null}
-										>
-											<p style={{position: "absolute", top: "2.15rem", right: "1.5rem", fontSize: "0.75rem"}}>{(this.state.portfolioDialog.currentDocument) ? ['Uploaded: '+this.state.portfolioDialog.currentDocument.uploadedDate] : null}</p>
-											<div style={{background: "url('"+image+"') center center/cover", marginBottom: "1rem", height: "12.5rem"}} ></div>
-											<p>{(this.state.portfolioDialog.currentDocument) ? this.state.portfolioDialog.currentDocument.description : null}</p>
-											<RaisedButton 
-												label="Download"
-												icon={<DownloadIcon />}
-												primary={true}
-												style={{float: "right", marginTop: "1rem"}}
-											/>
-										</Dialog>
-									</Card>
-								</div>
-							</Tab>
-						</Tabs>
-						<div className="profile-action-btn-wrapper">
-							{this.renderConnectStatusButton()}
-							<Dialog
-								title={
-									<div>
-										<ListItem
-											primaryText={<div>Connect with {user.name} <ExitIcon style={{float: "right"}} onTouchTap={() => this.handleConnectDialogClose()}/></div>}
-											secondaryText={"Class of "+user.schools[0].year+" | "+user.currentStatus}
-											leftAvatar={<Avatar src={user.avatarUrl}/>}
-											className="hover-transparent"/>
-									</div>
-								}
-								modal={false}
-								open={this.state.connectDialog}
-								onRequestClose={this.handleConnectDialogClose.bind(this)}>
-								<p>Choose which areas you are interested in:</p>
-								<List>
-									{user.areasOfExpertise.map((type, index) => {
-										return(
-											<ListItem
-												key={index}
-												primaryText={type}
-												leftCheckbox={<Checkbox />}
-												innerDivStyle={{width: "33%", float: "left"}} />
-										);
-									})}
-								</List>
-								<TextField
-									hintText="Type your message here"
-									multiLine={true}
-									fullWidth={true}
-									rows={1}
-									rowsMax={6}
-								/>
-								<div style={{float: "right"}}>
-									<RaisedButton label="Send" primary={true} style={{marginTop: "1rem", marginRight: "1rem"}} onTouchTap={() => this.handleSendConnection()}/>
-									<RaisedButton label="Cancel" style={{marginTop: "1rem", marginRight: "1rem", color: "#00A9E0"}} onTouchTap={() => this.handleConnectDialogClose()}/>
-								</div>
-							</Dialog>
-							<RaisedButton label="Message" style={{color: "#00A9E0"}} onTouchTap={() => this.handleMessageDialogOpen()}/>
-							<Dialog
-								title={
-									<div>
-										<ListItem
-											primaryText={<div>Contact {user.name} <ExitIcon style={{float: "right"}} onTouchTap={() => this.handleMessageDialogClose()}/></div>}
-											secondaryText={"Class of "+user.schools[0].year+" | "+user.currentStatus}
-											leftAvatar={<Avatar src={user.avatarUrl}/>}
-											className="hover-transparent"/>
-									</div>
-								}
-								modal={false}
-								open={this.state.messageDialog}
-								onRequestClose={this.handleMessageDialogClose.bind(this)}>
-								<TextField
-									hintText="Subject"
-									multiLine={true}
-									fullWidth={true}
-									rows={1}
-									rowsMax={2}
-								/>
-								<TextField
-									hintText="Type your message here"
-									multiLine={true}
-									fullWidth={true}
-									rows={1}
-									rowsMax={6}
-								/>
-								<div style={{float: "right"}}>
-									<RaisedButton label="Send" primary={true} style={{marginTop: "1rem", marginRight: "1rem"}} onTouchTap={() => this.handleSendMessage()}/>
-									<RaisedButton label="Cancel" style={{marginTop: "1rem", marginRight: "1rem", color: "#00A9E0"}} onTouchTap={() => this.handleMessageDialogClose()}/>
-								</div>
-							</Dialog>
-						</div>
-					</div>
-				</div>			
-			</div>
+			<ProfileRenderer 
+				user={user}
+				heroImageMarkup={this.getHeroImageMarkup()}
+				avatarImageMarkup={this.getAvatartImageMarkup()}
+				userDetails={this.getUserDetails()}
+				tabs={this.getTabs()}
+			/>
 		);
 	}
 }

@@ -32,12 +32,28 @@
 	}
 }
 .hover-transparent{
-	&:hover{
+	&:hover,
+	&:active{
 		background-color: transparent !important;
 	}
+}
+.hover-transparent > div > span > div{
+	background-color: #FFF !important;
 }
 .hidden-mobile{
 	@media #{$small-screen}{
 		display: none !important;
 	}
+}
+.inline-block{
+	display: inline-block !important;
+}
+.reset-height{
+	height: initial !important;
+}
+.no-border{
+	border: 0 !important;
+}
+.brand-color{
+	color: $brand-color !important;
 }

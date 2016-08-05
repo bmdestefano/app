@@ -27,6 +27,7 @@
 }
 .profile-img{
 	max-width: 15.13rem;
+	position: relative;
 	img{
 		@include border-radius(50%);
 		border: 1px solid #CCC;
@@ -36,14 +37,16 @@
 	}
 }
 .profile-social-wrapper{
-	svg{
-		width: 1.25rem;
-		height: 1.25rem;
-		margin-right: .5rem;
-		margin-top: .5rem;
-		@media #{$small-screen}{
-			width: 1rem;
-			height: 1rem;
+	a{
+		svg{
+			width: 1.25rem;
+			height: 1.25rem;
+			margin-right: .5rem;
+			margin-top: .5rem;
+			@media #{$small-screen}{
+				width: 1rem;
+				height: 1rem;
+			}
 		}
 	}
 }
@@ -71,4 +74,20 @@
 		margin-left: -1.625rem;
 		margin-right: -1.625rem;
 	}
+}
+.authenticate-icon{
+	width: 2rem;
+	height: 2rem;
+	fill: $text-dark-grey;
+	margin: 0 0.5rem;
+	g[id^="Layer"]{
+		fill: $text-dark-grey !important;
+	}
+}
+.avatar-override{
+	border: 1px solid #CCC !important;
+	background: transparent !important;
+}
+.authenticate-add-another-school{
+	fill: $text-dark-grey !important;
 }

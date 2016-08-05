@@ -47,22 +47,26 @@
 	border-left: 1px solid $border-grey;
 }
 .profile-name{
-	font-size: 3rem;
+	font-size: 3rem !important;
 	font-weight: 300;
-	line-height: 3rem;
+	line-height: 3rem !important;
 	@media #{$small-screen}{
-		font-size: 1.5rem;
-		line-height: 1.5rem;
+		font-size: 1.5rem !important;
+		line-height: 1.5rem !important;
 	}
 }
 .profile-school{
-	font-size: 1.5rem;
+	font-size: 1.5rem !important;
 	font-weight: 400;
-	line-height: 2rem;
+	line-height: 2rem !important;
 	@media #{$small-screen}{
 		font-size: 1rem;
 		line-height: 1.25rem;
 	}
+}
+.profile-school--double-line{
+	@extend .profile-school;
+	line-height: 3rem !important;
 }
 .profile-subtext{
 	font-size: 1.15rem;
@@ -108,4 +112,34 @@
 		vertical-align: middle;
 		float: right;
 	}
+}
+.authenticate-header{
+	text-align: center;
+	font-size: 2rem;
+	font-weight: 500;
+	color: $text-dark-grey;
+	margin-top: 1rem;
+}
+.request-account{
+	text-align: right;
+	font-size: .85rem;
+	color: $brand-color;
+}
+.forgot-password{
+	text-align: left;
+	font-size: .85rem;
+	color: $brand-color;
+}
+.required-field{
+	font-size: 0.5rem;
+}
+.authenticate-header{
+	text-align: center;
+	font-size: 1.5rem;
+	font-weight: 400;
+	margin-bottom: 1rem;
+}
+.quiz-question{
+	color: $brand-color;
+	text-align: center;
 }
