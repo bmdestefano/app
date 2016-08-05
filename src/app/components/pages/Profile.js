@@ -113,36 +113,41 @@ let user = {
 			title: "Remy Carpinito's Resume",
 			type: "resume",
 			uploadedDate: "6/15/16",
-			image: "http://thumb1.shutterstock.com/display_pic_with_logo/2842531/272513510/stock-photo-closeup-of-resume-272513510.jpg",
-			description: "Hello everyone! I am a Corporate Finance and Accounting major, class of 2017. I am looking for mentors within the tech space, as I am trying to launch and app and am in need of someone with a background in app development to help me out. If you, or someone you know is an experienced developer/coder please ask me for contact information and I would be more than happy to share that with you."
+			image: "https://s3-us-west-1.amazonaws.com/ctap-testing/resume.jpg",
+			description: "Hello everyone! I am a Corporate Finance and Accounting major, class of 2017. I am looking for mentors within the tech space, as I am trying to launch and app and am in need of someone with a background in app development to help me out. If you, or someone you know is an experienced developer/coder please ask me for contact information and I would be more than happy to share that with you.",
+			document: "/path/to/doc.pdf"
 		},
 		{
 			title: "Remy Carpinito's Cover Letter",
 			type: "cover-letter",
 			uploadedDate: "6/15/16",
-			image: "http://thumb7.shutterstock.com/display_pic_with_logo/307150/283436795/stock-vector-modern-cover-letter-design-with-blue-white-colors-283436795.jpg",
-			description: "Hello everyone! I am a Corporate Finance and Accounting major, class of 2017. I am looking for mentors within the tech space, as I am trying to launch and app and am in need of someone with a background in app development to help me out. If you, or someone you know is an experienced developer/coder please ask me for contact information and I would be more than happy to share that with you."
+			image: "https://s3-us-west-1.amazonaws.com/ctap-testing/coverLetter.jpg",
+			description: "Hello everyone! I am a Corporate Finance and Accounting major, class of 2017. I am looking for mentors within the tech space, as I am trying to launch and app and am in need of someone with a background in app development to help me out. If you, or someone you know is an experienced developer/coder please ask me for contact information and I would be more than happy to share that with you.",
+			document: "/path/to/doc.pdf"
 		},
 		{
 			title: "Twitter Redesign Project",
 			type: "project",
 			uploadedDate: "5/12/16",
-			image: "http://thumb101.shutterstock.com/display_pic_with_logo/691372/154181867/stock-photo-brussels-september-twitter-is-going-public-on-september-in-brussels-154181867.jpg",
-			description: "This is a project I made for CS 560 as my final project."
+			image: "https://s3-us-west-1.amazonaws.com/ctap-testing/twitterredesign.png",
+			description: "This is a project I made for CS 560 as my final project.",
+			document: "/path/to/doc.pdf"
 		},
 		{
 			title: "Connect4 Python Project",
 			type: "project",
 			uploadedDate: "5/21/16",
-			image: "http://thumb7.shutterstock.com/display_pic_with_logo/1369678/410081401/stock-photo-smart-city-and-wireless-communication-network-iot-internet-of-things-ict-information-410081401.jpg",
-			description: "This is a project I made for CS 587. It is a working Connect4 game made in Python."
+			image: "https://nulogy.com/wp-content/uploads/2014/11/javascript-function-redux-es6-2.jpg",
+			description: "This is a project I made for CS 587. It is a working Connect4 game made in Python.",
+			document: "/path/to/doc.pdf"
 		},
 		{
 			title: "Digital Marketing Project",
 			type: "other",
 			uploadedDate: "4/11/16",
-			image: "http://thumb7.shutterstock.com/display_pic_with_logo/682636/407256469/stock-vector-big-infographics-in-flat-style-vector-illustrations-about-digital-projects-management-clients-407256469.jpg",
-			description: "This is my final digital marketing project for MKT 610."
+			image: "https://s3-us-west-1.amazonaws.com/ctap-testing/marketingthing.jpg",
+			description: "This is my final digital marketing project for MKT 610.",
+			document: "/path/to/doc.pdf"
 		}
 	],
 	connections : [

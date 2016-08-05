@@ -16,14 +16,14 @@ class Register extends Component{
 		return(
 			<div>
 				<AuthenticateLargeHeader 
-					logoUrl="https://upload.wikimedia.org/wikipedia/en/thumb/4/4c/University_of_Kansas_Jayhawk_logo.svg/1156px-University_of_Kansas_Jayhawk_logo.svg.png"
-					schoolName="University of Kansas"
+					logoUrl="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTU6xTuPALE2X4rM7vryx06LT0fl0IDJcjo853v0uUJEtCKgMNr4GdfnA"
+					schoolName="Southern New Hampshire University"
 				/>
 				<div className="input-group">
 					<EmailIcon className="input-group-icon"/>
 					<TextField
 						floatingLabelText="School E-mail"
-						value="brendan@thecampustap.com"
+						value="remy@shnu.edu"
 						className="input-group-textfield"
 					/>
 				</div>

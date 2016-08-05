@@ -14,7 +14,8 @@ injectTapEventPlugin();
 
 render(
 	<Router history={browserHistory}>
-		<Route path="/" component={Authentication}>
+		<Route path="/" component={Main}>
+			<Route path="signup" component={Authentication} />
 			<Route path="profile" component={Profile} />
 			<Route path="settings" component={Settings} />
 			<Route path="event" component={Event} />

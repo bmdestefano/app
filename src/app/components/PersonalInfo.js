@@ -20,22 +20,32 @@ const options = {
 	},
 };
 class PersonalInfo extends Component{
+	constructor(props, context){
+		super(props, context);
+
+		this.state = {userSrc: ''}
+	}
+
+	handleUploadSuccess(fpfiles){
+		this.setState({userSrc: fpfiles.url});
+	}
+
 	render(){
 		return(
 			<div>
 				<AuthenticateLargeHeader 
-					logoUrl="https://upload.wikimedia.org/wikipedia/en/thumb/4/4c/University_of_Kansas_Jayhawk_logo.svg/1156px-University_of_Kansas_Jayhawk_logo.svg.png"
-					schoolName="University of Kansas"
+					logoUrl="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTU6xTuPALE2X4rM7vryx06LT0fl0IDJcjo853v0uUJEtCKgMNr4GdfnA"
+					schoolName="Southern New Hampshire University"
 				/>
 				<div style={{position: "relative"}}>
-					<ReactFilepicker apikey={"A4dOeHXUnQHS0qVUJYRRez"} options={options} onSuccess={this.props.onAvatarUploadSuccess} />
+					<ReactFilepicker apikey={"A4dOeHXUnQHS0qVUJYRRez"} options={options} onSuccess={this.handleUploadSuccess.bind(this)} />
 					<Avatar 
 						size={96} 
-						style={(this.props.userAvatarSrc == '') 
+						style={(this.state.userSrc == '') 
 							? {margin: "1rem auto", display: "block", border: "1px solid #555"} 
 							: {margin: "1rem auto", display: "block", border: "1px solid #555", background: "transparent"}} 
-						src={this.props.userAvatarSrc} 
-						icon={(this.props.userAvatarSrc != '') 
+						src={this.state.userSrc} 
+						icon={(this.state.userSrc != '') 
 							? null 
 							: <AddImageIcon />} />
 					{(this.props.userAvatarSrc == '') && <p style={{textAlign: "center"}}>Add Image To Profile</p>}

@@ -17,6 +17,7 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import LinearProgress from 'material-ui/LinearProgress';
 import DatePicker from 'material-ui/DatePicker';
+import { Link } from 'react-router'
 
 import AddIcon from 'material-ui/svg-icons/image/photo-camera';
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
@@ -121,7 +122,7 @@ let user = {
 			title: "Remy Carpinito's Resume",
 			type: "resume",
 			uploadedDate: "6/15/16",
-			image: "http://thumb1.shutterstock.com/display_pic_with_logo/2842531/272513510/stock-photo-closeup-of-resume-272513510.jpg",
+			image: "https://s3-us-west-1.amazonaws.com/ctap-testing/resume.jpg",
 			description: "Hello everyone! I am a Corporate Finance and Accounting major, class of 2017. I am looking for mentors within the tech space, as I am trying to launch and app and am in need of someone with a background in app development to help me out. If you, or someone you know is an experienced developer/coder please ask me for contact information and I would be more than happy to share that with you.",
 			document: "/path/to/doc.pdf"
 		},
@@ -129,7 +130,7 @@ let user = {
 			title: "Remy Carpinito's Cover Letter",
 			type: "cover-letter",
 			uploadedDate: "6/15/16",
-			image: "http://thumb7.shutterstock.com/display_pic_with_logo/307150/283436795/stock-vector-modern-cover-letter-design-with-blue-white-colors-283436795.jpg",
+			image: "https://s3-us-west-1.amazonaws.com/ctap-testing/coverLetter.jpg",
 			description: "Hello everyone! I am a Corporate Finance and Accounting major, class of 2017. I am looking for mentors within the tech space, as I am trying to launch and app and am in need of someone with a background in app development to help me out. If you, or someone you know is an experienced developer/coder please ask me for contact information and I would be more than happy to share that with you.",
 			document: "/path/to/doc.pdf"
 		},
@@ -137,7 +138,7 @@ let user = {
 			title: "Twitter Redesign Project",
 			type: "project",
 			uploadedDate: "5/12/16",
-			image: "http://thumb101.shutterstock.com/display_pic_with_logo/691372/154181867/stock-photo-brussels-september-twitter-is-going-public-on-september-in-brussels-154181867.jpg",
+			image: "https://s3-us-west-1.amazonaws.com/ctap-testing/twitterredesign.png",
 			description: "This is a project I made for CS 560 as my final project.",
 			document: "/path/to/doc.pdf"
 		},
@@ -145,7 +146,7 @@ let user = {
 			title: "Connect4 Python Project",
 			type: "project",
 			uploadedDate: "5/21/16",
-			image: "http://thumb7.shutterstock.com/display_pic_with_logo/1369678/410081401/stock-photo-smart-city-and-wireless-communication-network-iot-internet-of-things-ict-information-410081401.jpg",
+			image: "https://nulogy.com/wp-content/uploads/2014/11/javascript-function-redux-es6-2.jpg",
 			description: "This is a project I made for CS 587. It is a working Connect4 game made in Python.",
 			document: "/path/to/doc.pdf"
 		},
@@ -153,7 +154,7 @@ let user = {
 			title: "Digital Marketing Project",
 			type: "other",
 			uploadedDate: "4/11/16",
-			image: "http://thumb7.shutterstock.com/display_pic_with_logo/682636/407256469/stock-vector-big-infographics-in-flat-style-vector-illustrations-about-digital-projects-management-clients-407256469.jpg",
+			image: "https://s3-us-west-1.amazonaws.com/ctap-testing/marketingthing.jpg",
 			description: "This is my final digital marketing project for MKT 610.",
 			document: "/path/to/doc.pdf"
 		}
@@ -197,7 +198,18 @@ let tags = [
 	"Accounting", "United States", "Teaching"
 ];
 const DEFAULT_BACKGROUND_URL = "http://www.bostonlogic.com/wp-content/uploads/2015/03/photodune-2705436-boston-waterfront-m1.jpg";
-let careerPath = ["Setup Profile", "Upload Resume", "Setup Github Account", "Attend An Event"];
+let careerPath = [
+	{url: "http://snhu.edu", name: "Register for your classes", description: "As an engineer you have to take ENG 101, 201 and 230 before your electives"},
+	{url: "http://snhu.edu", name: "Complete financial aid requirements", description: "Please report income, taxes and W4 in order to qualify"},
+  {url: '', name:"Create a Github account", description:"Github allows you to share your works with prospective employers and will help them see what you are capable of."},
+  {url: true, name:"Attend Networking events", description:"Attend company information sessions to learn more about the various engineering careers and begin to build relationships with recruiters"},
+  {url: "http://staging.thecampustap.com/people", name:"Leverage your network", description:"Utilizing your network is an extremely important to finding a job in any field but especially engineering. Being able to network with other engineers can get a you a good recommendation which can help "},
+  {url: '', name:"Reflect and figure out what your strengths are", description:"Assess and develop your skills in critical thinking, problem-solving, communication, and teamwork through both academic and extracurricular activities."},
+  {url: '', name:"Create a resume", description:"Attending resume workshops can do wonders for your resume but in addition spend a lot of time editing and relflecting on yourself. Add anything you believe will give you a leg up in career searching."},
+  {url: '', name:"Fine tune your interview skills by doing a mock interview", description:"If you have someone in your network that could mentor you on interviewing skills, do it. Try to find someone who will have time to do a mock interview, they often can really help your interview skills."},
+  {url: '', name:"Look for Job opportunities", description:"Scouting job boards as well as contacting recruiters is a great way to get leads on possible job opportunities"},
+  {url: '', name:"Reach out to employers after you have found a lead", description:"Once you have a possible lead submit all the information you have including your resume and github to the employer. Once you have done this follow up and try to get an interview."}
+];
 let DateTimeFormat;
 if (areIntlLocalesSupported(['fr'])) {
   DateTimeFormat = global.Intl.DateTimeFormat;
@@ -229,8 +241,12 @@ class Settings extends Component{
 			documentUrl: null,
 			progressValue: 0,
 			goals: [
-				{progress: 0, name: "List 1", due: "1/03/17", goals: [{name:"Default 1", description: "t"}, {name:"Default 2", description: "t"}, {name:"Default 3", description: "t"}]},
-				{progress: 0, name: "List 2", due: "2/12/17", goals: [{name:"Default 1", description: "t"}, {name:"Default 2", description: "t"}, {name:"Default 3", description: "t"}]},
+				{progress: 0, name: "Internship Tracker", due: "1/03/17", goals: [
+					{name:"Upload internship form", description: "Please upload to http://www.snhu.edu"}, 
+					{name:"Contact your career advisor", description: "Your advisor is Bob Costas"}, 
+					{name:"Contact the company sponsor", description: "Contact at Fidelity is Janet Green"},
+					{name:"Send weekly report to your career advisor", description: "Please use formatting from SNHU"},
+					{name:"Internship supervisor sign-off"}]}
 			],
 			addListDialogOpen: false,
 			tasks: [],
@@ -240,10 +256,6 @@ class Settings extends Component{
 
 	componentWillMount(){
 		this.setState({user: user});
-	}
-
-	componentDidMount(){
-		this.state.user.documents.unshift({});
 	}
 
 	updateState(key, value){
@@ -832,6 +844,9 @@ class Settings extends Component{
 	}
 
 	renderPortfolio(){
+		(this.state.user.documents.length == 6)
+			? this.state.user.documents
+			: this.state.user.documents.unshift({});
 		return this.state.user.documents.map((doc, index) => {
 			return((index == 0)
 				? <GridTile 
@@ -951,7 +966,14 @@ class Settings extends Component{
 	renderCareerPath(){
 		return careerPath.map((item, index) => {
 			return(
-				<ListItem primaryText={item} leftIcon={<Checkbox onCheck={this.incrementProgress.bind(this)}/>} className="hover-transparent"/>
+
+				<ListItem 
+					primaryText={<div><p>{item.name}</p>{
+						(item.url == true && <Link style={{float:"right", "marginTop": "-1rem", fontSize: "1.15rem"}} to="/event">Event</Link>)}
+						{(item.url == "http://staging.thecampustap.com/people" && <a style={{float:"right", "marginTop": "-1rem", fontSize: "1.15rem"}} href="http://staging.thecampustap.com/people" target="_blank">Network</a>)}
+						{
+						(item.url == "http://snhu.edu" && <a style={{float:"right", "marginTop": "-1rem", fontSize: "1.15rem"}} href="http://snhu.edu" target="_blank">SNHU</a>)}</div>} 
+					secondaryText={item.description} secondaryTextLines={2} leftIcon={<Checkbox onCheck={this.incrementProgress.bind(this)}/>} className="hover-transparent"/>
 			);
 		});
 	}
@@ -1040,10 +1062,10 @@ class Settings extends Component{
 					inkBarStyle={{backgroundColor: "#143A7B"}}
 					tabItemContainerStyle={{backgroundColor: "#FFF"}}
 					contentContainerClassName="profile-tab-content-wrapper">
-					<Tab className="page-header" label="Career Path" style={{background: "#FFF", color: "#555"}}>
+					<Tab className="page-header" label="My Path" style={{background: "#FFF", color: "#555"}}>
 						<Card style={{padding: "1rem", borderRadius: "0px"}}>
 							<div className="profile-detail-wrapper" style={{overflow: "visible"}}>
-								<h2 style={{textAlign: "center", marginBottom: "1rem", color: "#555", fontSize: "1.5rem"}}>Use the list below to get started on CampusTap and begin your career</h2>
+								<h2 style={{textAlign: "center", marginBottom: "1rem", color: "#555", fontSize: "1.5rem"}}>Complete the steps below to jumpstart your <span style={{background: "#143A7B", color: "#FFF", padding: "0 0.5rem"}}>ENGINEERING</span> career</h2>
 								<LinearProgress mode="determinate" color="#FCB606" value={this.state.progressValue} />
 								<p style={{marginTop: "1rem", color: "#555"}}><span>Progress: </span>{Math.round(this.state.progressValue)+"%"}<p style={{float: "right"}}> 12/24/16 </p><span style={{float: "right", marginRight: "0.25rem"}}>Due Date:</span></p>
 								<List>

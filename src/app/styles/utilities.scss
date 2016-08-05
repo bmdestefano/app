@@ -37,6 +37,9 @@
 		background-color: transparent !important;
 	}
 }
+.hover-transparent > div > span > div{
+	background-color: #FFF !important;
+}
 .hidden-mobile{
 	@media #{$small-screen}{
 		display: none !important;

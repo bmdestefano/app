@@ -42,17 +42,11 @@ class GivingBack extends Component{
 				&& choices[i].className.indexOf('selected') == -1){
 				selected.push(parent.getAttribute('data-index')[0]);
 				choices[i].className += " selected";
-				console.log('selected');
-				console.log(selected);
 			}else{
 				let search = this.state.selectedOptions.filter(e => e != parent.getAttribute('data-index'));
-				console.log('search');
-				console.log(search);
 				if(search)
 					selected.push(search);
 				choices[i].className = "js-choice";
-				console.log('unselected');
-				console.log(selected);
 			}
 		}
 		this.setState({selectedOptions: selected});
@@ -80,7 +74,7 @@ class GivingBack extends Component{
 					label="Continue"
 					primary={true}
 					style={{float: "right", margin: "1rem 0 0 1rem"}}
-					onTouchTap={() => this.props.changeView('currentView','givingBack')}
+					onTouchTap={() => this.props.changeView('currentView','quiz')}
 				/>
 			</div>
 		);

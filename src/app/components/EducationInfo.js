@@ -15,7 +15,7 @@ const availableSchools = [
 	{id: 3, name: "Skidmore College", logo: "https://www.parchment.com/c/images/college/1168-crest-250-200-fcf5b93c6cf0c00672c656460be4aa4e.png"}
 ];
 const userSchoolInfo = [
-	{schoolId: 0, major: "Marketing", minor: "Spanish", grad: "2011", degree: "Bachelor of Science"},
+	{schoolId: 0, major: "Computer Science", minor: "Spanish", grad: "2011", degree: "Bachelor of Science"},
 ];
 const degreeTypes = ["Bachelor of Arts", "Bachelor of Fine Arts", "Bachelor of Architecture", "Bachelor of Science"];
 
@@ -25,7 +25,7 @@ class EducationInfo extends Component{
 
 		this.state = {
 			schools: [
-				{id: 0, name: "University of Kansas", logo: "https://upload.wikimedia.org/wikipedia/en/thumb/4/4c/University_of_Kansas_Jayhawk_logo.svg/1156px-University_of_Kansas_Jayhawk_logo.svg.png"}
+				{id: 0, name: "Southern New Hampshire University", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTU6xTuPALE2X4rM7vryx06LT0fl0IDJcjo853v0uUJEtCKgMNr4GdfnA"}
 			],
 			searchText: '',
 			degreeSearchText: '',
@@ -49,24 +49,24 @@ class EducationInfo extends Component{
 						size={30}
 						className="avatar-override"
 					/>}
-					style={{color:"#555"}}
+					style={{color:"#555", whiteSpace: "normal"}}
 					label={school.name}
 				>
 					<TextField
 						floatingLabelText="Major"
-						value={(schoolInfo[0]) ? schoolInfo[0].major : ""}
+						value={(schoolInfo[0]) ? schoolInfo[0].major : null}
 						className="input-group-textfield"
 						fullWidth={true}
 					/>
 					<TextField
 						floatingLabelText="Minor"
-						value={(schoolInfo[0]) ? schoolInfo[0].minor : ""}
+						value={(schoolInfo[0]) ? schoolInfo[0].minor : null}
 						className="input-group-textfield"
 						fullWidth={true}
 					/>
 					<TextField
 						floatingLabelText="Graduation Year"
-						value={(schoolInfo[0]) ? schoolInfo[0].grad : ""}
+						value={(schoolInfo[0]) ? schoolInfo[0].grad : null}
 						className="input-group-textfield"
 						fullWidth={true}
 					/>

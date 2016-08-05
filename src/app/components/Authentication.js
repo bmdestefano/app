@@ -14,18 +14,21 @@ import CareerInfo from './CareerInfo';
 import IndustriesInfo from './IndustriesInfo';
 import RoleInfo from './RoleInfo';
 import GivingBack from './GivingBack';
+import Quiz from './Quiz';
+import Results from './Results';
+import Interests from './Interests';
 import AuthenticateLargeHeader from './AuthenticateLargeHeader';
 
 require('../styles/import.scss');
 
 const muiTheme = getMuiTheme({
 	palette: {
-		primary1Color: "#00A9E0",
-		accent1Color: "#EA7600",
-		pickerHeaderColor: "#00A9E0",
+		primary1Color: "#143A7B",
+		accent1Color: "#FCB606",
+		pickerHeaderColor: "#143A7B",
 	},
 	datePicker: {
-		selectColor: "#00A9E0",
+		selectColor: "#143A7B",
 	}
 });
 
@@ -39,7 +42,6 @@ class Authentication extends Component{
 			errorText: {createPassword: '', confirmPassword: '', firstName: '', lastName: ''},
 			createPassword:'',
 			confirmPassword:'',
-			userSrc: '',
 			genderValue: 'male',
 			ethnicityValue: 'american-indian'
 		};
@@ -76,8 +78,8 @@ class Authentication extends Component{
 		return(
 			<div>
 				<AuthenticateLargeHeader 
-					logoUrl="https://upload.wikimedia.org/wikipedia/en/thumb/4/4c/University_of_Kansas_Jayhawk_logo.svg/1156px-University_of_Kansas_Jayhawk_logo.svg.png"
-					schoolName="University of Kansas"
+					logoUrl="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTU6xTuPALE2X4rM7vryx06LT0fl0IDJcjo853v0uUJEtCKgMNr4GdfnA"
+					schoolName="Southern New Hampshire University"
 				/>
 				<TextField
 					floatingLabelText="E-mail"
@@ -106,8 +108,6 @@ class Authentication extends Component{
 	renderPersonalInfoScreen(){
 		return (<PersonalInfo 
 			changeView={this.updateState.bind(this)} 
-			onAvatarUploadSuccess={this.handleUploadSuccess}
-			userAvatarSrc={this.state.userSrc}
 			firstNameError={this.state.errorText['firstName']}
 			lastNameError={this.state.errorText['lastName']}
 			genderValue={this.state.genderValue}
@@ -157,12 +157,32 @@ class Authentication extends Component{
 		);
 	}
 
-	handleDropdownChange(type, event, index, value){
-		this.setState({[type]: value});
+	renderQuizScreen(){
+		return(
+			<Quiz
+				changeView={this.updateState.bind(this)}
+			/>
+		);
 	}
 
-	handleUploadSuccess(fpfiles){
-		this.setState({userSrc: fpfiles.url});
+	renderResultsScreen(){
+		return(
+			<Results
+				changeView={this.updateState.bind(this)}
+			/>	
+		);
+	}
+
+	renderInterestsScreen(){
+		return(
+			<Interests
+				changeView={this.updateState.bind(this)}
+			/>	
+		);
+	}
+
+	handleDropdownChange(type, event, index, value){
+		this.setState({[type]: value});
 	}
 
 	isRegisterButtonDisabled(){

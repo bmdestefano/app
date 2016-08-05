@@ -190,7 +190,7 @@ class Main extends Component {
 			<MuiThemeProvider muiTheme={muiTheme}>
 				<div>
 					<Hero 
-						image="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F21363263%2F170576045191%2F1%2Foriginal.jpg?w=1000&rect=0%2C578%2C5616%2C2808&s=1b98247e23d2a311eaac71c474d394b1"
+						image="http://thecampustap.com/wp-content/uploads/linkedin.jpg"
 						details={heroDetails} />
 					<Card className="keep-center">
 						<div className="content">

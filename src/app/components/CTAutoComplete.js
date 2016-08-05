@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import AutoComplete from 'material-ui/AutoComplete';
 import Chip from 'material-ui/Chip';
 
+const searchOverride = '';
 class CTAutoComplete extends Component{
 	constructor(props, context){
 		super(props, context);
@@ -13,14 +14,7 @@ class CTAutoComplete extends Component{
 	}
 
 	addTag(request, index){
-<<<<<<< HEAD
-		this.refs.autoCompleteInput.value = '';
-=======
-		this.setState({searchText: ''});
->>>>>>> 4ac7a1edcf475c243809ff5e1dee06f3eaaa1ac6
-
 		const tags = this.state.activeTags;
-
 		if(tags.indexOf(request) != -1)
 			return true;
 		tags.push({key: index, label : request});
@@ -69,7 +63,7 @@ class CTAutoComplete extends Component{
 		return(
 			<div style={{overflow: "overlay"}}>
 				<AutoComplete 
-					ref="autoCompleteInput"
+					id="autoCompleteInput"
 					fullWidth={true} 
 					floatingLabelText={this.props.floatingText} 
 					filter={AutoComplete.fuzzyFilter} 

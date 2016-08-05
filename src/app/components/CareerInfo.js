@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import areIntlLocalesSupported from 'intl-locales-supported';
+
 import {Tabs, Tab} from 'material-ui/Tabs';
 import Avatar from 'material-ui/Avatar';
 import TextField from 'material-ui/TextField';
@@ -17,7 +19,14 @@ const userSchoolInfo = [
 	{schoolId: 0, major: "Marketing", minor: "Spanish", grad: "2011", degree: "Bachelor of Science"},
 ];
 const degreeTypes = ["Bachelor of Arts", "Bachelor of Fine Arts", "Bachelor of Architecture", "Bachelor of Science"];
-
+let DateTimeFormat;
+if (areIntlLocalesSupported(['fr'])) {
+  DateTimeFormat = global.Intl.DateTimeFormat;
+} else {
+  const IntlPolyfill = require('intl');
+  DateTimeFormat = IntlPolyfill.DateTimeFormat;
+  require('intl/locale-data/jsonp/fr');
+}
 class CareerInfo extends Component{
 	constructor(props, context){
 		super(props, context);
@@ -49,8 +58,16 @@ class CareerInfo extends Component{
 						className="input-group-textfield"
 						fullWidth={true}
 					/>
-					<DatePicker hintText="Start Date" fullWidth={true}/>
-					<DatePicker hintText="End Date" fullWidth={true}/>
+					<DatePicker hintText="Start Date" fullWidth={true} formatDate={new DateTimeFormat('en-US', {
+											day: 'numeric',
+											month: 'long',
+											year: 'numeric',
+										}).format}/>
+					<DatePicker hintText="End Date" fullWidth={true} formatDate={new DateTimeFormat('en-US', {
+											day: 'numeric',
+											month: 'long',
+											year: 'numeric',
+										}).format}/>
 				</Tab>
 			);
 		}
